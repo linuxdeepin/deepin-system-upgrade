@@ -24,7 +24,6 @@ import (
 	"github.com/linuxdeepin/go-lib/log"
 	"github.com/linuxdeepin/go-lib/utils"
 
-	"deepin-system-upgrade-daemon/pkg/iso"
 	"deepin-system-upgrade-daemon/pkg/module/atomic"
 	"deepin-system-upgrade-daemon/pkg/module/dbustools"
 	"deepin-system-upgrade-daemon/pkg/module/user"
@@ -49,6 +48,7 @@ const (
 	SourceSettingsPath       = "extract/oem/settings.ini"
 	SouceListPath            = "/etc/apt/sources.list"
 	DesktopFilesLocation     = "/usr/share/applications"
+	SquashfsRootPath         = ".cache/extract/live/squashfs-root/"
 )
 
 // Package installation state value when migration is applied
@@ -160,18 +160,13 @@ func newManager(service *dbusutil.Service) *AppManager {
 
 func (a *AppManager) Assess(sender dbus.Sender, isoPath string) *dbus.Error {
 	logger.Debug("Begin to assess apps in", isoPath)
-	a.emitProgressValue(10)
 
 	homeDir, err := user.GetHomeDirBySender(sender)
 	if err != nil {
 		return dbusutil.ToError(err)
 	}
 
-	root, err := iso.ExtractIsoFile(homeDir, isoPath)
-	if err != nil {
-		logger.Warning("failed to extract iso file:", err)
-		return dbusutil.ToError(err)
-	}
+	var root = filepath.Join(homeDir, SquashfsRootPath)
 
 	var (
 		appInfoMap = make(map[string][]string)

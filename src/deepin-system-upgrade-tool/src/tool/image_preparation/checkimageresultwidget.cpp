@@ -10,9 +10,9 @@
 #include <QIcon>
 
 #include "../../core/constants.h"
+#include "../../core/dbusworker.h"
 #include "../../widgets/statusicon.h"
 #include "checkimageresultwidget.h"
-#include "isoinfochecker.h"
 
 #define ICON_SIZE 128
 
@@ -90,12 +90,7 @@ void CheckImageResultWidget::initConnections()
         m_resultIsoPath = filepath;
         m_imageSizeLabel->setText(tr("%1 GB").arg(file.size() / 1024. / 1024. / 1024., 0, 'f', 2));
         m_imageVersionLabel->setText(tr("Checking"));
-        IsoInfoChecker *versionChecker = new IsoInfoChecker(this);
-        connect(versionChecker, &IsoInfoChecker::Stdout, this, [this, versionChecker] (const QString versionText){
-            m_imageVersionLabel->setText("V" + versionText);
-            versionChecker->deleteLater();
-        });
-        versionChecker->retrieveVersionValue(filepath, "MajorVersion");
+        m_imageVersionLabel->setText("V" + DBusWorker::getInstance()->GetISOVersion());
     });
 }
 

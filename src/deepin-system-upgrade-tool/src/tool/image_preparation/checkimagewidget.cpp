@@ -13,7 +13,6 @@
 #include <cstdio>
 
 #include "checkimagewidget.h"
-#include "isoinfochecker.h"
 #include "../../core/utils.h"
 #include "../../core/constants.h"
 #include "../../core/dbusworker.h"
@@ -24,9 +23,6 @@ CheckImageWidget::CheckImageWidget(QWidget *parent)
     , m_canceled(false)
     , m_mainLayout(new QVBoxLayout(this))
     , m_spinnerWidget(new SpinnerWidget(this))
-    , m_editionNameChecker(nullptr)
-    , m_versionChecker(nullptr)
-    , m_integrityChecker(nullptr)
 {
     initUI();
     initConnections();
@@ -43,10 +39,13 @@ void CheckImageWidget::initConnections()
 {
     connect(this, &CheckImageWidget::Cancel, &CheckImageWidget::onCanceled);
     connect(this, &CheckImageWidget::CheckImported, this, &CheckImageWidget::onCheckImported);
-    connect(this, &CheckImageWidget::EditionNameAvailable, &CheckImageWidget::onEditionNameAvailable);
-    connect(this, &CheckImageWidget::VersionAvailable, &CheckImageWidget::onVersionAvailable);
-    connect(this, &CheckImageWidget::IntegrityStatusAvailable, &CheckImageWidget::onIntegrityStatusAvailable);
     connect(this, &CheckImageWidget::CheckDownloaded, this, &CheckImageWidget::onCheckDownloaded);
+    connect(DBusWorker::getInstance(), &DBusWorker::CheckResult, [this] (bool passed) {
+        // 因为后端被杀掉时也会发信号，所以取消时不处理
+        if (!m_canceled) {
+            emit CheckDone(passed);
+        }
+    });
     connect(this, &CheckImageWidget::CheckDone, this, [this](bool state) {
         qInfo() << "check sum result:" << state;
         m_spinnerWidget->stop();
@@ -72,102 +71,16 @@ void CheckImageWidget::onCanceled()
 {
     m_canceled = true;
     m_spinnerWidget->stop();
-
-    if (m_editionNameChecker != nullptr)
-    {
-        m_editionNameChecker->stop();
-    }
-    if (m_versionChecker != nullptr)
-    {
-        m_versionChecker->stop();
-    }
-    if (m_integrityChecker != nullptr)
-    {
-        m_integrityChecker->stop();
-    }
+    DBusWorker::getInstance()->StopUpgrade();
 }
 
 void CheckImageWidget::onCheckImported(const QString path)
 {
     m_canceled = false;
     m_isoPath = path;
-    m_editionNameChecker = new IsoInfoChecker(this);
 
     m_spinnerWidget->start();
-    connect(m_editionNameChecker, &IsoInfoChecker::Stdout, this, &CheckImageWidget::EditionNameAvailable);
-    m_editionNameChecker->retrieveVersionValue(path, "EditionName");
-}
-
-void CheckImageWidget::onEditionNameAvailable(const QString editionName)
-{
-    if (m_canceled)
-    {
-        return;
-    }
-    if (m_editionNameChecker != nullptr)
-    {
-        m_editionNameChecker->deleteLater();
-    }
-    m_editionNameChecker = nullptr;
-
-    FILE *curEditionNamePipe = popen("echo -n $(grep -Po '(?<=EditionName=).*$' /etc/os-version)", "r");
-    char curEditionName[64] = "";
-
-    fgets(curEditionName, 64, curEditionNamePipe);
-    qDebug() << "ISO EditionName:" << editionName;
-    qDebug() << "Current System EditionName:" << curEditionName;
-    if (editionName == curEditionName)
-    {
-        m_versionChecker = new IsoInfoChecker(this);
-        connect(m_versionChecker, &IsoInfoChecker::Stdout, this, &CheckImageWidget::VersionAvailable);
-        m_versionChecker->retrieveVersionValue(m_isoPath, "MajorVersion");
-    }
-    else
-    {
-        emit CheckDone(false);
-    }
-}
-
-void CheckImageWidget::onVersionAvailable(const QString versionText)
-{
-    if (m_canceled)
-    {
-        return;
-    }
-
-    if (m_versionChecker != nullptr)
-    {
-        m_versionChecker->deleteLater();
-    }
-    m_versionChecker = nullptr;
-
-    qDebug() << "Version:" << versionText;
-    qDebug() << "VersionNumber" << QVersionNumber::fromString(versionText);
-    if (QVersionNumber::fromString(versionText) >= kDeepinTargetVersion)
-    {
-        m_integrityChecker = new IsoInfoChecker(this);
-        connect(m_integrityChecker, &IsoInfoChecker::ExitStatus, this, &CheckImageWidget::IntegrityStatusAvailable);
-        m_integrityChecker->integrityCheck(m_isoPath);
-    }
-    else
-    {
-        emit CheckDone(false);
-    }
-}
-
-void CheckImageWidget::onIntegrityStatusAvailable(int status)
-{
-    if (m_canceled)
-    {
-        return;
-    }
-
-    if (m_integrityChecker != nullptr)
-    {
-        m_integrityChecker->deleteLater();
-    }
-    m_integrityChecker = nullptr;
-    emit CheckDone(0 == status);
+    DBusWorker::getInstance()->CheckISO(path);
 }
 
 void CheckImageWidget::onCheckDownloaded()

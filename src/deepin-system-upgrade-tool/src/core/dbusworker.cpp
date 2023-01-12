@@ -120,6 +120,13 @@ DBusWorker::DBusWorker(QObject *parent)
                            QDBusConnection::systemBus(),
                            this
                        ))
+    , m_isoInter(new QDBusInterface(
+                       "org.deepin.SystemUpgrade1",
+                       "/org/deepin/SystemUpgrade1/ISOManager",
+                       "org.deepin.SystemUpgrade1.ISOManager",
+                       QDBusConnection::systemBus(),
+                       this
+                   ))
 {
     qDBusRegisterMetaType<SourceInfo>();
     qDBusRegisterMetaType<MigrateResult>();
@@ -161,6 +168,7 @@ void DBusWorker::initConnections()
     connect(this, SIGNAL(Assess(const QString)), this, SLOT(onAssess(const QString)));
     connect(m_appInter, SIGNAL(MigrateStatus(const QString, int)), this, SIGNAL(MigrateStatus(const QString, int)));
 //    connect(this, &DBusWorker::SetPlymouthThemeDone, this, [this] { m_versionInter->call("StartSystemUpgrade"); });
+    connect(m_isoInter, SIGNAL(CheckResult(bool)), this, SIGNAL(CheckResult(bool)));
 }
 
 const SourceInfo DBusWorker::getSource()
@@ -341,6 +349,11 @@ void DBusWorker::onAsyncCallFinished(QDBusPendingCallWatcher *watcher)
     }
 }
 
+const QString DBusWorker::GetISOVersion()
+{
+    return m_isoInter->call("GetISOVersion").arguments().first().toString();
+}
+
 const QString DBusWorker::GetDistroVer()
 {
     return m_legacySysinfoInter->property("DistroVer").toString();
@@ -407,4 +420,17 @@ void DBusWorker::MigratePackages()
 void DBusWorker::StopUpgrade()
 {
     m_systemupgrade1Inter->call("StopUpgrade");
+}
+
+void DBusWorker::CheckISO(const QString isoPath)
+{
+    m_isoInter->setTimeout(kQDBusAsyncCallTimeout);
+
+    QDBusPendingCall pcall = m_isoInter->asyncCall("CheckISO", isoPath);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pcall, this);
+    QObject::connect(watcher, &QDBusPendingCallWatcher::finished, [this] (QDBusPendingCallWatcher *watcher) {
+        if (watcher->isError()) {
+            emit CheckResult(false);
+        }
+    });
 }
