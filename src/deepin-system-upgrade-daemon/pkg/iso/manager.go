@@ -53,6 +53,8 @@ const (
 	MigrateFlagsPath        = "/var/cache/deepin-system-upgrade/migrate.state"
 
 	SYSTEM_VERSION_FILE = "/etc/os-version"
+
+	SquashfsRootPath = ".cache/extract/live/squashfs-root/"
 )
 
 var logger = log.NewLogger("deepin-system-upgrade/iso")
@@ -174,7 +176,7 @@ func (i *ISOManager) GetISOVersion(sender dbus.Sender) (string, *dbus.Error) {
 		return "N/A", dbusutil.ToError(err)
 	}
 	user, err := user.LookupId(fmt.Sprint(uid))
-	var root = filepath.Join(user.HomeDir, ".cache/extract/live/squashfs-root/")
+	var root = filepath.Join(user.HomeDir, SquashfsRootPath)
 	var isoMajorVersion string
 	isoVerFile, err := os.Open(filepath.Join(root, "etc/os-version"))
 	if err != nil {

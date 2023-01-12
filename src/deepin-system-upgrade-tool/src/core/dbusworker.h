@@ -52,6 +52,7 @@ public:
 
     static DBusWorker* getInstance(QObject *parent = nullptr);
     bool IsOnBattery();
+    const QString GetISOVersion();
     const QString GetDistroVer();
     const QString GetDistroID();
     const QString GetVersion();
@@ -69,6 +70,7 @@ public:
     }
     void MigratePackages();
     void StopUpgrade();
+    void CheckISO(const QString isoPath);
 
 private:
     explicit DBusWorker(QObject *parent = nullptr);
@@ -89,6 +91,7 @@ private:
     QDBusInterface *m_sysinfoInter;
     QDBusInterface *m_notifyInter;
     QDBusInterface *m_systemupgrade1Inter;
+    QDBusInterface *m_isoInter;
 
 Q_SIGNALS:
     void error(QString errorTitle, QString errorLog);
@@ -97,6 +100,7 @@ Q_SIGNALS:
     void MigrateError(int type, QString msg);
 
     void Assess(const QString isoPath);
+    void CheckResult(bool passed);
     void StartUpgradeCheck();
     void StartUpgradePreparation(const QString isoPath);
     void StartBackup();

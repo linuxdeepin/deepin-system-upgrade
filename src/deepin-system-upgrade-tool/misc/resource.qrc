@@ -6,7 +6,6 @@
         <file>icons/p2v_warning_normal.svg</file>
         <file>qss/dark-custombtn.qss</file>
         <file>qss/light-custombtn.qss</file>
-        <file>check_iso_info.sh</file>
         <file>text/end_user_license_en.txt</file>
         <file>text/privacy_protection_guide_en.txt</file>
         <file>text/end_user_license_zh_CN.txt</file>
