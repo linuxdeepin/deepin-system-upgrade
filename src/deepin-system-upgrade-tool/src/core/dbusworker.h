@@ -43,7 +43,7 @@ const QDBusArgument &operator>>(const QDBusArgument &a, SourceInfo &i);
 QDBusArgument &operator<<(QDBusArgument &a, const MigrateResult &result);
 const QDBusArgument &operator>>(const QDBusArgument &a, MigrateResult &result);
 
-// 单例模型
+// Singleton
 class DBusWorker : public QObject
 {
     Q_OBJECT

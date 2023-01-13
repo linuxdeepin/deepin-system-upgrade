@@ -56,7 +56,7 @@ void ImagePreparationWidget::initUI()
     m_stackedLayout->addWidget(m_softwareTableWidget);
     m_errorMessageWidget->setTitle(tr("Download failed"));
 
-    // 显示底部按钮
+    // Show bottom buttons.
     showAllButtons();
 
     m_spacerItem->changeSize(0, 0, QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
@@ -65,7 +65,7 @@ void ImagePreparationWidget::initUI()
 
 void ImagePreparationWidget::initConnections()
 {
-    // 设置底部按钮操作
+    // Setting bottom button actions.
     connect(m_cancelButton, &DPushButton::clicked, this, [this] {
         if (m_stackedLayout->currentWidget() == m_imageDownloadWidget)
         {
@@ -102,12 +102,12 @@ void ImagePreparationWidget::initConnections()
     connect(m_suggestButton, &DPushButton::clicked, this, [this] {
         if (m_stackedLayout->currentWidget() == m_imageMethodWidget)
         {
+            // Setting button styles beforehand to avoid overwritting button style settings under error situations.
             if (m_imageMethodWidget->isLocalFileSelected())
             {
-                // 提前设置按钮样式，避免覆盖后面报错设置报错界面按钮样式
-                // 显示底部按钮
+                // Show bottom buttons.
                 setCancelButtonStyle();
-                // 检查镜像完整度
+                // Integrity check of image
                  m_stackedLayout->setCurrentWidget(m_checkImageWidget);
                  emit m_checkImageWidget->CheckImported(m_imageMethodWidget->getFileUrl());
             }
@@ -115,7 +115,6 @@ void ImagePreparationWidget::initConnections()
             {
                 if (m_networkConnected)
                 {
-                    // 提前设置按钮样式，避免覆盖后面报错设置报错界面按钮样式
                     setCancelButtonStyle();
                     SourceInfo info = DBusWorker::getInstance()->getSource();
                     m_stackedLayout->setCurrentWidget(m_imageDownloadWidget);
@@ -128,7 +127,7 @@ void ImagePreparationWidget::initConnections()
                 }
             }
         }
-        // Todo(Yutao Meng): 按钮样式修改
+        // Todo(Yutao Meng): change button styles
         else if (m_stackedLayout->currentWidget() == m_checkImageResultWidget)
         {
             if (m_checkImageResultWidget->getResult())
@@ -141,26 +140,25 @@ void ImagePreparationWidget::initConnections()
             }
             else
             {
-                // 重新获取
+                // Retry
                 jumpImageMethodWidget();
             }
         }
         else if (m_stackedLayout->currentWidget() == m_softwareTableWidget)
         {
-            // 笔记本电池状态要弹窗警告
+            // Show warning for laptops which is powered by battery rather than AC power.
             if (DBusWorker::getInstance()->IsOnBattery())
             {
                 showPowerWarning();
             }
             else
             {
-                // 去升级
                 emit StartUpgrade(m_checkImageResultWidget->getResultIsoPath());
             }
         }
         else if (m_stackedLayout->currentWidget() == m_errorMessageWidget)
         {
-            // 重新获取
+            // Retry
             jumpImageMethodWidget();
         }
         else
@@ -174,7 +172,6 @@ void ImagePreparationWidget::initConnections()
         showAllButtons();
         m_suggestButton->setText(tr("Start Upgrade"));
     });
-    // 连接子组件的信号
     connect(m_imageMethodWidget, &RetrieveImageMethodWidget::FileAdded, this, [this] () {
         activateWindow();
         m_suggestButton->setEnabled(true);
@@ -184,7 +181,7 @@ void ImagePreparationWidget::initConnections()
             m_suggestButton->setEnabled(false);
     });
     connect(m_imageMethodWidget, &RetrieveImageMethodWidget::ToggleLocalButton, this, [this] (bool checked) {
-        // 仅当本地镜像位置有配置或选择从网络获取时才启用“下一步”按钮
+        // Only enable "Next" button when a local image is loaded or "download from internet" option is used.
         if (checked)
         {
             if (m_imageMethodWidget->getFileUrl().length() > 0)
@@ -228,23 +225,23 @@ void ImagePreparationWidget::initConnections()
     connect(m_imageDownloadWidget, &ImageDownloadWidget::done, [this] {
         SourceInfo info = DBusWorker::getInstance()->getSource();
         QString checksumUrlStr = QUrl(info.addr).adjusted(QUrl::RemoveFilename).toString() + QString("SHA256SUMS");
-        // 检查镜像完整度
+        // Image integrity check
         m_stackedLayout->setCurrentWidget(m_checkImageWidget);
         emit m_checkImageWidget->CheckDownloaded();
     });
     connect(m_imageDownloadWidget, &ImageDownloadWidget::error, [this](QNetworkReply::NetworkError err, QString errLog) {
-        // 镜像选择界面忽略报错弹窗
+        // Ignore error signal when current view is retrive image method widget.
         if (m_stackedLayout->currentWidget() == m_imageMethodWidget)
             return;
 
         if (err == QNetworkReply::OperationCanceledError)
         {
-            // 忽略下载取消报错，直接跳转获取镜像方式界面
+            // Ignore download cancelation error, and jump to retrive image method widget directly.
             jumpImageMethodWidget();
             m_suggestButton->setEnabled(true);
             return;
         }
-        // 跳转下载错误界面
+        // Jump to download error view.
         qDebug() << "setting up error widget";
         showAllButtons();
         m_cancelButton->setFixedSize(120, 36);
@@ -294,7 +291,6 @@ void ImagePreparationWidget::showNoNetworkMessage()
 
 void ImagePreparationWidget::setCancelButtonStyle()
 {
-    // 显示底部按钮
     showAllButtons();
     qDebug() << "setting up check or download widgets";
     m_cancelButton->setFixedSize(250, 36);

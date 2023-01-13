@@ -17,7 +17,7 @@
 DWIDGET_USE_NAMESPACE
 
 /**
- * @brief 检查是否满足升级条件的进度界面。在全部检查完成之后，需要主动跳转UpgradeCheckResultWidget。
+ * @brief The progress view of upgrade check. After all checks are done, it is required to jump to UpgradeCheckResultWidget.
  *
  */
 class UpgradeCheckProgressWidget: public DWidget

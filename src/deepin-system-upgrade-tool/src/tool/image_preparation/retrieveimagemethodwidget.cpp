@@ -69,7 +69,7 @@ void RetrieveImageMethodWidget::initUI()
         m_localPushButton->setStyleSheet(m_lightBtnStylesheet);
     }
 
-    // 联网下载按钮
+    // Download from Internet button
     {
         QVBoxLayout *baseLayout = new QVBoxLayout(this);
 
@@ -89,7 +89,7 @@ void RetrieveImageMethodWidget::initUI()
         radioButtonGroup->addButton(m_networkRadioButton);
     }
 
-    // 本地导入按钮
+    // Import local image button
     {
         QVBoxLayout *baseLayout = new QVBoxLayout(this);
         QHBoxLayout *textLayout = new QHBoxLayout(this);
@@ -109,7 +109,7 @@ void RetrieveImageMethodWidget::initUI()
 
         baseLayout->addLayout(textLayout);
 
-        // 添加拖放文件框控件
+        // Add drag and drop widget
         setDefaultDropFrameStyle();
         m_dropAreaFrame->setFixedSize(248, 150);
 
@@ -134,7 +134,7 @@ void RetrieveImageMethodWidget::initUI()
 
         m_dropAreaFrame->setLayout(m_dropAreaIconLabel->layout());
 
-        // 设置dropAreaFrame透明度
+        // Setting opacity for dropAreaFrame
         QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
         effect->setOpacity(DROPAREA_UNSELECTED_OPACITY);
         m_dropAreaFrame->setGraphicsEffect(effect);
@@ -156,7 +156,7 @@ void RetrieveImageMethodWidget::initUI()
 
 void RetrieveImageMethodWidget::initConnections()
 {
-    // 设置两个镜像获取方式按钮的操作
+    // Setting actions for two image retriving button.
     connect(m_networkPushButton, &QPushButton::clicked, this, [this] {
         m_networkRadioButton->setChecked(!m_networkRadioButton->isChecked());
     });
@@ -165,7 +165,7 @@ void RetrieveImageMethodWidget::initConnections()
     });
     connect(m_localRadioButton, &QRadioButton::toggled, this, &RetrieveImageMethodWidget::ToggleLocalButton);
     connect(m_localRadioButton, &QRadioButton::toggled, [this] {
-        // 设置dropAreaFrame透明度
+        // Setting opacity for dropAreaFrame
         QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
         if (m_localRadioButton->isChecked())
         {
@@ -178,7 +178,7 @@ void RetrieveImageMethodWidget::initConnections()
         m_dropAreaFrame->setGraphicsEffect(effect);
     });
 
-    // 设置拖拽文件UI变化
+    // Setting UI changes for dragging files to the drop area.
     connect(m_dropAreaFrame, &DropFrame::fileAboutAccept, this, [this]() {
         m_dropAreaFrame->setPenColor(QColor("#FF0081FF"));
         m_dropAreaFrame->setBrush(QBrush(QColor("#0D10A5FF")));
@@ -187,14 +187,14 @@ void RetrieveImageMethodWidget::initConnections()
     });
     connect(m_dropAreaFrame, &DropFrame::fileCancel, this, &RetrieveImageMethodWidget::setDefaultDropFrameStyle);
 
-    // 浅色/暗色主题切换
+    // Light/Dark themes switching
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, [this] (DGuiApplicationHelper::ColorType themeType) {
         if (themeType == DGuiApplicationHelper::DarkType)
         {
             m_networkPushButton->setStyleSheet(m_darkBtnStylesheet);
             m_localPushButton->setStyleSheet(m_darkBtnStylesheet);
 
-            // 强制设置本地导入按钮文字颜色，原本样式坏了
+            // Since the original style is broken, setting text color manually instead.
             m_fileTextLabel->setTextColor(QColor("#FFC0C6D4"));
         }
         else
@@ -204,14 +204,14 @@ void RetrieveImageMethodWidget::initConnections()
 
             m_fileTextLabel->setTextColor(QColor("#FF414D68"));
         }
-        // 改拖放区域颜色
+        // Change the color of drop area.
         setDefaultDropFrameStyle();
     });
 
-    // 添加拖拽或打开文件对话框的选择iso文件方式
+    // Implement methods to add images
     connect(m_dropAreaFrame, &DropFrame::fileDrop, this, &RetrieveImageMethodWidget::onFileSelected);
     connect(m_uploadTextLink, &QLabel::linkActivated, this, [ this ](const QString & /*link*/) {
-        // 避免保持本地上传按钮持续按下
+        // Avoid keeping "import from local" button pressed down.
         m_localPushButton->setDown(false);
 
         DFileDialog fileDlg(this);
@@ -226,7 +226,7 @@ void RetrieveImageMethodWidget::initConnections()
         }
     });
 
-    // 设置清除本地镜像文件按钮的操作
+    // Clear local image signals
     connect(m_removeFileButton, &QPushButton::clicked, this, &RetrieveImageMethodWidget::FileClear);
     connect(this, &RetrieveImageMethodWidget::FileClear, this, &RetrieveImageMethodWidget::onFileCleared);
 }
@@ -248,7 +248,7 @@ void RetrieveImageMethodWidget::onFileSelected(const QString &filename)
     effect->setOpacity(1.0);
     m_dropAreaFrame->setGraphicsEffect(effect);
 
-    // 因为还可能会有添加文件后颜色主题切换的操作，所以，放到默认设置方法里一起调用了。
+    // It is possible that theme switching can happen after adding image files.
     setDefaultDropFrameStyle();
     m_dropAreaFrame->update();
 
@@ -279,7 +279,7 @@ void RetrieveImageMethodWidget::setDefaultDropFrameStyle()
 
         if (m_localRadioButton->isChecked())
         {
-            // 已添加文件
+            // File Added
             opacity = 1.0;
         }
         else
@@ -317,7 +317,7 @@ QString RetrieveImageMethodWidget::loadStyleSheet(const QString &styleFile)
     QFile file(styleFile);
     if (file.open(QFile::ReadOnly))
     {
-        styleSheet = QLatin1String(file.readAll()); //读取样式表文件
+        styleSheet = QLatin1String(file.readAll());
         file.close();
     }
     return styleSheet;

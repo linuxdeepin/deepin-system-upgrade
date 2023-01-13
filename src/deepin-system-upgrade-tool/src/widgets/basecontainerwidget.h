@@ -17,7 +17,7 @@
 DWIDGET_USE_NAMESPACE
 
 /**
- * @brief 主要功能界面的容器。负责放界面内容以及（自行）实现界面底部的三个按钮。
+ * @brief Container for main function interface.
  *
  */
 class BaseContainerWidget : public QWidget

@@ -26,7 +26,7 @@ public:
     explicit ProgressWidget(QWidget *parent = nullptr);
 
 protected:
-    // -1为尚未初始化状态，因为可能断点续传，所以每次下载都需要得知初始进度值
+    // -1 is the uninitialized status. Due to resume downloading, the initial progress value have to be retrieved everytime a download is started.
     qint64      m_initProgress = -1;
     qint64      m_lastProgress = 0;
     time_t      m_startTime = 0;
@@ -46,10 +46,10 @@ protected:
     void initConnections();
 
 protected Q_SLOTS:
-    // 默认的更新预计完成时间的SLOT。默认不连接上updateProgress信号，需要用的请自行连接。
+    // The default ETA time updating SLOT. It is disconnected to the updateProgress signal by default, so connect them manually if needed.
     void updateDefaultEtaText(qint64 p);
 
-    // 开始进度的槽。初始化开始时间和初始进度，以便计算预计时间。需要连接自定义的开始信号。
+    // The slot for starting progress. It will initialize start time and initial progress value in order to calculate ETA time.
     void onStart();
 
 Q_SIGNALS:

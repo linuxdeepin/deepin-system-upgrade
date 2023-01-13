@@ -73,7 +73,7 @@ void MainWindow::initUI()
     m_centerWidget->setLayout(frameLayout);
     setCentralWidget(m_centerWidget);
 
-    // 设置窗口图标
+    // Set icon for window
     titlebar()->setIcon(QIcon(":icons/upgrade-tool.svg"));
 
 }
@@ -90,7 +90,7 @@ void MainWindow::initConnections()
         this->m_stackedlayout->setCurrentWidget(m_systemUpgradeWidget);
         emit m_systemUpgradeWidget->start(isoPath);
     });
-    // 浅色/暗色主题切换
+    // Light/Dark theme switch
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType) {
         if (themeType == DGuiApplicationHelper::DarkType)
         {
@@ -103,7 +103,7 @@ void MainWindow::initConnections()
     });
 }
 
-// 关闭窗口的时候弹出对话框
+// Pop up a dialog when closing main window.
 void MainWindow::closeEvent(QCloseEvent *event) {
     if (m_askForClose)
     {

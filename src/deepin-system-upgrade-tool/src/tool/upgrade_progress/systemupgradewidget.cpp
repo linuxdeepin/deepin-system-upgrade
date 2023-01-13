@@ -41,29 +41,29 @@ void SystemUpgradeWidget::initConnections()
     });
     connect(m_suggestButton, &QPushButton::clicked, [this] {
         if (m_errorMessageWidget->title() == tr("Backup failed")) {
-            // 重新备份
+            // Backup again
             jumpToBackupWidget();
         } else {
-            // 升级失败反馈
+            // Feedback when upgrade failed
             QDesktopServices::openUrl(QUrl("https://bbs.deepin.org/"));
         }
     });
     connect(m_upgradeWidget, &UpgradeWidget::done, this, &SystemUpgradeWidget::jumpToBackupWidget);
     connect(m_backupWidget, &BackupWidget::done, [this] {
-        // 备份好后，开始升级
+        // Start upgrade when backup is done.
         emit m_dbusWorker->StartUpgrade();
     });
-    // DBus报错跳转
+    // Jump to ErrorWidget for DBus errors
     connect(m_dbusWorker, &DBusWorker::error, [this] (QString errorTitle, QString errorLog) {
         if (DBusWorker::getInstance()->getUpgradeStage() == UpgradeStage::INIT)
         {
-            // 不在系统升级流程，只是被其他复用，就不走还原流程
+            // No restoration procedure for initial stage. (Just reused by main program)
             setupErrorWidget(errorTitle, errorLog);
             jumpErrorWidget();
         }
         else if (errorTitle == tr("Restoration failed"))
         {
-            // 还原失败，直接展示报错信息
+            // Restoration failed, show error log directly.
             setupErrorWidget(errorTitle, errorLog);
             jumpErrorWidget();
         }
@@ -71,7 +71,7 @@ void SystemUpgradeWidget::initConnections()
         {
             m_stackedLayout->setCurrentWidget(m_restorationWidget);
             emit m_restorationWidget->start();
-            // 准备报错界面，以便系统还原完成时直接跳转
+            // Prepare error view in order to jump directly once system restoration is done.
             setupErrorWidget(errorTitle, errorLog);
         }
     });
@@ -110,12 +110,6 @@ void SystemUpgradeWidget::setupErrorWidget(QString errorTitle, QString errorLog)
 
 void SystemUpgradeWidget::jumpErrorWidget()
 {
-    // // 从全屏中恢复窗口设置
-    // MainWindow *w = MainWindow::getInstance();
-    // w->setFixedSize(MAIN_WINDOW_W, MAIN_WINDOW_H);
-    // w->setWindowFlags(Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
-    // w->showNormal();
-
     m_cancelButton->setVisible(true);
     m_suggestButton->setVisible(true);
     m_stackedLayout->setCurrentWidget(m_errorMessageWidget);

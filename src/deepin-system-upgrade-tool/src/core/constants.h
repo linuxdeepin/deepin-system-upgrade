@@ -24,15 +24,15 @@ enum class Orientation {
 };
 
 /**
- * @brief 协议类型
+ * @brief Type of License
  */
 enum class LicenseType {
-    USER,       // 最终用户许可协议
-    PRIVACY,    // 隐私保护指引
+    USER,       // End User License Agreement
+    PRIVACY,    // Privacy Protection Guide
 };
 
 /**
- * @brief 系统升级检查结果
+ * @brief The result of upgrade check entries
  */
 enum class CheckResultType {
     PASSED,
@@ -41,30 +41,30 @@ enum class CheckResultType {
 };
 
 /**
- * @brief 系统升级阶段
+ * @brief Stages of system upgrade
  *
  */
 enum class UpgradeStage {
-    INIT,              // 还没开始升级，用于展示重启升级后的升级失败错误
-    EVALUATE_SOFTWARE, // 软件评估
-    PREPARATION,       // 升级准备
-    BACKUP,            // 系统备份
-    RESTORATION,       // 系统还原
-    MIGRATION,         // 应用迁移
+    INIT,              // Upgrade hasn't yet been started. Set it for displaying errors after upgrade.
+    EVALUATE_SOFTWARE, // Software Evaluation
+    PREPARATION,       // Upgrade Preparation
+    BACKUP,            // System Backup
+    RESTORATION,       // System Restoration
+    MIGRATION,         // App Migration
 };
 
-// QDBus 异步调用超时 单位: ms
+// QDBus async call timeout. Unit: ms
 const int kQDBusAsyncCallTimeout = 5 * 3600000;
-// 下载读取缓冲区大小 单位: Byte
+// The size of download buffer. Unit: Byte
 const int kReadBufferSize = 512 * 1024;
-// 下载重试间隔 单位：ms
+// Interval of retry download request. Unit：ms
 const int kRetryInterval = 5000;
-// 下载重连超时 单位：s
+// Download retry timeout. Unit：s
 const int kReconnectTimeout = 300;
 
-// 下载存放位置
+// ISO Download location
 const QString kDownloadPath(".cache/deepin-system-upgrade-tool");
-// 升级状态文件位置
+// Upgrade state file path
 const QString kUpgradeStatesPath("/etc/deepin-upgrade-manager/state.records");
 
 const QVersionNumber kUosMinimalVersion = QVersionNumber::fromString("1060");

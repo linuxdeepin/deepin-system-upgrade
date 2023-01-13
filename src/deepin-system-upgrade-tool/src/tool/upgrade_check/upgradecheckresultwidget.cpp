@@ -34,7 +34,7 @@ void UpgradeCheckResultWidget::initUI()
     m_titleIconLabel->addSpacing(10);
     m_titleIconLabel->addWidget(m_titleTextLabel);
 
-    // 检查结果标题
+    // Check result title
     m_titleTextLabel->setForegroundRole(DPalette::TextTitle);
     DFontSizeManager::instance()->bind(m_titleTextLabel, DFontSizeManager::T3, QFont::DemiBold);
     m_titleTextLabel->setAlignment(Qt::AlignCenter);
