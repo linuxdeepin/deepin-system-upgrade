@@ -1,0 +1,21 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: deepin-system-upgrade
+Upstream-Contact: farawayyyy <linxin@uniontech.com>
+Source: xxxx
+
+# Sample paragraph, commented out:
+
+# icons
+# Files: src/deepin-system-upgrade-tool/misc/icons/* src/deepin-system-upgrade-tool/misc/plymouth/*.png
+# Copyright: UnionTech Software Technology Co., Ltd. 
+# License: GPL-3.0-or-later
+
+# qss
+# Files: src/deepin-system-upgrade-tool/misc/qss/*
+# Copyright: UnionTech Software Technology Co., Ltd. 
+# License: GPL-3.0-or-later
+
+# text
+# Files: src/deepin-system-upgrade-tool/misc/text/* 
+# Copyright: UnionTech Software Technology Co., Ltd. 
+# License: GPL-3.0-or-later

@@ -1,0 +1,6 @@
+docs/
+obj-x86_64-linux-gnu/
+.vscode
+build/
+plantuml/
+*.qm

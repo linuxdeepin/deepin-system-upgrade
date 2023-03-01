@@ -1,0 +1,16 @@
+target:
+ backup_list: # v23替代v20的文件目录，需要进行提交的目录和文件
+      - "/boot"
+      - "/usr"
+      - "/var"
+      - "/etc"
+ hold_list: # v23中保留v20的文件目录，不需要进行提交的目录和文件
+      - "/usr/lib/dpkg-db"
+      - "/var/spool"
+      - "/var/login.defs"
+      - "/var/lib/AccountsService"
+      - "/var/lib/deepin/developer-mode"
+      - "/var/lib/deepin-boot-kit/version.data"
+      - "/etc/fstab"
+      - "/etc/deepin-upgrade-manager"
+ after_run: "/usr/bin/deepin-system-upgrade-tool"
