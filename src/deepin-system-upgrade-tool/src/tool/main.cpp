@@ -47,6 +47,9 @@ Q_NAMESPACE
 
 int main(int argc, char *argv[])
 {
+    Application::setAttribute(Qt::AA_EnableHighDpiScaling, true);
+    Application::setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+
     Application *app = Application::getInstance(argc, argv);
 
     QCoreApplication::setApplicationVersion("V6.0.2");
