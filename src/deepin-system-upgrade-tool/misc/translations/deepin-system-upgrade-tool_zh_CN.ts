@@ -157,6 +157,14 @@
         <source>Restoration failed</source>
         <translation>还原失败</translation>
     </message>
+    <message>
+        <source>Upgrade done</source>
+        <translation type="unfinished">升级已完成</translation>
+    </message>
+    <message>
+        <source>The system is about to restart and upgrade.</source>
+        <translation type="unfinished">系统即将重启升级。</translation>
+    </message>
 </context>
 <context>
     <name>FileDownloader</name>
@@ -641,6 +649,14 @@
     <message>
         <source>Error code: %1</source>
         <translation>错误码：%1</translation>
+    </message>
+    <message>
+        <source>Upgrade done</source>
+        <translation type="vanished">升级已完成</translation>
+    </message>
+    <message>
+        <source>The system is about to restart and upgrade.</source>
+        <translation type="vanished">系统即将重启升级。</translation>
     </message>
 </context>
 </TS>

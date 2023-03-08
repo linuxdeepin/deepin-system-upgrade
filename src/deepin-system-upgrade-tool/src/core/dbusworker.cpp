@@ -4,6 +4,7 @@
 
 #include <QDBusPendingCall>
 #include <QStringList>
+#include <DDBusSender>
 
 #include "dbusworker.h"
 
@@ -340,6 +341,10 @@ void DBusWorker::onAsyncCallFinished(QDBusPendingCallWatcher *watcher)
                 emit MigrateDone();
             }
         }
+        SendNotification(
+            tr("Upgrade done"),
+            tr("The system is about to restart and upgrade.")
+        );
     }
 }
 
