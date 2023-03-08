@@ -153,6 +153,14 @@
         <source>Restoration failed</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The system is about to restart and upgrade.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upgrade done</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FileDownloader</name>
