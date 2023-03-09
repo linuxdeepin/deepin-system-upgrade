@@ -7,6 +7,7 @@ package disk
 import (
 	"errors"
 	"fmt"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"strconv"
@@ -21,7 +22,7 @@ import (
 var logger = log.NewLogger("deepin-system-upgrade/module/diskinfo")
 
 var (
-	RootPartitionRequire = 4.0
+	RootPartitionRequire = 3.0
 	NewSystemRootRequire = 17.0
 )
 
@@ -49,6 +50,20 @@ func GetPartitionByPath(path string) (string, error) {
 	}
 	items := strings.Split(lines[1], " ")
 	return strings.TrimSpace(items[0]), nil
+}
+
+func getDirSize(path string) float64 {
+	var size int64
+	_ = filepath.Walk(path, func(_ string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() {
+			size += info.Size()
+		}
+		return err
+	})
+	return float64(size) / 1024.0 / 1024.0 / 1024.0
 }
 
 func computeDirFreeSpace(path string) error {
@@ -83,17 +98,47 @@ func computeDirFreeSpace(path string) error {
 	return nil
 }
 
-func computeFileSize(path string) (float64, error) {
-	out, err := exec.Command("/usr/bin/du", "-s", path).CombinedOutput()
+// func computeFileSize(path string) (float64, error) {
+// 	out, err := exec.Command("/usr/bin/du", "-s", path).CombinedOutput()
+// 	if err != nil {
+// 		logger.Warning("failed to get dir size:", path)
+// 		return -1, err
+// 	}
+// 	size, err := strconv.Atoi(strings.Trim(strings.Split(strings.TrimSpace(string(out)), "/")[0], "\t"))
+// 	if err == nil {
+// 		return float64(size) / 1000.0 / 1000.0, nil
+// 	}
+// 	return -1, err
+// }
+
+func findMountForDir(path string) string {
+	out, err := exec.Command("/usr/bin/findmnt", "-n", "-o", "TARGET", "--target", path).CombinedOutput()
 	if err != nil {
-		logger.Warning("failed to get dir size:", err)
+		return ""
+	}
+	logger.Warning(string(out))
+	return strings.Trim(string(out), "\n")
+}
+
+func computeRequireSizeForRoot() (float64, error) {
+	target, err := config.GetBackupTarget()
+	if err != nil {
 		return -1, err
 	}
-	size, err := strconv.Atoi(strings.Trim(strings.Split(strings.TrimSpace(string(out)), "/")[0], "\t"))
-	if err == nil {
-		return float64(size) / 1024.0 / 1024.0, nil
+	var needSize float64
+	for _, dir := range target.BackupList {
+		if findMountForDir(dir) != "/" {
+			size := getDirSize(dir)
+			needSize += size
+		}
 	}
-	return -1, err
+	for _, dir := range target.HoldList {
+		if findMountForDir(dir) != "/" {
+			size := getDirSize(dir)
+			needSize -= size
+		}
+	}
+	return needSize, nil
 }
 
 func computeOstreeRepoSize() (float64, error) {
@@ -103,17 +148,14 @@ func computeOstreeRepoSize() (float64, error) {
 	}
 	var repoSize float64
 	for _, dir := range target.BackupList {
-		size, err := computeFileSize(dir)
+		size := getDirSize(dir)
 		logger.Debug("print dir path:", dir)
 		logger.Debug("print dir size:", size)
-		if err != nil {
-			logger.Warning("compute file size error:", err)
-		}
 
 		repoSize += size
 	}
 	for _, dir := range target.HoldList {
-		size, err := computeFileSize(dir)
+		size := getDirSize(dir)
 		if err != nil {
 			logger.Warning("compute file size error:", err)
 		}
@@ -135,7 +177,19 @@ func CheckDiskSpace(checkResult map[string]string) (map[string]string, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	var rootPartitionRequire float64
+	needSize, err := computeRequireSizeForRoot()
+	logger.Warning("needsize:", needSize)
+	if err != nil {
+		logger.Warning("failed to compute root require size:", err)
+		rootPartitionRequire = RootPartitionRequire
+	} else {
+		if needSize > RootPartitionRequire {
+			rootPartitionRequire = needSize
+		} else {
+			rootPartitionRequire = RootPartitionRequire
+		}
+	}
 	for dev, free := range _PartitionMap {
 		var base float64
 		if dev == repoLocation {
@@ -143,7 +197,7 @@ func CheckDiskSpace(checkResult map[string]string) (map[string]string, error) {
 			if err != nil {
 				repoSize = 10.0
 			}
-			base = repoSize + RootPartitionRequire
+			base = repoSize + rootPartitionRequire
 		}
 		out, err := exec.Command("/usr/bin/findmnt", dev).CombinedOutput()
 		if err != nil {
@@ -158,7 +212,7 @@ func CheckDiskSpace(checkResult map[string]string) (map[string]string, error) {
 			if len(_PartitionMap) == 1 {
 				base += NewSystemRootRequire
 			}
-			checkResult["systembase"] = fmt.Sprintf("%.2f", RootPartitionRequire+base)
+			checkResult["systembase"] = fmt.Sprintf("%.2f", rootPartitionRequire+base)
 			checkResult["systemfree"] = fmt.Sprintf("%.2f", free)
 		} else {
 			logger.Debug("init data base", base)
