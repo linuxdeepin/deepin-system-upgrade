@@ -830,7 +830,6 @@ func unsquashfsFile(path string) (string, error) {
 	return squashfsRoot, nil
 }
 
-// Unzip the ISO image used for the upgrade
 // Todo(Yutao Meng): Clear existing directories before decompression
 func ExtractIsoFile(homeDir, isoPath string) (string, error) {
 	extractPath := filepath.Join(homeDir, ".cache/extract")
@@ -913,36 +912,16 @@ func copyFileToNewSystem(root string) error {
 	if err != nil {
 		return err
 	}
-	err = utils.CopyFile(UpgradeToolBinaryPath, filepath.Join(root, UpgradeToolBinaryPath))
-	if err != nil {
-		return err
-	}
-	err = utils.CopyFile(UpgradeToolIconPath, filepath.Join(root, UpgradeToolIconPath))
-	if err != nil {
-		return err
-	}
-	err = utils.CopyDir(PlymouthThemePath, filepath.Join(root, PlymouthThemePath))
-	if err != nil {
-		return err
-	}
-	err = utils.CopyFile(SystemdDBusConf, filepath.Join(root, SystemdDBusConf))
-	if err != nil {
-		return err
-	}
-	err = utils.CopyFile(SystemdDBusService, filepath.Join(root, SystemdDBusService))
-	if err != nil {
-		return err
-	}
-	err = utils.CopyFile(UpgradeDaemonBinaryPath, filepath.Join(root, UpgradeDaemonBinaryPath))
-	if err != nil {
-		return err
-	}
-
 	err = os.RemoveAll(filepath.Join(root, "boot"))
 	if err != nil {
 		return err
 	}
 	err = utils.CopyDir("/boot", filepath.Join(root, "boot"))
+	if err != nil {
+		return err
+	}
+
+	err = utils.CopyDir(PlymouthThemePath, filepath.Join(root, PlymouthThemePath))
 	if err != nil {
 		return err
 	}
@@ -958,15 +937,7 @@ func copyFileToNewSystem(root string) error {
 		return err
 	}
 
-	err = utils.CopyDir(TranslationDirPath, filepath.Join(root, TranslationDirPath))
-	if err != nil {
-		return err
-	}
 	err = utils.CopyFile(UpgradeDesktopFilePath, filepath.Join(root, UpgradeAutoStartFile))
-	if err != nil {
-		return err
-	}
-	err = utils.CopyFile(UpgradeDesktopFilePath, filepath.Join(root, UpgradeDesktopFilePath))
 	if err != nil {
 		return err
 	}
