@@ -54,7 +54,7 @@ void RetrieveImageMethodWidget::initUI()
     m_verticalLayout->setContentsMargins(82, 0, 82, 0);
     m_verticalLayout->addSpacing(35);
     m_label->setForegroundRole(DPalette::TextTitle);
-    m_label->setFont(QFont("SourceHanSansSC", 18, QFont::DemiBold));
+    DFontSizeManager::instance()->bind(m_label, DFontSizeManager::T3, QFont::DemiBold);
     m_verticalLayout->addWidget(m_label, 0, Qt::AlignCenter);
     m_verticalLayout->addSpacing(40);
 
@@ -74,11 +74,10 @@ void RetrieveImageMethodWidget::initUI()
         QVBoxLayout *baseLayout = new QVBoxLayout(this);
 
         m_networkRadioButton->setText(tr("Download from Internet"));
+        DFontSizeManager::instance()->bind(m_networkRadioButton, DFontSizeManager::T6, QFont::Medium);
 
         QLabel *networkIcon = new QLabel(this);
         networkIcon->setPixmap(QIcon(":/icons/internet_download.svg").pixmap(120, 120));
-
-        // networkPushButton->setStyleSheet("QPushButton {background-color: #08000000; }");
 
         baseLayout->addWidget(m_networkRadioButton);
         baseLayout->addWidget(networkIcon, 0, Qt::AlignCenter);
@@ -124,12 +123,12 @@ void RetrieveImageMethodWidget::initUI()
 
         m_dropAreaIconLabel->setIcon(":/icons/local_directory.svg");
         m_filenameLabel = new DLabel(tr("Drag files here"));
-        m_filenameLabel->setFont(QFont("SourceHanSansSC", 9, QFont::Thin));
+        DFontSizeManager::instance()->bind(m_filenameLabel, DFontSizeManager::T8, QFont::Thin);
         m_filenameLabel->setForegroundRole(DPalette::TextTips);
         m_dropAreaIconLabel->addSpacerItem(m_fileLabelSpacerItem);
         m_dropAreaIconLabel->addWidget(m_filenameLabel);
         m_uploadTextLink = new QLabel(QString("<a href=\"/fuck\" style=\"text-decoration: none;\">%1</a>").arg(tr("Select file")));
-        m_uploadTextLink->setFont(QFont("SourceHanSansSC", 9, QFont::Medium));
+        DFontSizeManager::instance()->bind(m_uploadTextLink, DFontSizeManager::T8, QFont::Medium);
         m_dropAreaIconLabel->addWidget(m_uploadTextLink);
         m_dropAreaIconLabel->m_layout->addSpacerItem(new QSpacerItem(0, 28, QSizePolicy::Minimum, QSizePolicy::Maximum));
 

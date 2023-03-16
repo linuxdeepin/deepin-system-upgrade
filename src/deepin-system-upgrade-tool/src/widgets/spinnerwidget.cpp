@@ -32,7 +32,7 @@ void SpinnerWidget::initUI()
     QVBoxLayout *vLayout = new QVBoxLayout(this);
 
     m_spinner->setMinimumSize(32, 32);
-    m_messageLabel->setFont(QFont("SourceHanSansSC", 11, QFont::Medium));
+    DFontSizeManager::instance()->bind(m_messageLabel, DFontSizeManager::T5, QFont::Medium);
     if (isDarkMode())
         m_messageLabel->setColor(QColor("#FFFFFF"));
     else

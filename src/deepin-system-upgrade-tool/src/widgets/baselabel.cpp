@@ -15,15 +15,9 @@ BaseLabel::BaseLabel(QWidget *parent)
 
 void BaseLabel::initUI()
 {
-    QFont titleFont("SourceHanSansSC", 10, QFont::Medium);
-    QFont tipFont("SourceHanSansSC", 9, QFont::Normal);
-
-    m_label->setFont(titleFont);
+    DFontSizeManager::instance()->bind(m_label, DFontSizeManager::T6, QFont::Medium);
+    DFontSizeManager::instance()->bind(m_tip, DFontSizeManager::T8, QFont::Normal);
     m_label->setForegroundRole(DPalette::TextTitle);
-
-    m_tip->setFont(tipFont);
-    m_tip->setForegroundRole(DPalette::TextTips);
-
     m_layout->addWidget(m_label, 0, Qt::AlignBottom);
     m_layout->addWidget(m_tip, 0, Qt::AlignTop);
     m_layout->setSpacing(0);

@@ -33,23 +33,21 @@ SoftwareCheckProgressWidget::SoftwareCheckProgressWidget(DWidget *parent)
 
 void SoftwareCheckProgressWidget::initUI()
 {
-    QFont titleFont("SourceHanSansSC", 17, QFont::DemiBold);
-
+    DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T3, QFont::DemiBold);
     m_titleLabel->setForegroundRole(DPalette::TextTitle);
-    m_titleLabel->setFont(titleFont);
 
     QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
     sizePolicy1.setHorizontalStretch(1);
     sizePolicy1.setVerticalStretch(1);
 
     DLabel *conditionsTextLabel = new DLabel;
-    conditionsTextLabel->setFont(QFont("SourceHanSansSC", 10, QFont::Normal));
+    DFontSizeManager::instance()->bind(conditionsTextLabel, DFontSizeManager::T6, QFont::Normal);
+
     conditionsTextLabel->setForegroundRole(DPalette::TextTitle);
     conditionsTextLabel->setText(tr("Evaluate the compatibility of installed apps in the new system"));
 
     // 进度显示组件
     m_checkProgress->setFixedSize(162, 162);
-    // m_checkProgress->setSizePolicy(sizePolicy2);
     m_checkProgress->setValue(1);
     // 开始动画,否则除非切换窗口，进度不会实时更新。
     m_checkProgress->start();

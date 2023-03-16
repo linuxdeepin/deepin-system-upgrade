@@ -6,6 +6,7 @@
 
 #include <DWidget>
 #include <DLabel>
+#include <DFontSizeManager>
 
 #include <QWidget>
 #include <QVBoxLayout>

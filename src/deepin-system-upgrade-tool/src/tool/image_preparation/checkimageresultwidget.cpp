@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#include <DFontSizeManager>
+
 #include <QColor>
 #include <QFile>
 #include <QFont>
@@ -33,17 +35,17 @@ CheckImageResultWidget::CheckImageResultWidget(QWidget *parent)
 
 void CheckImageResultWidget::initUI()
 {
-    m_resultLabel->setFont(QFont("SourceHanSansSC", 15, QFont::Bold));
+    DFontSizeManager::instance()->bind(m_resultLabel, DFontSizeManager::T4, QFont::Bold);
     m_resultLabel->setForegroundRole(DPalette::TextTitle);
 
-    m_imageSizeTitleLabel->setFont(QFont("SourceHanSansSC", 10.5, QFont::Medium));
+    DFontSizeManager::instance()->bind(m_imageSizeTitleLabel, DFontSizeManager::T6, QFont::Medium);
     m_imageSizeTitleLabel->setForegroundRole(DPalette::Text);
-    m_imageSizeLabel->setFont(QFont("SourceHanSansSC", 9, QFont::Normal));
-    // imageSizeLabel->setForegroundRole(DPalette::PlaceholderText);
-    m_imageVersionTitleLabel->setFont(QFont("SourceHanSansSC", 10.5, QFont::Medium));
+
+    DFontSizeManager::instance()->bind(m_imageSizeLabel, DFontSizeManager::T8, QFont::Normal);
+    DFontSizeManager::instance()->bind(m_imageVersionTitleLabel, DFontSizeManager::T6, QFont::Medium);
     m_imageVersionTitleLabel->setForegroundRole(DPalette::Text);
-    m_imageVersionLabel->setFont(QFont("SourceHanSansSC", 9, QFont::Normal));
-    // imageVersionLabel->setForegroundRole(DPalette::PlaceholderText);
+
+    DFontSizeManager::instance()->bind(m_imageVersionLabel, DFontSizeManager::T8, QFont::Normal);
 
     m_imageSizeTitleLabel->setText(tr("File size:"));
     m_imageVersionTitleLabel->setText(tr("ISO version:"));
@@ -51,7 +53,7 @@ void CheckImageResultWidget::initUI()
     m_imageSizeLabel->setColor(QColor("#526a7f"));
     m_imageVersionLabel->setColor(QColor("#526a7f"));
 
-    m_appTipLabel->setFont(QFont("SourceHanSansSC", 9, QFont::Normal));
+    DFontSizeManager::instance()->bind(m_appTipLabel, DFontSizeManager::T8, QFont::Normal);
     m_appTipLabel->setForegroundRole(DPalette::TextTitle);
 
 

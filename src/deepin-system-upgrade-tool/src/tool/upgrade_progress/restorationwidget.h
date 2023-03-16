@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <DFontSizeManager>
+
 #include "../../core/dbusworker.h"
 #include "upgradeprogresswidget.h"
 

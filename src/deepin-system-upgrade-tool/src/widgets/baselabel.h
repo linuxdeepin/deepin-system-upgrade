@@ -4,6 +4,9 @@
 
 #pragma once
 
+#include <DLabel>
+#include <DFontSizeManager>
+
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QColor>

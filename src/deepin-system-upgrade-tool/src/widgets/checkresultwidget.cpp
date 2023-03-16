@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#include <DFontSizeManager>
+
 #include <QSpacerItem>
 
 #include "checkresultwidget.h"
@@ -24,15 +26,13 @@ CheckResultWidget::CheckResultWidget(QWidget *parent)
 
 void CheckResultWidget::initUI()
 {
-    m_resultTextLabel->setFont(QFont("SourceHanSansSC", RESULT_TEXT_SIZE));
-    QFont titleFont("SourceHanSansSC", 10, QFont::Medium);
-    QFont tipFont("SourceHanSansSC", 9, QFont::Thin);
+    DFontSizeManager::instance()->bind(m_resultTextLabel, DFontSizeManager::T8, QFont::Normal);
 
     m_requirementTitleLabel->setForegroundRole(DPalette::TextTitle);
-    m_requirementTitleLabel->setFont(titleFont);
+    DFontSizeManager::instance()->bind(m_requirementTitleLabel, DFontSizeManager::T6, QFont::Medium);
 
     m_requirementTipLabel->setForegroundRole(DPalette::TextTips);
-    m_requirementTipLabel->setFont(tipFont);
+    DFontSizeManager::instance()->bind(m_requirementTipLabel, DFontSizeManager::T8, QFont::Thin);
 
     m_checkResultIconLabel->addSpacerItem(new QSpacerItem(8, 0));
     m_checkResultIconLabel->addWidget(m_requirementTitleLabel);

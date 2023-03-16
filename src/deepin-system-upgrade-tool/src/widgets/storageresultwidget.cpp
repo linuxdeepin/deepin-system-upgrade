@@ -4,6 +4,8 @@
 
 #include <DDialog>
 #include <DSwitchButton>
+#include <DFontSizeManager>
+#include <DLabel>
 
 #include <QUrl>
 #include <QSpacerItem>
@@ -46,18 +48,16 @@ StorageResultWidget::StorageResultWidget(QWidget *parent)
 
 void StorageResultWidget::initUI()
 {
-    QFont titleFont("SourceHanSansSC", 10, QFont::Medium);
-    QFont tipFont("SourceHanSansSC", 9, QFont::Thin);
     QColor titleColor("#414D68");
 
     m_requirementTitleLabel->setForegroundRole(DPalette::TextTitle);
-    m_requirementTitleLabel->setFont(titleFont);
+    DFontSizeManager::instance()->bind(m_requirementTitleLabel, DFontSizeManager::T6, QFont::Medium);
 
     m_requirementTipLabel->setForegroundRole(DPalette::TextTips);
-    m_requirementTipLabel->setFont(tipFont);
+    DFontSizeManager::instance()->bind(m_requirementTipLabel, DFontSizeManager::T8, QFont::Thin);
 
-    m_systemResultTextLabel->setFont(QFont("SourceHanSansSC", RESULT_TEXT_SIZE));
-    m_dataResultTextLabel->setFont(QFont("SourceHanSansSC", RESULT_TEXT_SIZE));
+    DFontSizeManager::instance()->bind(m_systemResultTextLabel, DFontSizeManager::T8, QFont::Normal);
+    DFontSizeManager::instance()->bind(m_dataResultTextLabel, DFontSizeManager::T8, QFont::Normal);
 
     m_systemResultLayout->addSpacerItem(new QSpacerItem(114514, 0, QSizePolicy::Maximum));
     m_systemResultLayout->addWidget(m_systemResultTextLabel);
@@ -230,24 +230,28 @@ void StorageResultWidget::openCleanupDialog()
     qDebug() << "systemBase:" << systemBase;
     qDebug() << "systemFree:" << systemFree;
 
-    QFont textFont("SourceHanSansSC", 10, QFont::Normal);
-
     DLabel *titleLabel = new DLabel(tr("Your system cannot be upgraded to V23"));
     titleLabel->setForegroundRole(DPalette::BrightText);
-    titleLabel->setFont(textFont);
+    DFontSizeManager::instance()->bind(titleLabel, DFontSizeManager::T6, QFont::Normal);
     dlg.addButton(tr("Cancel"));
     dlg.addButton(tr("Confirm"), false, DDialog::ButtonType::ButtonRecommend);
 
     BackgroundFrame *frameDoSystemCleanup = new BackgroundFrame;
     QHBoxLayout *doSystemCleanupLayout = new QHBoxLayout;
     doSystemCleanupLayout->setContentsMargins(10, 10, 10, 10);
-    BaseLabel *doSystemCleanupTextLabel = new BaseLabel(this);
-    doSystemCleanupTextLabel->setText(tr("Clean system disk"));
-    doSystemCleanupTextLabel->setTip(tr("%1 GB free space required").arg(systemBase - systemFree));
-    doSystemCleanupTextLabel->m_label->setForegroundRole(DPalette::TextTitle);
+    DLabel *doSystemCleanupTextLabel = new DLabel(tr("Clean system disk"));
+    DFontSizeManager::instance()->bind(doSystemCleanupTextLabel,DFontSizeManager::T6, QFont::Medium);
+    doSystemCleanupTextLabel->setForegroundRole(DPalette::TextTitle);
+    DLabel *doSystemCleanupTipLabel = new DLabel(tr("%1 GB free space required").arg(systemBase - systemFree));
+    DFontSizeManager::instance()->bind(doSystemCleanupTipLabel, DFontSizeManager::T9, QFont::Light);
+
+    QVBoxLayout *systemLabelLayout= new QVBoxLayout;
+    systemLabelLayout -> addWidget(doSystemCleanupTextLabel);
+    systemLabelLayout -> addWidget(doSystemCleanupTipLabel);
+
     QPushButton *doSystemCleanupButton = new QPushButton(tr("Free Up"));
     doSystemCleanupButton->setFixedSize(74, 36);
-    doSystemCleanupLayout->addWidget(doSystemCleanupTextLabel);
+    doSystemCleanupLayout->addLayout(systemLabelLayout);
     doSystemCleanupLayout->addSpacing(0);
     doSystemCleanupLayout->addWidget(doSystemCleanupButton);
     frameDoSystemCleanup->setLayout(doSystemCleanupLayout);
@@ -255,13 +259,21 @@ void StorageResultWidget::openCleanupDialog()
     BackgroundFrame *frameDoDataCleanup = new BackgroundFrame;
     QHBoxLayout *doDataCleanupLayout = new QHBoxLayout;
     doDataCleanupLayout->setContentsMargins(10, 10, 10, 10);
-    BaseLabel *doDataCleanupTextLabel = new BaseLabel(this);
-    doDataCleanupTextLabel->setText(tr("Clean data disk"));
-    doDataCleanupTextLabel->setTip(tr("%1 GB free space required").arg(dataBase - dataFree));
-    doDataCleanupTextLabel->m_label->setForegroundRole(DPalette::TextTitle);
+
+    DLabel *doDataCleanupTextLabel = new DLabel(tr("Clean data disk"));
+    DFontSizeManager::instance()->bind(doDataCleanupTextLabel,DFontSizeManager::T6, QFont::Medium);
+    doDataCleanupTextLabel->setForegroundRole(DPalette::TextTitle);
+
+    DLabel *doDataCleanupTipLabel = new DLabel(tr("%1 GB free space required").arg(dataBase - dataFree));
+    DFontSizeManager::instance()->bind(doDataCleanupTipLabel, DFontSizeManager::T9, QFont::Light);
+
+    QVBoxLayout *dataLabelLayout= new QVBoxLayout;
+    dataLabelLayout -> addWidget(doDataCleanupTextLabel);
+    dataLabelLayout -> addWidget(doDataCleanupTipLabel);
+
     QPushButton *doDataCleanupButton = new QPushButton(tr("Free Up"));
     doDataCleanupButton->setFixedSize(74, 36);
-    doDataCleanupLayout->addWidget(doDataCleanupTextLabel);
+    doDataCleanupLayout->addLayout(dataLabelLayout);
     doDataCleanupLayout->addSpacing(0);
     doDataCleanupLayout->addWidget(doDataCleanupButton);
     frameDoDataCleanup->setLayout(doDataCleanupLayout);
@@ -281,7 +293,8 @@ void StorageResultWidget::openCleanupDialog()
     backupSystemOnlyLayout->setContentsMargins(10, 10, 10, 10);
     DLabel *backupSystemOnlyTextLabel = new DLabel(tr("System backup only, no app backup"));
     backupSystemOnlyTextLabel->setForegroundRole(DPalette::TextTitle);
-    backupSystemOnlyTextLabel->setFont(textFont);
+    backupSystemOnlyTextLabel->setFocusPolicy(Qt::TabFocus);
+    DFontSizeManager::instance()->bind(backupSystemOnlyTextLabel, DFontSizeManager::T6, QFont::Medium);
     DSwitchButton *backupSystemOnlyButton = new DSwitchButton;
     backupSystemOnlyLayout->addWidget(backupSystemOnlyTextLabel);
     backupSystemOnlyLayout->addSpacing(0);
@@ -290,7 +303,7 @@ void StorageResultWidget::openCleanupDialog()
     backupSystemOnlyButton->setChecked(!dbusWorker->m_isBackupApps);
 
     DLabel *tipLabel = new DLabel(tr("Less disk space is required if enabled, but some apps may not work properly after restoring the system from version 23."));
-    tipLabel->setFont(QFont("SourceHanSansSC", 8, QFont::Light));
+    DFontSizeManager::instance()->bind(tipLabel, DFontSizeManager::T9, QFont::Light);
     tipLabel->setForegroundRole(DPalette::TextTips);
 
     // 添加清理空间对话框布局

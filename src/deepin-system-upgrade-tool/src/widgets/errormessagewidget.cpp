@@ -23,7 +23,8 @@ void ErrorMessageWidget::initUI()
 {
     QIcon iconFailed(":/icons/icon_fail.svg");
     m_iconLabel->setPixmap(iconFailed.pixmap(128, 128));
-    m_titleLabel->setFont(QFont("SourceHanSansSC", 15, QFont::DemiBold));
+    DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T4, QFont::Bold);
+
     m_titleLabel->setForegroundRole(DPalette::TextTitle);
 
     m_errorTextEdit->setCurrentFont(QFont("SourceHanSansSC", 9, QFont::Normal));
