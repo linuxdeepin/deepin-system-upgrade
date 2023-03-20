@@ -34,4 +34,4 @@ debinstall:
 - "grub2-common"
 - "grub-pc"
 - "grub-efi-amd64"
-backupapps: true # 是否备份应用
+backupapps: false # 是否备份应用

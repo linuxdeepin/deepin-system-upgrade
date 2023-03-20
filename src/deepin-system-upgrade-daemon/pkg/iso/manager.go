@@ -727,7 +727,6 @@ func mountInChroot(mountInfoMap map[string]string) error {
 	return nil
 }
 
-// Mount system directory
 func MountSystemDir(path string) error {
 	out, err := exec.Command("/usr/bin/mount", "-t", "proc", "/proc", filepath.Join(path, "proc")).CombinedOutput()
 	if err != nil {
