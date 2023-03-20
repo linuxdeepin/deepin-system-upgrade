@@ -778,48 +778,6 @@ func chrootIsoDir(path string) error {
 	return syscall.Chroot(path)
 }
 
-func buildLocalRepo(path string) error {
-	var (
-		dists      = filepath.Join(path, "dists/")
-		pool       = filepath.Join(path, "pool/")
-		squashfs   = filepath.Join(path, "live/squashfs-root")
-		sourceFile = filepath.Join(squashfs, "etc/apt/sources.list")
-	)
-
-	_, errd := os.Stat(dists)
-	_, errp := os.Stat(pool)
-	if errd != nil || errp != nil {
-		logger.Debug("not need to build local repo")
-		return nil
-	}
-	err := utils.CopyDir(dists, filepath.Join(squashfs, "dists"))
-	if err != nil {
-		return err
-	}
-	err = utils.CopyDir(pool, filepath.Join(squashfs, "pool"))
-	if err != nil {
-		return err
-	}
-
-	cmd := fmt.Sprintf("find  %s -name 'Release' | xargs awk -F '[ :]+' '/Codename/{print $2}'", dists)
-	out, err := exec.Command("/usr/bin/sh", "-c", cmd).CombinedOutput()
-	if err != nil {
-		logger.Warning("failed to find release in dists:", string(out))
-		return err
-	}
-
-	f, err := os.OpenFile(sourceFile, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
-	defer f.Close()
-	if err != nil {
-		return err
-	}
-	_, err = f.WriteString(fmt.Sprintf("deb [trusted=yes] file:/ %s main", strings.Trim(string(out), "\n")))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 func unsquashfsFile(path string) (string, error) {
 	squashfsRoot := filepath.Join(filepath.Dir(path), "squashfs-root")
 	out, err := exec.Command("/usr/bin/unsquashfs", "-d", squashfsRoot, path).CombinedOutput()
@@ -945,10 +903,6 @@ func copyFileToNewSystem(root string) error {
 }
 
 func installPkgInNewSystem(extractPath, root string) error {
-	err := buildLocalRepo(filepath.Join(extractPath, "extract"))
-	if err != nil {
-		return err
-	}
 	originalRoot, err := os.Open("/")
 	if err != nil {
 		logger.Warning("failed to open /:", err)
