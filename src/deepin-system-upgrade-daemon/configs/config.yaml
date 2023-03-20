@@ -25,6 +25,11 @@ target:
     - "/etc/plymouth/plymouthd.conf"
     - "/etc/xdg/kwinrc"
     - "/etc/apt"
+    - "/etc/ssh"
+    - "/etc/default/ssh"
+    - "/etc/init.d/ssh"
+    - "/etc/ssh/moduli"
+    - "/etc/ufw/applications.d/openssh-server"
 debinstall:
 - "grub2-common"
 - "grub-pc"
