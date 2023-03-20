@@ -96,6 +96,7 @@ const (
 const (
 	ARCH_I386   = ":i386"
 	ARCH_X86_64 = ":amd64"
+	ARCH_ALL    = ":all"
 )
 
 type PackageStatus struct {
@@ -262,8 +263,7 @@ func (a *AppManager) MigratePackages(sender dbus.Sender) (MigrateStatus, *dbus.E
 	}
 	// Build a new system integration package map，this also protects the system from being corrupted during migration
 	for _, status := range statusList {
-		pkgName := status.Package + ":" + status.Architecture
-		a.integratedPkgs[pkgName] = ""
+		a.integratedPkgs[status.Package] = ""
 	}
 
 	prepareMigrateEnv()
@@ -341,8 +341,12 @@ func (a *AppManager) buildPkgFilter() error {
 	// filter blacklist
 	var filterList = []string{"grub-efi-amd64-signed", "dde", "dde-calendar", "deepin-album", "deepin-calculator", "deepin-camera", "deepin-compressor", "deepin-draw", "deepin-editor", "com.deepin.gomoku", "deepin-image-viewer", "com.deepin.lianliankan", "deepin-mail", "deepin-movie", "deepin-music", "deepin-reader", "deepin-screen-recorder", "org.deepin.browser"}
 	for _, pkg := range filterList {
-		pkg = pkg + ARCH_X86_64
-		a.packageFilter[pkg] = nil
+		pkgX86 := pkg + ARCH_X86_64
+		a.packageFilter[pkgX86] = nil
+		pkgI386 := pkg + ARCH_I386
+		a.packageFilter[pkgI386] = nil
+		pkgAll := pkg + ARCH_ALL
+		a.packageFilter[pkgAll] = nil
 	}
 	err := a.addPkgFilter(StatusFilePath)
 	if err != nil {
@@ -698,7 +702,7 @@ func (a *AppManager) checkAppsCompatibility(apps []string, extractPath, root str
 	}
 
 	for _, status := range statusList {
-		a.integratedPkgs[status.Package+":"+status.Architecture] = ""
+		a.integratedPkgs[status.Package] = ""
 	}
 	out, err = exec.Command("/usr/bin/apt-get", "update").CombinedOutput()
 	if err != nil {
