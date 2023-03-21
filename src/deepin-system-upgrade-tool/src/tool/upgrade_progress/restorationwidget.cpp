@@ -21,6 +21,8 @@ void RestorationWidget::initUI()
     m_iconLabel->setPixmap(QIcon(":/icons/system_backup.svg").pixmap(ICON_SIZE, ICON_SIZE));
     m_titleLabel->setText(tr("Restoring…"));
     m_tipLabel->setText(tr("Upgrade failed. Your system is being restored to the previous version."));
+    DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T4, QFont::Bold);
+    DFontSizeManager::instance()->bind(m_tipLabel, DFontSizeManager::T6, QFont::Medium);
 }
 
 void RestorationWidget::initConnections()

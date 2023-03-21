@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include <DGuiApplicationHelper>
+#include <DFontSizeManager>
 
 #include <QApplication>
 #include <QDesktopWidget>
@@ -35,8 +36,7 @@ void UpgradeCheckResultWidget::initUI()
 
     // 检查结果标题
     m_titleTextLabel->setForegroundRole(DPalette::TextTitle);
-    QFont titleFont("SourceHanSansSC", 18, QFont::DemiBold);
-    m_titleTextLabel->setFont(titleFont);
+    DFontSizeManager::instance()->bind(m_titleTextLabel, DFontSizeManager::T3, QFont::DemiBold);
     m_titleTextLabel->setAlignment(Qt::AlignCenter);
 
     m_resultContentLayout->addWidget(m_conditionCheckWidget);

@@ -25,7 +25,9 @@ void UpgradeWidget::initUI()
 {
     m_iconLabel->setPixmap(QIcon(":/icons/system_upgrade.svg").pixmap(ICON_SIZE, ICON_SIZE));
     m_titleLabel->setText(tr("Upgrading…"));
+    DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T4, QFont::Bold);
     m_tipLabel->setText(tr("Preparing for system upgrade, please wait patiently"));
+    DFontSizeManager::instance()->bind(m_tipLabel, DFontSizeManager::T6, QFont::Medium);
 }
 
 void UpgradeWidget::initConnections()

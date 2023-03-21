@@ -4,6 +4,7 @@
 
 #include <DLabel>
 #include <DPalette>
+#include <DFontSizeManager>
 
 #include <QColor>
 #include <QFont>
@@ -35,19 +36,17 @@ UpgradeCheckProgressWidget::UpgradeCheckProgressWidget(DWidget *parent)
 
 void UpgradeCheckProgressWidget::initUI()
 {
-    QFont titleFont("SourceHanSansSC", 17, QFont::DemiBold);
-
     m_titleLabel->setForegroundRole(DPalette::TextTitle);
-    m_titleLabel->setFont(titleFont);
+    DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T3, QFont::DemiBold);
 
     QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
     sizePolicy1.setHorizontalStretch(1);
     sizePolicy1.setVerticalStretch(1);
 
     DLabel *conditionsTextLabel = new DLabel;
-    conditionsTextLabel->setFont(QFont("SourceHanSansSC", 10, QFont::Normal));
     conditionsTextLabel->setForegroundRole(DPalette::TextTitle);
     conditionsTextLabel->setText(tr("Check your computer to see if it meets the upgrade conditions"));
+    DFontSizeManager::instance()->bind(conditionsTextLabel, DFontSizeManager::T6, QFont::Normal);
 
     // 进度显示组件
     m_checkProgress->setFixedSize(162, 162);

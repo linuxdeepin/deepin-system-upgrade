@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#include <DFontSizeManager>
+
 #include <QColor>
 #include <QFont>
 #include <QIcon>
@@ -22,10 +24,10 @@ void ImageDownloadWidget::initUI()
 {
     m_iconLabel->setPixmap(QIcon::fromTheme("media-optical").pixmap(ICON_SIZE, ICON_SIZE));
     m_titleLabel->setText(tr("Downloading the V23 image file"));
-    m_titleLabel->setFont(QFont("SourceHanSansSC", 15, QFont::Bold));
+    DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T4, QFont::Bold);
     m_tipLabel->setText(tr("You can continue using the computer without being affected"));
-    m_tipLabel->setFont(QFont("SourceHanSansSC", 9, QFont::Normal));
-    m_etaLabel->setFont(QFont("SourceHanSansSC", 9, QFont::Normal));
+    DFontSizeManager::instance()->bind(m_tipLabel, DFontSizeManager::T8, QFont::Normal);
+    DFontSizeManager::instance()->bind(m_etaLabel, DFontSizeManager::T8, QFont::Normal);
 }
 
 void ImageDownloadWidget::initConnections()

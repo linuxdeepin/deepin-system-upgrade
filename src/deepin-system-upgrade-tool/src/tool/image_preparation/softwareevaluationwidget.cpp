@@ -90,9 +90,7 @@ void SoftwareEvaluationWidget::initConnections()
 void SoftwareEvaluationWidget::initUI()
 {
     QPalette palette = this->palette();
-    QFont titleFont("SourceHanSansSC", 12, QFont::Bold);
-    QFont headerFont("SourceHanSansSC", 9, QFont::Medium);
-
+    
     if (isDarkMode())
     {
         palette.setColor(QPalette::Base, "#FF232323");
@@ -103,21 +101,19 @@ void SoftwareEvaluationWidget::initUI()
     }
     this->setPalette(palette);
 
-//    setWidgetResizable(true);
-
     m_softwareChangeTitleLabel->setText(tr("Evaluation Result"));
     m_softwareChangeTitleLabel->setForegroundRole(DPalette::TextTitle);
-    m_softwareChangeTitleLabel->setFont(titleFont);
+    DFontSizeManager::instance()->bind(m_softwareChangeTitleLabel, DFontSizeManager::T5, QFont::Bold);
 
     const QStringList softwareChangeHeaders = {tr("Compatible Apps"), tr("Incompatible Apps")};
     m_softwareChangeTableWidget->setHorizontalHeaderLabels(softwareChangeHeaders);
-    m_softwareChangeTableWidget->horizontalHeader()->setFont(headerFont);
+    DFontSizeManager::instance()->bind(m_softwareChangeTitleLabel, DFontSizeManager::T8, QFont::Medium);
     m_softwareChangeTableWidget->horizontalHeader()->setForegroundRole(QPalette::Text);
     m_softwareChangeTableWidget->horizontalHeader()->setVisible(true);
     m_softwareChangeTableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     m_softwareChangeTableWidget->horizontalHeader()->setFixedHeight(36);
 
-    m_powerTipLabel->setFont(QFont("SourceHanSansSC", 9, QFont::Normal));
+    DFontSizeManager::instance()->bind(m_powerTipLabel, DFontSizeManager::T8, QFont::Normal);
     m_powerTipLabel->setForegroundRole(DPalette::TextTips);
     m_powerTipLabel->setText(tr("The upgrade may take a long time. Please plug in to avoid interruption."));
 
@@ -133,18 +129,13 @@ void SoftwareEvaluationWidget::initUI()
 
     // 必须设置成和Base表格项一样的Role，否则会导致Base表格项背景异常显示底层的控件。
     setBackgroundRole(QPalette::Base);
-
-//    setWidget(m_mainWidget);
-
-//    setFrameStyle(QFrame::NoFrame);
 }
 
 IconLabel* generateCellWidget(const QString name, const QString iconPath)
 {
-    const QFont titleFont("SourceHanSansSC", 9, QFont::Medium);
     IconLabel *cellLabel = new IconLabel(nullptr);
     DLabel *nameLabel = new DLabel(name);
-    nameLabel->setFont(titleFont);
+    DFontSizeManager::instance()->bind(nameLabel, DFontSizeManager::T8, QFont::Medium);
     nameLabel->setForegroundRole(DPalette::TextTitle);
     // Icon用的是绝对路径文件
     if (iconPath.startsWith('/'))

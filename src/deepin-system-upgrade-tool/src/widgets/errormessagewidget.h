@@ -5,6 +5,7 @@
 #pragma once
 
 #include <DTextEdit>
+#include <DFontSizeManager>
 
 #include <QVBoxLayout>
 #include <QWidget>

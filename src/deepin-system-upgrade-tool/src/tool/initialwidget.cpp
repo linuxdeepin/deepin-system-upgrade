@@ -50,30 +50,20 @@ void InitialWidget::initUI()
 
     addContentWidget(m_iconLabel);
 
-    QFont titleFont("SourceHanSansSC", 18, QFont::DemiBold);
-
     m_titleLabel->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     m_titleLabel->setText(tr("Deepin Upgrade"));
-    m_titleLabel->setFont(titleFont);
-    m_titleLabel->setForegroundRole(DPalette::TextTitle);
+    DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T3, QFont::DemiBold);
 
-    // iconLabel->addSpacing(12);
     m_iconLabel->addWidget(m_titleLabel);
-
-    QFont curVerFont("SourceHanSansSC", 9, QFont::Normal);
 
     m_currentVersionLabel->setAlignment(Qt::AlignCenter | Qt::AlignTop);
     m_currentVersionLabel->setText(tr("Current version: V%1").arg(DBusWorker::getInstance()->GetDistroVer()));
-    m_currentVersionLabel->setFont(curVerFont);
     m_currentVersionLabel->setForegroundRole(DPalette::TextTips);
-    // currentVersionLabel->setColor(QColor("#6b7f91"));
-    // DFontSizeManager::instance()->bind(currentVersionLabel, DFontSizeManager::T7);
+    DFontSizeManager::instance()->bind(m_currentVersionLabel, DFontSizeManager::T8, QFont::Normal);
 
     m_iconLabel->addWidget(m_currentVersionLabel);
 
     m_contentLayout->addSpacing(30);
-
-    QFont textFont("SourceHanSansSC", 10, QFont::Thin);
 
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
     if (isDarkMode())
@@ -82,9 +72,11 @@ void InitialWidget::initUI()
         effect->setOpacity(0.7);
     m_textLabel->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     m_textLabel->setText(tr("Take a few simple steps to upgrade your system to"));
-    m_textLabel->setFont(textFont);
+
     m_textLabel->setGraphicsEffect(effect);
     m_textLabel->setForegroundRole(DPalette::BrightText);
+    DFontSizeManager::instance()->bind(m_textLabel, DFontSizeManager::T7, QFont::Thin);
+
 
     addContentWidget(m_textLabel);
 
@@ -99,22 +91,22 @@ void InitialWidget::initUI()
 
     DLabel *targetVersionTextLabel = new DLabel(tr("Deepin 23"));
 
-    textFont = QFont("SourceHanSansSC", 12, QFont::DemiBold);
-    targetVersionTextLabel->setFont(textFont);
     targetVersionTextLabel->setForegroundRole(DPalette::TextTitle);
     targetVersionTextLabel->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    DFontSizeManager::instance()->bind(targetVersionTextLabel, DFontSizeManager::T5, QFont::DemiBold);
+
     targetVersionLayout->setContentsMargins(0, 4, 0, 6);
     targetVersionLayout->addWidget(targetVersionTextLabel);
     targetVersionFrame->setLayout(targetVersionLayout);
     frameLayout->addWidget(targetVersionFrame);
     m_contentLayout->addLayout(frameLayout);
 
-    QFont licenseFont("SourceHanSansSC", 9, QFont::Normal);
-
-    m_userLicenseLabel->setFont(licenseFont);
     m_userLicenseLabel->setText(tr("I have read and agreed to the <a href=\"user\" style=\"text-decoration: none;\">%1</a> and <a href=\"privacy\" style=\"text-decoration: none;\">%2</a>.")
                                 .arg(tr("\"End User License Agreement for Deepin Upgrade Tool\""))
                                 .arg(tr("\"Privacy Protection Guide\"")));
+    m_userLicenseLabel->setFocusPolicy(Qt::TabFocus);
+    DFontSizeManager::instance()->bind(m_userLicenseLabel, DFontSizeManager::T8, QFont::Normal);
+
     m_userLicenseLayout->addSpacerItem(new QSpacerItem(238, 0, QSizePolicy::Maximum));
     m_userLicenseLayout->addWidget(m_userLicenseCheckBox, Qt::AlignCenter);
     m_userLicenseLayout->addWidget(m_userLicenseLabel, Qt::AlignCenter);
