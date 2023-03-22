@@ -34,6 +34,19 @@ void BorderRadiusHeaderView::paintSection(QPainter *painter, const QRect &rect, 
         if (!style)
             return;
 
+        if (model() && logicalIndex == 0)
+        {
+            QStyleOptionButton option;
+            option.rect = QRect(210,9,15,15);
+            bool checked = model()->headerData(logicalIndex, orientation(), Qt::CheckStateRole).toBool();
+            option.state = checked ? QStyle::State_On : QStyle::State_Off;
+            this->style()->drawControl(QStyle::CE_CheckBox, &option, painter);
+            QStyleOptionButton options;
+            options.rect = QRect(235,9,30,15);
+            options.text = QString(tr("All"));
+            this->style()->drawControl(QStyle::CE_CheckBoxLabel , &options, painter);
+        }
+
         QStyleOptionHeader option;
         initStyleOption(&option);
         int margin = style->pixelMetric(DStyle::PM_ContentsMargins, &option);
@@ -51,7 +64,6 @@ void BorderRadiusHeaderView::paintSection(QPainter *painter, const QRect &rect, 
         QRectF vSpacingRect(rect.x(), rect.y() + kSpacingMargin, 1,
                             rect.height() - kSpacingMargin * 2);
         QBrush clearBrush(palette.color(cg, DPalette::Window));
-
         painter->fillRect(hSpacingRect, clearBrush);
         painter->fillRect(hSpacingRect, hSpacingBrush);
 
@@ -114,4 +126,20 @@ void BorderRadiusHeaderView::paintEvent(QPaintEvent *event)
 
     painter.restore();
     DHeaderView::paintEvent(event);
+}
+
+void BorderRadiusHeaderView::mouseReleaseEvent(QMouseEvent* event)
+{
+        QHeaderView::mouseReleaseEvent(event);
+        if(model())
+        {
+            int section = logicalIndexAt(event->pos());
+            if (section >= 0)
+            {
+                bool checked = model()->headerData(section, orientation(), Qt::CheckStateRole).toBool();
+                model()->setHeaderData(section, orientation(), !checked, Qt::CheckStateRole);
+                viewport()->update();
+                emit selectAllButtonClicked(!checked);
+            }
+        }
 }

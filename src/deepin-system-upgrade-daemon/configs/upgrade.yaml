@@ -11,6 +11,8 @@ target:
       - "/var/lib/AccountsService"
       - "/var/lib/deepin/developer-mode"
       - "/var/lib/deepin-boot-kit/version.data"
+      - "/var/cache/deepin-system-upgrade/migrate.list"
       - "/etc/fstab"
       - "/etc/deepin-upgrade-manager"
  after_run: "/usr/bin/deepin-system-upgrade-tool"
+

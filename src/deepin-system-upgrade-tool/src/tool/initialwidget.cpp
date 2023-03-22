@@ -72,11 +72,9 @@ void InitialWidget::initUI()
         effect->setOpacity(0.7);
     m_textLabel->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
     m_textLabel->setText(tr("Take a few simple steps to upgrade your system to"));
-
     m_textLabel->setGraphicsEffect(effect);
     m_textLabel->setForegroundRole(DPalette::BrightText);
     DFontSizeManager::instance()->bind(m_textLabel, DFontSizeManager::T7, QFont::Thin);
-
 
     addContentWidget(m_textLabel);
 

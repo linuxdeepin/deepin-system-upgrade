@@ -24,6 +24,13 @@
     </message>
 </context>
 <context>
+    <name>BorderRadiusHeaderView</name>
+    <message>
+        <source>All</source>
+        <translation>全选</translation>
+    </message>
+</context>
+<context>
     <name>CheckImageResultWidget</name>
     <message>
         <source>File size:</source>
@@ -266,7 +273,7 @@
         <translation>Deepin 23</translation>
     </message>
     <message>
-        <source>I have read and agreed to the</source>
+        <source>I have read and agreed to the </source>
         <translation type="vanished">我已阅读并同意</translation>
     </message>
     <message>
@@ -464,6 +471,17 @@
     </message>
 </context>
 <context>
+    <name>SoftwareEvaluationOfflineWidget</name>
+    <message>
+        <source>Software Evaluation</source>
+        <translation>软件评估</translation>
+    </message>
+    <message>
+        <source>Your current usage scenario is in a state of no network. We cannot evaluate the software you are using. After the upgrade is complete, the software you are currently installing needs to be reinstalled. If you want to view the details of the applications that can be installed for the upgrade, please upgrade online</source>
+        <translation>您当前的使用场景处于无网络状态，我们无法对你正在使用的软件进行评估，升级完成后您当前所安装的软件需要重新进行安装，如需查看升级可安装应用详情请联网升级</translation>
+    </message>
+</context>
+<context>
     <name>SoftwareEvaluationWidget</name>
     <message>
         <source>Compatible</source>
@@ -488,6 +506,26 @@
     <message>
         <source>Incompatible Apps</source>
         <translation>不兼容应用</translation>
+    </message>
+    <message>
+        <source>V23 version supports applications</source>
+        <translation type="vanished">V23版本支持应用</translation>
+    </message>
+    <message>
+        <source>The V23 version does not support the application</source>
+        <translation type="vanished">V23版本不支持应用</translation>
+    </message>
+    <message>
+        <source>The system upgrade will ensure the integrity of user data, and we will not delete user data</source>
+        <translation>系统升级会保证用户数据的完整性，我们不会对用户数据进行删减</translation>
+    </message>
+    <message>
+        <source>By default, the cross-version upgrade does not migrate the installed applications. After the upgrade is completed, the system will automatically install the selected applications in the list. Please select the software that needs to be installed after the upgrade is complete</source>
+        <translation type="vanished">跨版本升级默认不对已安装应用进行迁移，完成升级后系统会对列表勾选应用进行自动化安装，请选择升级完成后需要安装的应用</translation>
+    </message>
+    <message>
+        <source>The cross-version upgrade does not migrate the application. After the upgrade is completed, it supports automatic installation of the selected compatible application</source>
+        <translation>跨版本升级不对应用进行迁移，升级完成后支持对已勾选兼容应用自动化安装</translation>
     </message>
 </context>
 <context>

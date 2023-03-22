@@ -26,6 +26,7 @@
 #include "../../widgets/errormessagewidget.h"
 #include "softwarecheckprogresswidget.h"
 #include "softwareevaluationwidget.h"
+#include "softwareevaluationofflinewidget.h"
 
 
 DWIDGET_USE_NAMESPACE
@@ -48,17 +49,18 @@ private Q_SLOTS:
     void showNoNetworkMessage();
 
 private:
-    bool                        m_networkConnected;
-    DFloatingMessage            *m_noNetworkMessage;
-    QStackedLayout              *m_stackedLayout;
-    RetrieveImageMethodWidget   *m_imageMethodWidget;
-    CheckImageWidget            *m_checkImageWidget;
-    CheckImageResultWidget      *m_checkImageResultWidget;
-    CheckSizeThread             *m_checkNetworkThread;
-    ImageDownloadWidget         *m_imageDownloadWidget;
-    ErrorMessageWidget          *m_errorMessageWidget;
-    SoftwareCheckProgressWidget *m_softwareCheckProgressWidget;
-    SoftwareEvaluationWidget    *m_softwareTableWidget;
+    bool                            m_networkConnected;
+    DFloatingMessage                *m_noNetworkMessage;
+    QStackedLayout                  *m_stackedLayout;
+    RetrieveImageMethodWidget       *m_imageMethodWidget;
+    CheckImageWidget                *m_checkImageWidget;
+    CheckImageResultWidget          *m_checkImageResultWidget;
+    CheckSizeThread                 *m_checkNetworkThread;
+    ImageDownloadWidget             *m_imageDownloadWidget;
+    ErrorMessageWidget              *m_errorMessageWidget;
+    SoftwareCheckProgressWidget     *m_softwareCheckProgressWidget;
+    SoftwareEvaluationWidget        *m_softwareTableWidget;
+    SoftwareEvaluationOfflineWidget *m_softwareOfflineResultWidget;
 
     void setCancelButtonStyle();
     void showAllButtons();

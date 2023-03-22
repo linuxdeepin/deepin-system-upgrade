@@ -56,7 +56,6 @@ void CheckImageResultWidget::initUI()
     DFontSizeManager::instance()->bind(m_appTipLabel, DFontSizeManager::T8, QFont::Normal);
     m_appTipLabel->setForegroundRole(DPalette::TextTitle);
 
-
     m_frameLayout->addSpacing(20);
     m_frameLayout->addWidget(m_imageSizeTitleLabel);
     m_frameLayout->addWidget(m_imageSizeLabel);
@@ -78,7 +77,6 @@ void CheckImageResultWidget::initUI()
 
     m_mainLayout->setContentsMargins(0, 30, 0, 0);
     m_mainLayout->addWidget(m_iconLabel, 0, Qt::AlignHCenter);
-
     setLayout(m_mainLayout);
 }
 

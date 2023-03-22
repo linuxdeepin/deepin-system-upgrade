@@ -76,7 +76,7 @@ void SoftwareTableWidget::paintEvent(QPaintEvent *event)
 
     QRect rect = this->rect();
     rect.setY(rect.y() - m_headerView->height());
-    rect.setHeight(rect.height() - m_headerView->height());
+    rect.setHeight(SOFTWARE_TABLE_ROW_H * 5);
     QPainter painter(this->viewport());
     painter.save();
     painter.setRenderHints(QPainter::Antialiasing, true);
@@ -127,4 +127,9 @@ void SoftwareTableWidget::setRowColorStyles()
         palette.setColor(QPalette::AlternateBase, QColor("#08000000"));
     }
     setPalette(palette);
+}
+
+BorderRadiusHeaderView *SoftwareTableWidget::getHeaderView()
+{
+    return m_headerView;
 }

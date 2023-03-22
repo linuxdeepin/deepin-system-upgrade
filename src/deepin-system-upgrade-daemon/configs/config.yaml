@@ -35,3 +35,5 @@ debinstall:
 - "grub-pc"
 - "grub-efi-amd64"
 backupapps: false # 是否备份应用
+fullmigrate: false # 是否迁移全部软件包
+

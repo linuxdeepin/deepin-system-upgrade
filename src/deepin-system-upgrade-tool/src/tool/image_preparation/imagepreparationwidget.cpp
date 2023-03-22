@@ -35,6 +35,7 @@ ImagePreparationWidget::ImagePreparationWidget(QWidget *parent)
     , m_errorMessageWidget(new ErrorMessageWidget(this))
     , m_softwareCheckProgressWidget(new SoftwareCheckProgressWidget(this))
     , m_softwareTableWidget(new SoftwareEvaluationWidget(this))
+    , m_softwareOfflineResultWidget(new SoftwareEvaluationOfflineWidget(this))
 {
     setAcceptDrops(true);
     initUI();
@@ -54,6 +55,7 @@ void ImagePreparationWidget::initUI()
     m_stackedLayout->addWidget(m_errorMessageWidget);
     m_stackedLayout->addWidget(m_softwareCheckProgressWidget);
     m_stackedLayout->addWidget(m_softwareTableWidget);
+    m_stackedLayout->addWidget(m_softwareOfflineResultWidget);
     m_errorMessageWidget->setTitle(tr("Download failed"));
 
     // Show bottom buttons.
@@ -132,11 +134,20 @@ void ImagePreparationWidget::initConnections()
         {
             if (m_checkImageResultWidget->getResult())
             {
-                emit DBusWorker::getInstance()->Assess(m_checkImageResultWidget->getResultIsoPath());
-                m_stackedLayout->setCurrentWidget(m_softwareCheckProgressWidget);
-                m_suggestButton->setVisible(false);
-                m_cancelButton->setFixedSize(250, 36);
-                m_cancelButton->setText(tr("Cancel"));
+                // 判断网络，如果网络可用，进入评估阶段，如果不可用，进入提示界面
+                if (m_networkConnected)
+                {
+                    emit DBusWorker::getInstance()->Assess(m_checkImageResultWidget->getResultIsoPath());
+                    m_stackedLayout->setCurrentWidget(m_softwareCheckProgressWidget);
+                    m_suggestButton->setVisible(false);
+                    m_cancelButton->setFixedSize(250, 36);
+                    m_cancelButton->setText(tr("Cancel"));
+                } else {
+                    m_stackedLayout->setCurrentWidget(m_softwareOfflineResultWidget);
+                    showAllButtons();
+                    m_suggestButton->setText(tr("Start Upgrade"));
+                }
+
             }
             else
             {
@@ -144,7 +155,7 @@ void ImagePreparationWidget::initConnections()
                 jumpImageMethodWidget();
             }
         }
-        else if (m_stackedLayout->currentWidget() == m_softwareTableWidget)
+        else if (m_stackedLayout->currentWidget() == m_softwareTableWidget || m_stackedLayout->currentWidget() == m_softwareOfflineResultWidget )
         {
             // Show warning for laptops which is powered by battery rather than AC power.
             if (DBusWorker::getInstance()->IsOnBattery())
@@ -153,6 +164,7 @@ void ImagePreparationWidget::initConnections()
             }
             else
             {
+                DBusWorker::getInstance()->SetMigrateAppsList(m_softwareTableWidget->getMigratelist());
                 emit StartUpgrade(m_checkImageResultWidget->getResultIsoPath());
             }
         }
@@ -163,7 +175,7 @@ void ImagePreparationWidget::initConnections()
         }
         else
         {
-            qCritical() << "Fuck, what is widget " << m_stackedLayout->currentWidget()->metaObject()->className();
+            qCritical() << "can not handle for widget:"<< m_stackedLayout->currentWidget()->metaObject()->className();
         }
     });
     connect(m_softwareCheckProgressWidget, &SoftwareCheckProgressWidget::CheckDone, [this] {

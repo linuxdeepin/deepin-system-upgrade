@@ -69,8 +69,9 @@ public:
         return m_upgradeStage;
     }
     void MigratePackages();
+    void SetMigrateAppsList(const QStringList &apps);
     void StopUpgrade();
-    void CheckISO(const QString isoPath);
+    void CheckISO(const QString &isoPath);
 
 private:
     explicit DBusWorker(QObject *parent = nullptr);
@@ -99,10 +100,10 @@ Q_SIGNALS:
     void MigrateDone();
     void MigrateError(int type, QString msg);
 
-    void Assess(const QString isoPath);
+    void Assess(QString isoPath);
     void CheckResult(bool passed);
     void StartUpgradeCheck();
-    void StartUpgradePreparation(const QString isoPath);
+    void StartUpgradePreparation(QString isoPath);
     void StartBackup();
     void StartUpgrade();
     void StartRestoration();
@@ -119,9 +120,9 @@ Q_SIGNALS:
     void SetPlymouthThemeDone();
 
 private Q_SLOTS:
-    void onAssess(const QString isoPath);
+    void onAssess(QString isoPath);
     void onStartUpgradeCheck();
-    void onStartUpgradePreparation(const QString isoPath);
+    void onStartUpgradePreparation(QString isoPath);
     void onStartBackup();
     void onStartUpgrade();
     void onStartRestoration();
