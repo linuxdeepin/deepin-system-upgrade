@@ -19,3 +19,8 @@ Source: xxxx
 # Files: src/deepin-system-upgrade-tool/misc/text/* 
 # Copyright: UnionTech Software Technology Co., Ltd. 
 # License: GPL-3.0-or-later
+
+# github and OBS yaml files
+Files: .github/* *.yml *.yaml .obs/*
+Copyright: UnionTech Software Technology Co., Ltd. 
+License: GPL-3.0-or-later
