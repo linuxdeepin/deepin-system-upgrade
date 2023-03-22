@@ -22,7 +22,7 @@ void IconLabel::initUI()
 {
     m_label->setAlignment(m_defaultAlignment);
     m_layout->setSpacing(0);
-    m_layout->addWidget(m_label);
+    m_layout->addWidget(m_label, Qt::AlignCenter);
     setLayout(m_layout);
     setContentsMargins(0, 0, 0, 0);
 }

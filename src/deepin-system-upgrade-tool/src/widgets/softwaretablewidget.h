@@ -21,6 +21,9 @@ public:
         initUI();
     }
 
+public:
+    BorderRadiusHeaderView * getHeaderView();
+
 protected:
     void paintEvent(QPaintEvent *event) override;
     void wheelEvent(QWheelEvent *event) override;

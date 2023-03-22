@@ -24,6 +24,13 @@
     </message>
 </context>
 <context>
+    <name>BorderRadiusHeaderView</name>
+    <message>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CheckImageResultWidget</name>
     <message>
         <source>File size:</source>
@@ -429,6 +436,17 @@
     </message>
 </context>
 <context>
+    <name>SoftwareEvaluationOfflineWidget</name>
+    <message>
+        <source>Software Evaluation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your current usage scenario is in a state of no network. We cannot evaluate the software you are using. After the upgrade is complete, the software you are currently installing needs to be reinstalled. If you want to view the details of the applications that can be installed for the upgrade, please upgrade online</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SoftwareEvaluationWidget</name>
     <message>
         <source>Evaluation Result</source>
@@ -439,12 +457,20 @@
         <translation></translation>
     </message>
     <message>
+        <source>The system upgrade will ensure the integrity of user data, and we will not delete user data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The cross-version upgrade does not migrate the application. After the upgrade is completed, it supports automatic installation of the selected compatible application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Compatible Apps</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Incompatible Apps</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

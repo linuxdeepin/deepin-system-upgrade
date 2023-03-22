@@ -48,8 +48,8 @@ DBusWorker* DBusWorker::getInstance(QObject *parent)
 
 DBusWorker::DBusWorker(QObject *parent)
     : QObject(parent)
-    , m_isCheckCanceled(false)
     , m_isBackupApps(true)
+    , m_isCheckCanceled(false)
     , m_lcsInter(new QDBusInterface(
                    "com.deepin.license",
                    "/com/deepin/license/Info",
@@ -165,7 +165,7 @@ void DBusWorker::initConnections()
     connect(this, SIGNAL(StartBackup()), this, SLOT(onStartBackup()));
     connect(this, SIGNAL(StartRestoration()), this, SLOT(onStartRestoration()));
     connect(this, SIGNAL(cancelUpgradeCheck()), this, SLOT(onCancelUpgradeCheck()));
-    connect(this, SIGNAL(Assess(const QString)), this, SLOT(onAssess(const QString)));
+    connect(this, SIGNAL(Assess(QString)), this, SLOT(onAssess(QString)));
     connect(m_appInter, SIGNAL(MigrateStatus(const QString, int)), this, SIGNAL(MigrateStatus(const QString, int)));
 //    connect(this, &DBusWorker::SetPlymouthThemeDone, this, [this] { m_versionInter->call("StartSystemUpgrade"); });
     connect(m_isoInter, SIGNAL(CheckResult(bool)), this, SIGNAL(CheckResult(bool)));
@@ -190,7 +190,7 @@ bool DBusWorker::IsOnBattery()
     return m_pwrstatInter->property("OnBattery").toBool();
 }
 
-void DBusWorker::onAssess(const QString isoPath)
+void DBusWorker::onAssess(QString isoPath)
 {
     m_upgradeStage = UpgradeStage::EVALUATE_SOFTWARE;
     QDBusPendingCall pcall = m_appInter->asyncCall("Assess", isoPath);
@@ -207,7 +207,7 @@ void DBusWorker::onStartUpgradeCheck()
     m_checkerInter->asyncCall("Perform", 0);
 }
 
-void DBusWorker::onStartUpgradePreparation(const QString isoPath)
+void DBusWorker::onStartUpgradePreparation(QString isoPath)
 {
     m_upgradeStage = UpgradeStage::PREPARATION;
     m_versionInter->setTimeout(kQDBusAsyncCallTimeout);
@@ -417,12 +417,20 @@ void DBusWorker::MigratePackages()
                      this, SLOT(onAsyncCallFinished(QDBusPendingCallWatcher*)));
 }
 
+void DBusWorker::SetMigrateAppsList(const QStringList &apps)
+{
+    QDBusPendingCall pcall = m_appInter->asyncCall("SetMigrateAppsList", apps);
+    QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pcall, this);
+    QObject::connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)),
+                     this, SLOT(onAsyncCallFinished(QDBusPendingCallWatcher*)));
+}
+
 void DBusWorker::StopUpgrade()
 {
     m_systemupgrade1Inter->call("StopUpgrade");
 }
 
-void DBusWorker::CheckISO(const QString isoPath)
+void DBusWorker::CheckISO(const QString &isoPath)
 {
     m_isoInter->setTimeout(kQDBusAsyncCallTimeout);
 

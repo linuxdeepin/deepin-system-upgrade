@@ -15,9 +15,11 @@
 
 #include "../../widgets/simplelabel.h"
 #include "../../widgets/softwaretablewidget.h"
+#include "../../widgets/iconlabel.h"
 
 struct AppInfo {
     QString name;
+    QString pkgName;
     QString iconName;
     bool noDisplay;
 };
@@ -31,20 +33,25 @@ public:
     SoftwareEvaluationWidget(QWidget *parent = nullptr);
     void fillTable();
     void clearAppInfos();
+    QStringList getMigratelist();
 
 private Q_SLOTS:
-    void updateAppInfos(const QString pkg, int status);
+    void updateAppInfos(const QString &pkg, int status);
+    void onItemCheckboxClicked(int state, const QString &infoName);
 
 private:
     void initUI();
     void initConnections();
 
     QMap<QString, QStringList> *m_pkgDesktopMap;
-    SimpleLabel         *m_powerTipLabel;
-    QVBoxLayout         *m_mainLayout;
-    QWidget             *m_mainWidget;
-    DLabel              *m_softwareChangeTitleLabel;
-    SoftwareTableWidget *m_softwareChangeTableWidget;
-    std::vector<AppInfo>         m_compatAppInfos;
-    std::vector<AppInfo>         m_incompatAppInfos;
+    SimpleLabel                *m_powerTipLabel;
+    DLabel                  *dataAboutTipsLabel;
+    DLabel                  *appAboutTipsLabel;
+    QVBoxLayout                *m_mainLayout;
+    QWidget                    *m_mainWidget;
+    DLabel                     *m_softwareChangeTitleLabel;
+    SoftwareTableWidget        *m_softwareChangeTableWidget;
+    std::vector<AppInfo>       m_compatAppInfos;
+    std::vector<AppInfo>       m_incompatAppInfos;
+    QStringList                m_migrateLists;
 };

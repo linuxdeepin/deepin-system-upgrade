@@ -10,6 +10,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -25,6 +26,7 @@ import (
 	"github.com/linuxdeepin/go-lib/utils"
 
 	"deepin-system-upgrade-daemon/pkg/module/atomic"
+	"deepin-system-upgrade-daemon/pkg/module/config"
 	"deepin-system-upgrade-daemon/pkg/module/dbustools"
 	"deepin-system-upgrade-daemon/pkg/module/user"
 )
@@ -45,6 +47,7 @@ const (
 	AtomicUpgradeVersionData = "/var/lib/deepin-boot-kit/version.data"
 	UpgradeAutoStartFile     = "/etc/xdg/autostart/deepin-system-upgrade-tool.desktop"
 	MigrateFlagsPath         = "/var/cache/deepin-system-upgrade/migrate.state"
+	MigrateListPath          = "/var/cache/deepin-system-upgrade/migrate.list"
 	SourceSettingsPath       = "extract/oem/settings.ini"
 	SouceListPath            = "/etc/apt/sources.list"
 	DesktopFilesLocation     = "/usr/share/applications"
@@ -122,9 +125,10 @@ type AppManager struct {
 	newSystemRoot        string
 
 	methods *struct {
-		Assess          func() `in:"isoPath"`
-		CancelBackupApp func() `in:"cancel"`
-		MigratePackages func() `out:"status"`
+		Assess             func() `in:"isoPath"`
+		CancelBackupApp    func() `in:"cancel"`
+		MigratePackages    func() `out:"status"`
+		SetMigrateAppsList func() `in:"apps"`
 	}
 
 	signals *struct {
@@ -169,10 +173,59 @@ func (a *AppManager) Assess(sender dbus.Sender, isoPath string) *dbus.Error {
 	var root = filepath.Join(homeDir, SquashfsRootPath)
 
 	var (
-		appInfoMap = make(map[string][]string)
+		appInfoMap map[string][]string
 		appList    []string
 	)
 
+	appInfoMap = getGuiPkgNames()
+	logger.Debug("Finished to scan desktop files, print info together:", appInfoMap)
+	err = a.service.Emit(a, "AppsAvailable", appInfoMap)
+	if err != nil {
+		logger.Warning(err)
+	}
+	for app := range appInfoMap {
+		appList = append(appList, app)
+	}
+	return a.checkAppsCompatibility(appList, filepath.Join(homeDir, ".cache"), root)
+}
+
+func (a *AppManager) SetMigrateAppsList(apps []string) *dbus.Error {
+	_, err := os.Stat(filepath.Dir(MigrateListPath))
+	if err != nil {
+		os.MkdirAll(filepath.Dir(MigrateListPath), 0755)
+	}
+	f, err := os.Create(MigrateListPath)
+	if err != nil {
+		return dbusutil.ToError(err)
+	}
+	defer f.Close()
+	for _, app := range apps {
+		f.WriteString(app + "\n")
+	}
+	return nil
+}
+
+func getMigrateList() ([]string, error) {
+	var migrateList []string
+	f, err := os.OpenFile(MigrateListPath, os.O_RDONLY, 0755)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	br := bufio.NewReader(f)
+	for {
+		s, _, err := br.ReadLine()
+		if err == io.EOF {
+			break
+		}
+		migrateList = append(migrateList, string(s))
+	}
+	logger.Warning(migrateList)
+	return migrateList, nil
+}
+
+func getGuiPkgNames() map[string][]string {
+	var appInfoMap = make(map[string][]string)
 	filepath.Walk(DesktopFilesLocation, func(path string, info os.FileInfo, err error) error {
 		// Skip subdirectory
 		if info.IsDir() && info.Name() != "applications" {
@@ -194,16 +247,7 @@ func (a *AppManager) Assess(sender dbus.Sender, isoPath string) *dbus.Error {
 		}
 		return nil
 	})
-
-	logger.Debug("Finished to scan desktop files, print info together:", appInfoMap)
-	err = a.service.Emit(a, "AppsAvailable", appInfoMap)
-	if err != nil {
-		logger.Warning(err)
-	}
-	for app := range appInfoMap {
-		appList = append(appList, app)
-	}
-	return a.checkAppsCompatibility(appList, filepath.Join(homeDir, ".cache"), root)
+	return appInfoMap
 }
 
 func (a *AppManager) CancelBackupApp(cancel bool) *dbus.Error {
@@ -263,9 +307,24 @@ func (a *AppManager) MigratePackages(sender dbus.Sender) (MigrateStatus, *dbus.E
 
 	prepareMigrateEnv()
 
-	diffList, err := diffStatusFile(statusFilePath, StatusFilePath)
-	logger.Debugf("will migrate %d program, they are %v", len(diffList), diffList)
-	code, desc := a.installPackages(diffList, false /* repack */, false /* isSimulate */)
+	fullMigrate, err := config.GetIsFullMigrate()
+	if err != nil {
+		logger.Warning("failed to get full migrate info")
+	}
+	var apps []string
+	if fullMigrate {
+		apps, err := diffStatusFile(statusFilePath, StatusFilePath)
+		if err != nil {
+			logger.Warning("failed to get diff pkg info")
+		}
+		logger.Debugf("will migrate %d program, they are %v", len(apps), apps)
+	} else {
+		apps, err = getMigrateList()
+		if err != nil {
+			return makeMigrateStatus(Error, err.Error()), nil
+		}
+	}
+	code, desc := a.installPackages(apps, false /* repack */, false /* isSimulate */, fullMigrate)
 	if code == MigrateSuccessful {
 		// After the migration is successful, some cleanup will be done
 		a.handleAfterMigrate(sender)
@@ -373,7 +432,7 @@ func getStatusList(filename string) (PackageStatusList, error) {
 // When the simulate parameter is False, it means that this function performs package migration on the new system;
 // when simulate is True, it means that this function performs software compatibility judgment on the upgraded system
 // When the repack parameter is True, it means that installPackages is in the recursive process at this time
-func (a *AppManager) installPackages(pkgList []string, repack, simulate bool) (code int, description string) {
+func (a *AppManager) installPackages(pkgList []string, repack, simulate, fullMigrate bool) (code int, description string) {
 	// Traverse the packages that need to be migrated
 	logger.Warning("Start traversing the packages that need to be migrated:", pkgList)
 	for index, pkg := range pkgList {
@@ -381,7 +440,7 @@ func (a *AppManager) installPackages(pkgList []string, repack, simulate bool) (c
 			if getNetworkState() != NetworkConnected {
 				return NetworkError, "Application migration failed, the network is interrupted, please check the network!"
 			}
-			a.emitProgressValue(100 * index / (len(pkgList) - 1))
+			a.emitProgressValue(100 * ((index + 1) / len(pkgList)))
 		}
 		if _, ok := a.repalcedPkgs[pkg]; ok {
 			if a.repalcedPkgs[pkg] == nil {
@@ -462,8 +521,15 @@ func (a *AppManager) installPackages(pkgList []string, repack, simulate bool) (c
 				}
 			} else {
 				a.emitMigrateStatus(pkg, PkgInstallSuccess)
+				continue
 			}
-		} else if pkgPath := tmpDirExistSameRepackPkg(pkg); pkgPath != "" {
+		}
+		if !fullMigrate {
+			// Just need to migrate GUI program
+			a.emitMigrateStatus(pkg, PkgInstallFailed)
+			continue
+		}
+		if pkgPath := tmpDirExistSameRepackPkg(pkg); pkgPath != "" {
 			// This branch is used as one of the conditions for the end of recursion to directly install the package generated by dpkg-repack
 			defer os.Remove(pkgPath)
 			if err := a.installPkg(pkgPath, pkg, simulate); err != nil {
@@ -516,7 +582,7 @@ func (a *AppManager) installPackages(pkgList []string, repack, simulate bool) (c
 			// Obtain the dependency information tree of the repack package
 			if depends, err := queryPkgDepends(path, pkg); err == nil {
 				// Recursively process the dependencies of the generated package, and the repack parameter is passed in true
-				code, _ := a.installPackages(depends, true, simulate)
+				code, _ := a.installPackages(depends, true, simulate, true)
 				if code == Error {
 					os.Remove(path)
 					a.emitMigrateStatus(pkg, PkgInstallFailed)
@@ -703,7 +769,12 @@ func (a *AppManager) checkAppsCompatibility(apps []string, extractPath, root str
 	if err != nil {
 		logger.Warning(string(out))
 	}
-	code, desc := a.installPackages(apps, false, true)
+	fullMigrate, err := config.GetIsFullMigrate()
+	if err != nil {
+		logger.Warning("failed to get full migrate info")
+	}
+	logger.Warning("begin to install packages")
+	code, desc := a.installPackages(apps, false, true, fullMigrate)
 	if code != MigrateSuccessful {
 		return dbusutil.ToError(errors.New(desc))
 	}

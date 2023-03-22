@@ -24,14 +24,21 @@
     </message>
 </context>
 <context>
+    <name>BorderRadiusHeaderView</name>
+    <message>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CheckImageResultWidget</name>
     <message>
         <source>File size:</source>
-        <translation>鏡像大小</translation>
+        <translation>映象大小</translation>
     </message>
     <message>
         <source>ISO version:</source>
-        <translation>鏡像版本</translation>
+        <translation>映象版本</translation>
     </message>
     <message>
         <source>%1 GB</source>
@@ -43,7 +50,7 @@
     </message>
     <message>
         <source>The image file is ready</source>
-        <translation>鏡像已準備好</translation>
+        <translation>映象已準備好</translation>
     </message>
     <message>
         <source>Some applications may not work properly after the upgrade.</source>
@@ -55,21 +62,21 @@
     </message>
     <message>
         <source>The version or integrity of the image file does not meet requirements.</source>
-        <translation>鏡像版本或完整性不符</translation>
+        <translation>映象版本或完整性不符</translation>
     </message>
 </context>
 <context>
     <name>CheckImageWidget</name>
     <message>
         <source>Verifying the integrity…</source>
-        <translation>正在檢查鏡像完整性...</translation>
+        <translation>正在檢查映象完整性...</translation>
     </message>
 </context>
 <context>
     <name>CheckSizeThread</name>
     <message>
         <source>Unable to get the image file.</source>
-        <translation>獲取鏡像失敗</translation>
+        <translation>獲取映象失敗</translation>
     </message>
 </context>
 <context>
@@ -80,7 +87,7 @@
     </message>
     <message>
         <source>The system version is too old, and the upgrade may fail. To upgrade successfully, please update your system to the latest version in the Control Center first (you can ignore it and force an upgrade as well).</source>
-        <translation>目前系統版本過低，存在升級失敗的風險！為保證升級成功率，請先透過控制中心-系統更新升級至最新作業系統（也可保持現狀強行升級）。</translation>
+        <translation>當前系統版本過低，存在升級失敗的風險！為保證升級成功率，請先通過控制中心-系統更新升級至最新作業系統（也可保持現狀強行升級）。</translation>
     </message>
     <message>
         <source>Requirement: deepin (%1)</source>
@@ -147,7 +154,7 @@
     <name>DBusWorker</name>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished">備份失敗</translation>
+        <translation>備份失敗</translation>
     </message>
     <message>
         <source>Upgrade failed</source>
@@ -155,7 +162,7 @@
     </message>
     <message>
         <source>Restoration failed</source>
-        <translation type="unfinished">還原失敗</translation>
+        <translation>還原失敗</translation>
     </message>
 </context>
 <context>
@@ -169,7 +176,7 @@
     <name>ImageDownloadWidget</name>
     <message>
         <source>Downloading the V23 image file</source>
-        <translation>正在下載V23鏡像</translation>
+        <translation>正在下載V23映象</translation>
     </message>
     <message>
         <source>You can continue using the computer without being affected</source>
@@ -181,7 +188,7 @@
     </message>
     <message>
         <source>Time remaining: %1 / File size: %2 GB</source>
-        <translation>預計剩餘時間：%1  /  鏡像大小：%2 GB</translation>
+        <translation>預計剩餘時間：%1  /  映象大小：%2 GB</translation>
     </message>
 </context>
 <context>
@@ -192,11 +199,11 @@
     </message>
     <message>
         <source>Do you want to exit the downloading?</source>
-        <translation>確定退出鏡像下載嗎？</translation>
+        <translation>確定退出映象下載嗎？</translation>
     </message>
     <message>
         <source>Do you want to exit the image file checking?</source>
-        <translation>確定退出鏡像檢查嗎？</translation>
+        <translation>確定退出映象檢查嗎？</translation>
     </message>
     <message>
         <source>Start Upgrade</source>
@@ -208,7 +215,7 @@
     </message>
     <message>
         <source>Errors:</source>
-        <translation>錯誤訊息：</translation>
+        <translation>錯誤資訊：</translation>
     </message>
     <message>
         <source>Error code:</source>
@@ -216,7 +223,7 @@
     </message>
     <message>
         <source>Failed to connect to the server. Please check your network connection or select a local V23 image file.</source>
-        <translation>無法連接伺服器！請檢查網路連接或者選擇本機V23鏡像文件</translation>
+        <translation>無法連線伺服器！請檢查網路連線或者選擇本地V23映象檔案</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -232,7 +239,7 @@
     </message>
     <message>
         <source>Your computer is not plugged in, please plug in a power cord first and then upgrade.</source>
-        <translation>您未連接電源，請連接電源再升級</translation>
+        <translation>您未連線電源，請連線電源再升級</translation>
     </message>
     <message>
         <source>OK</source>
@@ -240,11 +247,11 @@
     </message>
     <message>
         <source>Do you want to exit software evaluation?</source>
-        <translation type="unfinished">確定退出軟件評估嗎？</translation>
+        <translation>確定退出軟體評估嗎？</translation>
     </message>
     <message>
         <source>Software evaluation failed</source>
-        <translation type="unfinished">軟件評估失敗</translation>
+        <translation>軟體評估失敗</translation>
     </message>
 </context>
 <context>
@@ -255,22 +262,22 @@
     </message>
     <message>
         <source>Current version: V%1</source>
-        <translation>目前版本：V%1</translation>
+        <translation>當前版本：V%1</translation>
     </message>
     <message>
         <source>Take a few simple steps to upgrade your system to</source>
-        <translation>只需一些簡單的操作即可幫助您的電腦升級至</translation>
+        <translation>只需一些簡單的操作即可幫助您的計算機升級至</translation>
     </message>
     <message>
         <source>Deepin 23</source>
         <translation>Deepin 23</translation>
     </message>
     <message>
-        <source>I have read and agreed to the</source>
+        <source>I have read and agreed to the </source>
         <translation type="vanished">我已閱讀並同意</translation>
     </message>
     <message>
-        <source>《Deepin系统升级工具》</source>
+        <source>《Deepin系統升級工具》</source>
         <translation type="vanished">《Deepin系統升級工具》</translation>
     </message>
     <message>
@@ -291,35 +298,40 @@
     </message>
     <message>
         <source>End User License Agreement for Deepin Upgrade Tool</source>
-        <translation>Deepin 系統升級工具軟體使用者授權合約</translation>
+        <translatorcomment>標題</translatorcomment>
+        <translation>Deepin系統升級工具軟體終端使用者許可協議</translation>
     </message>
     <message>
         <source>:/text/end_user_license_en.txt</source>
-        <translation>:/text/end_user_license_zh_TW.txt</translation>
+        <translation>:/text/end_user_license_zh_CN.txt</translation>
     </message>
     <message>
         <source>Privacy Protection Guide for Deepin Upgrade Tool</source>
-        <translation>Deepin 系統升級工具軟體隱私保護指南</translation>
+        <translatorcomment>標題</translatorcomment>
+        <translation>Deepin系統升級工具軟體隱私保護指引</translation>
     </message>
     <message>
         <source>:/text/privacy_protection_guide_en.txt</source>
-        <translation>:/text/privacy_protection_guide_zh_TW.txt</translation>
+        <translation>:/text/privacy_protection_guide_zh_CN.txt</translation>
     </message>
     <message>
         <source>End User License Agreement for Deepin Upgrade Tool.</source>
-        <translation type="vanished">《Deepin 系統升級工具軟體使用者授權合約》。</translation>
+        <translatorcomment>使用者協議標籤名</translatorcomment>
+        <translation type="vanished">《Deepin系統升級工具軟體終端使用者許可協議》。</translation>
     </message>
     <message>
         <source>Privacy Protection Guide for Deepin Upgrade Tool.</source>
-        <translation type="vanished">《Deepin 系統升級工具軟體隱私保護指南》。</translation>
+        <translatorcomment>隱私標籤名</translatorcomment>
+        <translation type="vanished">《Deepin系統升級工具軟體隱私保護指引》。</translation>
     </message>
     <message>
         <source>&quot;End User License Agreement for Deepin Upgrade Tool&quot;</source>
-        <translation>《使用者授權合約》</translation>
+        <translatorcomment>勾選框文字標題。</translatorcomment>
+        <translation>《終端使用者許可協議》</translation>
     </message>
     <message>
         <source>&quot;Privacy Protection Guide&quot;</source>
-        <translation>《隱私保護指南》</translation>
+        <translation>《隱私保護指引》</translation>
     </message>
     <message>
         <source>I have read and agreed to the &lt;a href=&quot;user&quot; style=&quot;text-decoration: none;&quot;&gt;%1&lt;/a&gt; and &lt;a href=&quot;privacy&quot; style=&quot;text-decoration: none;&quot;&gt;%2&lt;/a&gt;.</source>
@@ -345,7 +357,7 @@
     <name>MigrateFinishedWidget</name>
     <message>
         <source>App migration successful</source>
-        <translation type="unfinished">應用遷移成功</translation>
+        <translation>應用遷移成功</translation>
     </message>
     <message>
         <source>OK</source>
@@ -356,30 +368,30 @@
     <name>MigrateProgressWidget</name>
     <message>
         <source>Migrating apps</source>
-        <translation type="unfinished">應用遷移中</translation>
+        <translation>應用遷移中</translation>
     </message>
     <message>
         <source>Migrating apps, please wait patiently</source>
-        <translation type="unfinished">應用遷移中，請耐心等候</translation>
+        <translation>應用遷移中，請耐心等候</translation>
     </message>
     <message>
         <source>Reconnect</source>
-        <translation type="unfinished">重新連接</translation>
+        <translation>重新連線</translation>
     </message>
     <message>
         <source>Network error. App migration has been interrupted.</source>
-        <translation type="unfinished">網絡異常，應用遷移已中斷</translation>
+        <translation>網路異常，應用遷移已中斷</translation>
     </message>
     <message>
         <source>Network connection failed. Please check your network.</source>
-        <translation type="unfinished">連接不到網絡，請檢查您的網絡</translation>
+        <translation>連線不到網路，請檢查您的網路</translation>
     </message>
 </context>
 <context>
     <name>MigrateWidget</name>
     <message>
         <source>App migration failed</source>
-        <translation type="unfinished">應用遷移失敗</translation>
+        <translation>應用遷移失敗</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -387,7 +399,7 @@
     </message>
     <message>
         <source>Submit Feedback</source>
-        <translation>回饋</translation>
+        <translation>反饋</translation>
     </message>
 </context>
 <context>
@@ -416,7 +428,7 @@
     <name>RetrieveImageMethodWidget</name>
     <message>
         <source>Get Image Files</source>
-        <translation>請選擇鏡像獲取方式</translation>
+        <translation>請選擇映象獲取方式</translation>
     </message>
     <message>
         <source>Download from Internet</source>
@@ -424,7 +436,7 @@
     </message>
     <message>
         <source>Import local image files</source>
-        <translation>本機匯入鏡像文件</translation>
+        <translation>本地匯入映象檔案</translation>
     </message>
     <message>
         <source>Format: ISO</source>
@@ -432,11 +444,11 @@
     </message>
     <message>
         <source>Drag files here</source>
-        <translation>拖曳文件至此處</translation>
+        <translation>拖拽檔案至此處</translation>
     </message>
     <message>
         <source>Select file</source>
-        <translation>選擇文件</translation>
+        <translation>選擇檔案</translation>
     </message>
 </context>
 <context>
@@ -451,26 +463,37 @@
     </message>
     <message>
         <source>Software Evaluation</source>
-        <translation type="unfinished">軟體評估</translation>
+        <translation>軟體評估</translation>
     </message>
     <message>
         <source>Evaluate the compatibility of installed apps in the new system</source>
-        <translation type="unfinished">評估已安裝軟件在新系統中的兼容性</translation>
+        <translation>評估已安裝軟體在新系統中的相容性</translation>
+    </message>
+</context>
+<context>
+    <name>SoftwareEvaluationOfflineWidget</name>
+    <message>
+        <source>Software Evaluation</source>
+        <translation>軟體評估</translation>
+    </message>
+    <message>
+        <source>Your current usage scenario is in a state of no network. We cannot evaluate the software you are using. After the upgrade is complete, the software you are currently installing needs to be reinstalled. If you want to view the details of the applications that can be installed for the upgrade, please upgrade online</source>
+        <translation>您當前的使用場景處於無網路狀態，我們無法對你正在使用的軟體進行評估，升級完成後您當前所安裝的軟體需要重新進行安裝，如需檢視升級可安裝應用詳情請聯網升級</translation>
     </message>
 </context>
 <context>
     <name>SoftwareEvaluationWidget</name>
     <message>
         <source>Compatible</source>
-        <translation type="obsolete">兼容</translation>
+        <translation type="vanished">相容</translation>
     </message>
     <message>
         <source>Incompatible</source>
-        <translation type="obsolete">不兼容</translation>
+        <translation type="vanished">不相容</translation>
     </message>
     <message>
         <source>Evaluation Result</source>
-        <translation type="unfinished">軟件評估結果</translation>
+        <translation>軟體評估結果</translation>
     </message>
     <message>
         <source>The upgrade may take a long time. Please plug in to avoid interruption.</source>
@@ -478,11 +501,31 @@
     </message>
     <message>
         <source>Compatible Apps</source>
-        <translation type="unfinished">兼容應用</translation>
+        <translation>相容應用</translation>
     </message>
     <message>
         <source>Incompatible Apps</source>
-        <translation type="unfinished">不兼容應用</translation>
+        <translation>不相容應用</translation>
+    </message>
+    <message>
+        <source>V23 version supports applications</source>
+        <translation type="vanished">V23版本支援應用</translation>
+    </message>
+    <message>
+        <source>The V23 version does not support the application</source>
+        <translation type="vanished">V23版本不支援應用</translation>
+    </message>
+    <message>
+        <source>The system upgrade will ensure the integrity of user data, and we will not delete user data</source>
+        <translation>系統升級會保證使用者資料的完整性，我們不會對使用者資料進行刪減</translation>
+    </message>
+    <message>
+        <source>By default, the cross-version upgrade does not migrate the installed applications. After the upgrade is completed, the system will automatically install the selected applications in the list. Please select the software that needs to be installed after the upgrade is complete</source>
+        <translation type="vanished">跨版本升級預設不對已安裝應用進行遷移，完成升級後系統會對列表勾選應用進行自動化安裝，請選擇升級完成後需要安裝的應用</translation>
+    </message>
+    <message>
+        <source>The cross-version upgrade does not migrate the application. After the upgrade is completed, it supports automatic installation of the selected compatible application</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -493,7 +536,7 @@
     </message>
     <message>
         <source>Your system cannot be upgraded to V23</source>
-        <translation>目前空間不支援升級V23！</translation>
+        <translation>當前空間不支援升級V23！</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -525,7 +568,7 @@
     </message>
     <message>
         <source>Less disk space is required if enabled, but some apps may not work properly after restoring the system from version 23.</source>
-        <translation>開啟此功能將降低備份空間要求，但從V23還原至目前系統時，部分應用可能不可用</translation>
+        <translation>開啟此功能將降低備份空間要求，但從V23還原至當前系統時，部分應用可能不可用</translation>
     </message>
 </context>
 <context>
@@ -540,15 +583,15 @@
     </message>
     <message>
         <source>Submit Feedback</source>
-        <translation>回饋</translation>
+        <translation>反饋</translation>
     </message>
     <message>
         <source>Backup failed</source>
-        <translation type="unfinished">備份失敗</translation>
+        <translation>備份失敗</translation>
     </message>
     <message>
         <source>Restoration failed</source>
-        <translation type="unfinished">還原失敗</translation>
+        <translation>還原失敗</translation>
     </message>
 </context>
 <context>
@@ -578,7 +621,7 @@
     </message>
     <message>
         <source>Failed</source>
-        <translation>檢查未透過</translation>
+        <translation>檢查未通過</translation>
     </message>
 </context>
 <context>
