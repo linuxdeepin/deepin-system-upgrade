@@ -23,7 +23,7 @@ BaseContainerWidget::BaseContainerWidget(QWidget *parent, int aDot)
 
 void BaseContainerWidget::initUI()
 {
-    // 默认隐藏，按需手动显示。
+    // Buttons are hidden by default.
     m_cancelButton->setVisible(false);
     m_midButton->setVisible(false);
     m_suggestButton->setVisible(false);
@@ -36,7 +36,7 @@ void BaseContainerWidget::initUI()
     m_buttonLayout->addWidget(m_suggestButton);
     m_buttonLayout->addSpacing(999);
 
-    // 禁用空隔
+    // Disable spacing
     m_mainLayout->setSpacing(0);
     m_bottomLayout->setSpacing(0);
     m_bottomUpperLayout->setSpacing(0);

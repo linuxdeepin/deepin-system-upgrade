@@ -50,7 +50,7 @@ void CheckImageWidget::initConnections()
     connect(this, &CheckImageWidget::CheckDone, this, [this](bool state) {
         qInfo() << "check sum result:" << state;
         m_spinnerWidget->stop();
-        // 处理检查联网下载镜像失败的情况
+        // Handle download failure
         if (!state)
         {
             SourceInfo info = DBusWorker::getInstance()->getSource();

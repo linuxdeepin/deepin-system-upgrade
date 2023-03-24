@@ -48,15 +48,12 @@ void UpgradeCheckProgressWidget::initUI()
     conditionsTextLabel->setText(tr("Check your computer to see if it meets the upgrade conditions"));
     DFontSizeManager::instance()->bind(conditionsTextLabel, DFontSizeManager::T6, QFont::Normal);
 
-    // 进度显示组件
+    // Progress display widget
     m_checkProgress->setFixedSize(162, 162);
     // m_checkProgress->setSizePolicy(sizePolicy2);
     m_checkProgress->setValue(1);
-    // 开始动画,否则除非切换窗口，进度不会实时更新。
     m_checkProgress->start();
 
-
-    // 主要框架布局
     m_mainVBoxLayout->setContentsMargins(0, 80, 0, 0);
     m_mainVBoxLayout->setSpacing(0);
     m_mainVBoxLayout->addWidget(m_checkProgress, 1, Qt::AlignCenter);

@@ -83,13 +83,11 @@ void CheckResultWidget::setStatus(CheckResultType status)
     case CheckResultType::PASSED:
     {
         m_statusLabel->setToolTip(QString(""));
-        // 调整结果Label的颜色
         m_resultTextLabel->setForegroundRole(DPalette::ToolTipText);
     }
     break;
     case CheckResultType::FAILED:
     {
-        // 调整结果Label的颜色
         m_resultTextLabel->setForegroundRole(DPalette::TextWarning);
     }
     break;

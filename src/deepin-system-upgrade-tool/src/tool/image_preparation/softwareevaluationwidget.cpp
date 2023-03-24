@@ -127,7 +127,7 @@ void SoftwareEvaluationWidget::initUI()
     m_mainLayout->addSpacing(8);
     setLayout(m_mainLayout);
 
-    // 必须设置成和Base表格项一样的Role，否则会导致Base表格项背景异常显示底层的控件。
+    // It must be set to the same role as base table items, or, the table background will display the widgets at the bottom.
     setBackgroundRole(QPalette::Base);
 }
 
@@ -137,11 +137,12 @@ IconLabel* generateCellWidget(const QString name, const QString iconPath)
     DLabel *nameLabel = new DLabel(name);
     DFontSizeManager::instance()->bind(nameLabel, DFontSizeManager::T8, QFont::Medium);
     nameLabel->setForegroundRole(DPalette::TextTitle);
-    // Icon用的是绝对路径文件
+    // Absolute icon file path
     if (iconPath.startsWith('/'))
     {
         cellLabel->setIcon(QIcon(iconPath).pixmap(24, 24));
     }
+    // Icon name selected from themes
     else
     {
         cellLabel->setIcon(QIcon::fromTheme(iconPath, QIcon::fromTheme("application-x-executable")).pixmap(24, 24));

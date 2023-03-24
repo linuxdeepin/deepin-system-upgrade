@@ -25,13 +25,12 @@ protected:
     void paintEvent(QPaintEvent *event);
 
 private:
-    // 进度值
+    // Progress value
     qint64          m_value = 0;
-    // 单位：Milisecond, 屏幕刷新间隔
+    // Screen refresh interval, Unit: ms.
     const int       kRefreshInterval = static_cast<int>(1000 / QGuiApplication::primaryScreen()->refreshRate());
     const int       kDegreePerSec = static_cast<int>(360 * 0.7);
     const int       kArcR = 160 / 2;
-    // 外圈圆弧旋转角度
     qreal           m_degree;
     QTimer          *m_animTimer;
     const QPixmap   kBackgroundPixmap = QIcon(":/icons/circle_background.svg").pixmap(152, 152);

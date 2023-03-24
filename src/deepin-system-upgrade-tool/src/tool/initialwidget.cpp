@@ -82,7 +82,7 @@ void InitialWidget::initUI()
 
     m_contentLayout->addSpacing(10);
 
-    // TODO(Yutao Meng): 设置实际需要升级到的目标版本系统标签
+    // TODO(Yutao Meng): Set actual version of target system. (Use target version constant instead)
     BackgroundFrame *targetVersionFrame = new BackgroundFrame(this, 18);
     QHBoxLayout *frameLayout = new QHBoxLayout;
     QHBoxLayout *targetVersionLayout = new QHBoxLayout;
@@ -136,7 +136,7 @@ void InitialWidget::initConnections()
         else
             openLicenseDetails(LicenseType::PRIVACY);
     });
-    // 浅色/暗色主题切换
+    // Light/Dark theme switch
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [=](DGuiApplicationHelper::ColorType themeType) {
         QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
         QString logoPath;
@@ -200,7 +200,7 @@ void InitialWidget::openLicenseDetails(LicenseType type)
 
     dlg.addSpacing(10);
 
-    // 设置协议正文字体和颜色
+    // set font and text color for license contents.
     QFile textFile(licenseFileName);
     acknowledgementTextEdit->setCurrentFont(QFont("SourceHanSansSC", 10, QFont::Normal));
     acknowledgementTextEdit->setForegroundRole(DPalette::BrightText);
@@ -210,15 +210,13 @@ void InitialWidget::openLicenseDetails(LicenseType type)
         qWarning() << QString("Cannot find file:%1").arg(licenseFileName);
         return;
     }
-//    // 设置可鼠标点击外部链接
-//    acknowledgementTextEdit->setOpenExternalLinks(true);
 
     acknowledgementTextEdit->setText(textFile.readAll());
     textFile.close();
-    // 消除边框，并应用对话框背景色
+    // Clear borders, and apply background color.
     acknowledgementTextEdit->setReadOnly(true);
     acknowledgementTextEdit->setStyleSheet("QTextEdit { border: 0; background: #00000000; }");
-    // 设置更高的伸展权重，用以填充和标题之间的剩余空间
+    // Set higher stretch weight to fill up the remaining space to the title.
     QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     sizePolicy.setVerticalStretch(10);
     acknowledgementTextEdit->setSizePolicy(sizePolicy);

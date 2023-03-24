@@ -65,7 +65,7 @@ void UpgradeCheckWidget::onCancelButtonClicked()
 
 void UpgradeCheckWidget::runUpgradeChecks()
 {
-    // 改变内容下方填充大小，避免内容组件变形
+    // Change the size of placeholders under the contents, avoid distortions of widgets.
     m_spacerItem->changeSize(0, 20);
     m_cancelButton->setText(tr("Cancel"));
     m_cancelButton->setEnabled(true);
@@ -92,7 +92,7 @@ void UpgradeCheckWidget::jumpToResult()
     m_suggestButton->setFixedSize(BUTTON_W, BUTTON_H);
     m_suggestButton->setEnabled(m_upgradecheckresultwidget->passed());
 
-    // 调整内容下方填充
+    // Adjust the placeholder size below.
     m_spacerItem->changeSize(0, CHECK_RESULT_CONTENT_BOTTOM_SPACE_H, QSizePolicy::Maximum, QSizePolicy::Maximum);
     m_stackedlayout->setCurrentIndex(1);
 }

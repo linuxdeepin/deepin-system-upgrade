@@ -73,21 +73,21 @@ void ProgressWidget::onStart()
     MainWindow *window = MainWindow::getInstance();
     if (window->windowState() & Qt::WindowFullScreen)
     {
-        // 设置全屏进度条长度
+        // Setting progress bar length for fullscreen mode.
         m_progressbar->setFixedSize(270, 8);
         m_iconSpacerItem->changeSize(0, 40);
         m_tipSpacerItem->changeSize(0, 40);
     }
     else
     {
-        // 设置全屏进度条长度
+        // Setting progress bar length for fullscreen mode.
         m_progressbar->setFixedSize(400, 8);
     }
 
-    // -1为尚未初始化状态，因为可能断点续传，所以每次下载都需要得知初始进度值
+    // -1 is the uninitialized status. Due to resume downloading, the initial progress value have to be retrieved everytime a download is started.
     m_initProgress = -1;
     m_lastProgress = 0;
-    // TODO(Yutao Meng): 这里初始化的时间有问题，后面优化需要修
+    // TODO(Yutao Meng): The time initialized here has some problems. It is recommended to be fixed in the later version.
     m_startTime = std::time(nullptr);
 }
 
@@ -102,7 +102,7 @@ void ProgressWidget::updateDefaultEtaText(qint64 progress)
     if (m_lastProgress != progress)
     {
         m_lastProgress = progress;
-        // TODO(Yutao Meng): 改用milliseconds计算会更准确
+        // TODO(Yutao Meng): Use milliseconds will improve the ETA time precision.
         QString etaTimeString = progress > m_initProgress ? secondsToReadableTime((time(nullptr) - m_startTime) * (100u - progress) / (progress - m_initProgress)) : tr("N/A");
         m_etaLabel->setText(tr("Time remaining: %1").arg(etaTimeString));
     }

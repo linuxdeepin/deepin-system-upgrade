@@ -56,7 +56,7 @@ void MigrateWidget::initConnections()
         MainWindow::getInstance()->close();
     });
     connect(m_suggestButton, &DSuggestButton::clicked, [this] {
-        // 反馈
+        // Feedback
         QDesktopServices::openUrl(QUrl("https://bbs.deepin.org/"));
     });
 }

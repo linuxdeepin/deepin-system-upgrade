@@ -94,25 +94,19 @@ void BorderRadiusHeaderView::paintEvent(QPaintEvent *event)
     QRect rect = viewport()->rect();
     painter.fillRect(rect, bgBrush);
 
-    // 画圆角边框
-    // 绘制表格外边框采用填充方式,通过内矩形与外矩形相差得到填充区域
+    // Draw rounded rectangle
+    // Fill the substraction of outer and inner rounded rectangle to draw the borders.
     QPainterPath paintPath, paintPathOut, paintPathIn;
     rect.setHeight(rect.height() + radius);
-    // 外圆角矩形路径,即表格的外边框路径
     paintPathOut.addRoundedRect(rect, radius, radius);
 
-    // 内圆角矩形路径,与外圆角矩形上下左右相差thickness个像素
     QRect rectIn = QRect(rect.x() + thickness, rect.y() + thickness, rect.width() - thickness * 2, rect.height() - thickness * 2);
     paintPathIn.addRoundedRect(rectIn, radius, radius);
-
-    // 填充路径
     paintPath = paintPathOut.subtracted(paintPathIn);
-
-    // 填充
     QBrush borderBrush(QColor("#1A000000"));
     painter.fillPath(paintPath, borderBrush);
 
-    // 四角圆弧外围遮罩
+    // Rounded corners.
     QPainterPath cornerOutPath;
     cornerOutPath.addRect(rect);
     cornerOutPath = cornerOutPath.subtracted(paintPathOut);

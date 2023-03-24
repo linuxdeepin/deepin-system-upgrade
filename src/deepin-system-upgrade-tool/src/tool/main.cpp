@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
         moveToCenter(mainWindow);
         if (QFile::exists("/var/cache/deepin-system-upgrade/migrate.state"))
         {
-            // 走应用迁移流程
+            // App Migration
             mainWindow->startMigration();
         }
         mainWindow->show();
@@ -98,10 +98,10 @@ int main(int argc, char *argv[])
     }
     else
     {
-        // 删除桌面图标
+        // Delete useless desktop entries
         system("rm -f ~/Desktop/deepin-system-upgrade-tool.desktop");
         system("rm -f ~/Desktop/deepin-installer.desktop");
-        // 展示升级结果通知
+        // Display upgrade status notification
         if (parser.value(modeOption) == "100")
         {
             DBusWorker *dbusWorker = DBusWorker::getInstance();

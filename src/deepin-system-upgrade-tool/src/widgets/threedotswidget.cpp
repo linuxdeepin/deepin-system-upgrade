@@ -24,7 +24,7 @@ void ThreeDotsWidget::paintEvent(QPaintEvent *event)
 void ThreeDotsWidget::initUI()
 {
     QPainter painter(this);
-    // 必须要设置画边界的Pen，否则画出来的圆是扁的。
+    // The border pen is required. Or, the circle will be a little flat.
     QPen borderPen(QColor("#00000000"));
     painter.setPen(borderPen);
 
@@ -32,7 +32,7 @@ void ThreeDotsWidget::initUI()
 
     for (int i = 0; i < 3; i++)
     {
-        // 使用两个不同Painter画会只能画后面一个QBrush的颜色。所以需要实时换QBrush。
+        // Change painter color for different dots.
         if (i == m_activeDot)
         {
             painter.setBrush(activeBrush);

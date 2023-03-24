@@ -17,53 +17,51 @@ void SoftwareTableWidget::initUI()
 {
     this->setColumnCount(2);
 
-    // 设置不可聚焦
+    // Set no focus on table
     setFocusPolicy(Qt::NoFocus);
 
-    // 设置无边框
+    // Hide borders
     this->setFrameStyle(QFrame::NoFrame);
 
-    // 设置背景
+    // Set background
     setAutoFillBackground(true);
 
-    // 设置不可编辑模式
+    // Disable editing on table items.
     this->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    // 设置隐藏表格滚动条
-//    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    this->verticalScrollBar()->setDisabled(true);
-
-    // 设置不可选择
+    // Set no selection
     this->setSelectionMode(QAbstractItemView::NoSelection);
 
-    // 不显示网格线
+    // No Grid
     this->setShowGrid(false);
 
-    // 设置各行变色
+    // Set alternating row colors
     setAlternatingRowColors(true);
     setRowColorStyles();
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, [this] {
         setRowColorStyles();
     });
 
-    // 隐藏表头
+    // Hide headers
     this->verticalHeader()->setVisible(false);
     setHorizontalHeader(m_headerView);
     this->horizontalHeader()->setVisible(false);
 
-    // 设置不可排序
+    // Disable sorting
     this->setSortingEnabled(false);
 
-    // 设置填充
+    // Setting stretching
     this->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     horizontalHeader()->setDefaultSectionSize(SOFTWARE_TABLE_ROW_H);
     horizontalHeader()->stretchLastSection();
 
-    // 设置行高
+    // Set row height
     this->verticalHeader()->setDefaultSectionSize(SOFTWARE_TABLE_ROW_H);
 
-    this->setAttribute(Qt::WA_TranslucentBackground);   // 设置窗口背景透明
-    this->setWindowFlags(Qt::FramelessWindowHint);      // 设置无边框窗口
+    // Set transparent background for window.
+    this->setAttribute(Qt::WA_TranslucentBackground);
+    // Set frameless window
+    this->setWindowFlags(Qt::FramelessWindowHint);
 }
 
 void SoftwareTableWidget::paintEvent(QPaintEvent *event)
@@ -87,29 +85,19 @@ void SoftwareTableWidget::paintEvent(QPaintEvent *event)
 
     DPalette palette = DApplicationHelper::instance()->applicationPalette();
 
-    // 绘制表格外边框采用填充方式,通过内矩形与外矩形相差得到填充区域
     int width = 1;
     int radius = 8;
     QPainterPath paintPath, paintPathOut, paintPathIn;
-
-    // 外圆角矩形路径,即表格的外边框路径
     paintPathOut.addRoundedRect(rect, radius, radius);
 
-    // 内圆角矩形路径,与外圆角矩形上下左右相差1个像素
     QRect rectIn = QRect(rect.x() + width, rect.y() + width, rect.width() - width * 2, rect.height() - width * 2);
     paintPathIn.addRoundedRect(rectIn, radius, radius);
-
-    // 填充路径
     paintPath = paintPathOut.subtracted(paintPathIn);
 
-    // 填充
     QBrush bgBrush(QColor("#1A000000"));
     painter.fillPath(paintPath, bgBrush);
-
-    // 画中间分割线
     painter.fillRect(rect.x() + rect.width() / 2, rect.y(), width, rect.height(), bgBrush);
 
-    // 四角圆弧外围遮罩
     QPainterPath cornerOutPath;
     cornerOutPath.addRect(rect);
     cornerOutPath = cornerOutPath.subtracted(paintPathOut);
