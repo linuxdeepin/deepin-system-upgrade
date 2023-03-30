@@ -1,3 +1,5 @@
+# Deepin System Upgrade
+
 ## Background
 
 This is a tool for system upgrade. Compared with the traditional apt upgrade method, we use the root directory replacement method.
@@ -73,5 +75,5 @@ After starting the upgrade tool, the UI interface will appear, and the upgrade c
 
 ## License
 
-Deepin System Upgrade is licensed under [GPL-3.0-or-later](LICENSE).
+Deepin System Upgrade is licensed under [LGPL-3.0-or-later](LICENSE).
 
