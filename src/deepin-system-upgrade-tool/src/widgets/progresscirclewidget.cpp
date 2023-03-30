@@ -55,30 +55,30 @@ void ProgressCircleWidget::paintEvent(QPaintEvent *event)
     painter.setFont(QFont("SourceHanSansSC", 42, QFont::Bold));
     painter.setRenderHint(QPainter::Antialiasing);
 
-    // 设置中心圆渐变色
+    // Setting center circle material
     painter.drawPixmap(4, 4, kBackgroundPixmap);
 
-    // 设置外圈圆弧
-    // 设置坐标系到正确位置，做中心旋转
+    // Setting outer arc
+    // Setting coordination system to the correct position, and do rotation.
     painter.translate(kArcR, kArcR);
     painter.rotate(m_degree);
     painter.translate(-kArcR, -kArcR);
 
     painter.drawPixmap(0, 0, kArcPixmap);
 
-    // 恢复原本的坐标系
+    // Recovering the original coordination system.
     painter.translate(kArcR, kArcR);
     painter.rotate(-m_degree);
     painter.translate(-kArcR, -kArcR);
 
     painter.setPen(QColor("#FF001A2E"));
-    // 对一位和两位百分比数设置不同居中效果
+    // Setting different center effects for different percentage values.
     if (m_value >= 10)
         painter.drawText(48, 100, QString::number(m_value));
     else
         painter.drawText(64, 100, QString::number(m_value));
 
-    // 画"%"
+    // Draw "%"
     painter.setFont(QFont("SourceHanSansSC", 10, QFont::Normal));
     painter.drawText(114, 42, QString("%"));
 }

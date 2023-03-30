@@ -56,7 +56,7 @@ public Q_SLOTS:
     void onSizeAvailable(long long size);
 
 private:
-    // 最开始的断连时间
+    // The initial disconnected time
     time_t  m_disconnectedTime = 0;
     QUrl    m_url;
     qint64  m_curSize = 0;

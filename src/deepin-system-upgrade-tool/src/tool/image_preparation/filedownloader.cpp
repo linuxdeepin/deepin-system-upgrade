@@ -20,7 +20,7 @@ FileDownloader::FileDownloader(QObject *parent): QObject(parent)
 
 void FileDownloader::startDownload(QString urlStr)
 {
-    // 检查URL合法性
+    // Validate URL
     if (!QUrl(urlStr).isValid())
     {
         m_errCode = QNetworkReply::NoError;
@@ -50,16 +50,16 @@ void FileDownloader::initConnections(QNetworkReply *reply)
         m_totalSize = m_curSize + bytesTotal;
         Q_EMIT progress((bytesReceived + m_curSize) * 100 / m_totalSize);
     });
-    connect(reply, &QNetworkReply::readyRead, this, [=] {;
-            // 仅在下载正常时操作
-            if (reply->error() == QNetworkReply::NoError)
-{
-    const QByteArray a = reply->readAll();
+    connect(reply, &QNetworkReply::readyRead, this, [=] {
+        // Writting data only under normal situation
+        if (reply->error() == QNetworkReply::NoError)
+        {
+            const QByteArray a = reply->readAll();
 
-        if (m_file != nullptr && m_file->isOpen())
-            m_file->write(a);
-    }
-                                                        });
+            if (m_file != nullptr && m_file->isOpen())
+                m_file->write(a);
+        }
+    });
     connect(reply, &QNetworkReply::finished, [this, reply]() {
         if (m_file && m_file->isOpen())
         {
@@ -76,7 +76,7 @@ void FileDownloader::initConnections(QNetworkReply *reply)
         }
         else if (err == QNetworkReply::NetworkSessionFailedError)
         {
-            // 处理网络断连错误
+            // Handle disconnected error
             qCritical() << "QNetworkReply::NetworkSessionFailedError received";
             qCritical() << "error message" << reply->errorString();
             m_errCode = reply->error();
@@ -85,7 +85,7 @@ void FileDownloader::initConnections(QNetworkReply *reply)
 
             m_disconnectedTime = std::time(nullptr);
 
-            // 启动重试定时器。
+            // Start retry timer
             m_retryTimer.start(kRetryInterval);
             return;
         }
@@ -122,7 +122,8 @@ void FileDownloader::abort()
     }
     else
     {
-        // 处理当check size都还没完成时的取消动作。需要触发error并设置成QNetworkReply::OperationCanceledError
+        // Handle cancel action when size checking is not done yet.
+        // And it is required to trigger error signal with QNetworkReply::OperationCanceledError
         m_errCode = QNetworkReply::OperationCanceledError;
         emit error();
     }
@@ -130,10 +131,10 @@ void FileDownloader::abort()
 
 void FileDownloader::onSizeAvailable(long long size)
 {
-    // 下载开始时停止重试计时器
+    // Stop retry timer when downloading is started/resumed.
     m_retryTimer.stop();
 
-    // 更新镜像大小并启动下载
+    // Update image size and start downloading.
     m_totalSize = size;
 
     download();
@@ -141,7 +142,7 @@ void FileDownloader::onSizeAvailable(long long size)
 
 void FileDownloader::download()
 {
-    // 如果已经正在下载（已经开始写文件了），就跳过
+    // If downloading has already been started, then skip starting downloading.
     if (m_file && m_file->isOpen())
         return;
 
@@ -159,7 +160,7 @@ void FileDownloader::download()
         QNetworkRequest req(m_url);
         m_curSize = m_file->size();
         req.setRawHeader(QByteArray("Range"), "bytes=" + QByteArray::number(m_curSize) + "-");
-        // 这里仅做大小检查，靠完整性检查确保镜像完好。
+        // Only size check is required here. The integrity check later will ensure that the downloaded image is intact.
         if (m_curSize >= m_totalSize)
         {
             emit done();
@@ -202,8 +203,8 @@ void FileDownloader::download()
 
 void FileDownloader::retryDownload()
 {
-    qCritical() << "重试下载，距离上次断连时间：" << std::time(nullptr) - m_disconnectedTime;
-    // 若超过重连等待时间，就直接报错
+    qCritical() << "Retry downloading, elapsed time since last disconnected:" << std::time(nullptr) - m_disconnectedTime << "s";
+    // If the retrying time is longer than timeout, then abandon retrying and emit error signal.
     if (std::time(nullptr) - m_disconnectedTime > kReconnectTimeout)
     {
         m_retryTimer.stop();
@@ -211,7 +212,7 @@ void FileDownloader::retryDownload()
         return;
     }
 
-    // 检查网络连通性，并在连上后启动下载
+    // Check network connectivity. And start downloading when network is reconnected.
     if (m_checkSizeThread != nullptr)
     {
         disconnect(m_checkSizeThread);

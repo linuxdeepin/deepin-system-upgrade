@@ -42,11 +42,11 @@ void DropFrame::dragEnterEvent(QDragEnterEvent *event)
         // const char* mime_type = magic_file(cookie, fileUrl.path().toStdString().c_str());
         // std::cout << mime_type << std::endl;
 
-        // 仅检查后缀名
+        // Check extensions only
         event->acceptProposedAction();
         Q_EMIT fileAboutAccept();
 
-        // // 检查文件内容，需要libmagic支持
+        // // Check file contents which requires libmagic
         // if (strcmp(mime_type, "application/x-iso9660-image") == 0) {
         //     event->acceptProposedAction();
         // }

@@ -28,7 +28,7 @@ public:
     void addSpacing(int sz);
     void addSpacerItem(QSpacerItem *item);
     void setIcon(QString qstring);
-    // SVG格式图标用的接口
+    // Method for SVG Icons
     void setIcon(QString qstring, int w, int h);
     void setIcon(QPixmap pixmap);
     void scaleToWidth(int width);

@@ -123,13 +123,11 @@ void StorageResultWidget::setStatus(CheckResultType status, DLabel *statusLabel,
     case CheckResultType::PASSED:
     {
         statusLabel->setToolTip(QString(""));
-        // 调整结果Label的颜色
         resultTextLabel->setForegroundRole(DPalette::TextTitle);
     }
     break;
     case CheckResultType::FAILED:
     {
-        // 调整结果Label的颜色
         resultTextLabel->setForegroundRole(DPalette::TextWarning);
     }
     break;
@@ -278,7 +276,7 @@ void StorageResultWidget::openCleanupDialog()
     doDataCleanupLayout->addWidget(doDataCleanupButton);
     frameDoDataCleanup->setLayout(doDataCleanupLayout);
 
-    // 设置清理按钮功能
+    // Setting actions for clean up buttons
     connect(doSystemCleanupButton, &QPushButton::clicked, [] {
         QDesktopServices::openUrl(QUrl::fromLocalFile("/"));
     });
@@ -286,7 +284,7 @@ void StorageResultWidget::openCleanupDialog()
         QDesktopServices::openUrl(QUrl::fromLocalFile("/home"));
     });
 
-    // 仅备份系统按钮
+    // Backup system only switch button
     BackgroundFrame *frameBackupSystemOnly = new BackgroundFrame;
     QHBoxLayout *backupSystemOnlyLayout = new QHBoxLayout;
 
@@ -306,7 +304,7 @@ void StorageResultWidget::openCleanupDialog()
     DFontSizeManager::instance()->bind(tipLabel, DFontSizeManager::T9, QFont::Light);
     tipLabel->setForegroundRole(DPalette::TextTips);
 
-    // 添加清理空间对话框布局
+    // Add layout for space cleanup dialog
     dlg.addContent(titleLabel, Qt::AlignCenter);
     dlg.addSpacing(24);
     if (m_systemStatus != CheckResultType::PASSED) {

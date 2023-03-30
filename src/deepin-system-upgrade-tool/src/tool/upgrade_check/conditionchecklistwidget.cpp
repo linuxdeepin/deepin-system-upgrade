@@ -93,7 +93,7 @@ void ConditionChecklistWidget::initConnections()
 {}
 
 /**
- * @brief 更新UI，会在升级检查完成的时候被UpgradeCheckResultWidget::updateUI()信号触发调用。
+ * @brief Update UI，will be triggered by UpgradeCheckResultWidget::updateUI() when upgrade check is done.
  *
  */
 void ConditionChecklistWidget::updateUI()

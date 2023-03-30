@@ -124,8 +124,6 @@ DBusWorker::DBusWorker(QObject *parent)
     qDBusRegisterMetaType<SourceInfo>();
     qDBusRegisterMetaType<MigrateResult>();
     initConnections();
-
-    // 初始化是否取消备份应用，用以更新备份配置。
     m_isBackupApps = GetIsBackupApps();
     CancelBackupApp(!m_isBackupApps);
 }
@@ -294,7 +292,7 @@ void DBusWorker::onAsyncCallFinished(QDBusPendingCallWatcher *watcher)
         switch (m_upgradeStage)
         {
         case UpgradeStage::INIT:
-            // 忽略未进行升级时的报错
+            // Ignore errors that occurs out of upgrade stages
             break;
         case UpgradeStage::BACKUP:
             emit error(tr("Backup failed"), watcher->error().message());
@@ -311,7 +309,7 @@ void DBusWorker::onAsyncCallFinished(QDBusPendingCallWatcher *watcher)
         case UpgradeStage::EVALUATE_SOFTWARE:
             qCritical() << "Software evaluation error type:" << watcher->error().type();
             qCritical() << "Software evaluation error message:" << watcher->error().message();
-            // 忽略取消软件评估会触发的NoReply错误
+            // Ignore NoReply error triggered by cancelation
             if (watcher->error().type() != QDBusError::ErrorType::NoReply)
                 emit EvaluateSoftwareError(watcher->error().message());
             break;
@@ -325,7 +323,7 @@ void DBusWorker::onAsyncCallFinished(QDBusPendingCallWatcher *watcher)
     {
         if (m_upgradeStage == UpgradeStage::MIGRATION)
         {
-            // 处理应用迁移返回结构体
+            // Handle the struct returned by App Migration.
             MigrateResult result;
             QDBusArgument arg = watcher->reply().arguments().first().value<QDBusArgument>();
             arg >> result;
@@ -355,7 +353,7 @@ const QString DBusWorker::GetDistroID()
 
 const QString DBusWorker::GetVersion()
 {
-    // 仅V23使用此接口，更换为最新SystemInfo接口
+    // Adapt to the latest SystemInfo interface on V23 system
     return m_sysinfoInter->property("Version").toString();
 }
 
@@ -371,10 +369,9 @@ void DBusWorker::SetPlymouthTheme(QString theme)
     m_versionInter->setTimeout(kQDBusAsyncCallTimeout);
     QDBusPendingCall pcall = m_versionInter->asyncCall("SetPlymouthTheme", theme);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pcall, this);
-    // 绑定错误信息
+    // Bind to error message
     QObject::connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)),
                      this, SLOT(onAsyncCallFinished(QDBusPendingCallWatcher*)));
-    // 需要关注结束信号，主题替换完成了才能进行下一步
     QObject::connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)),
                      this, SIGNAL(SetPlymouthThemeDone()));
 }
