@@ -6,21 +6,21 @@ Source: xxxx
 # Sample paragraph, commented out:
 
 # icons
-# Files: src/deepin-system-upgrade-tool/misc/icons/* src/deepin-system-upgrade-tool/misc/plymouth/*.png
-# Copyright: UnionTech Software Technology Co., Ltd. 
-# License: GPL-3.0-or-later
+Files: src/deepin-system-upgrade-tool/misc/icons/* src/deepin-system-upgrade-tool/misc/plymouth/*.png
+Copyright: UnionTech Software Technology Co., Ltd. 
+License: GPL-3.0-or-later
 
 # qss
-# Files: src/deepin-system-upgrade-tool/misc/qss/*
-# Copyright: UnionTech Software Technology Co., Ltd. 
-# License: GPL-3.0-or-later
+Files: src/deepin-system-upgrade-tool/misc/qss/*
+Copyright: UnionTech Software Technology Co., Ltd. 
+License: GPL-3.0-or-later
 
 # text
-# Files: src/deepin-system-upgrade-tool/misc/text/* 
-# Copyright: UnionTech Software Technology Co., Ltd. 
-# License: GPL-3.0-or-later
+Files: src/deepin-system-upgrade-tool/misc/text/* 
+Copyright: UnionTech Software Technology Co., Ltd. 
+License: GPL-3.0-or-later
 
 # github and OBS yaml files
 Files: .github/* *.yml *.yaml .obs/*
-Copyright: UnionTech Software Technology Co., Ltd. 
+Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
