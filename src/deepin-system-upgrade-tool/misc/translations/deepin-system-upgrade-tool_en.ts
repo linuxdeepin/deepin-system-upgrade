@@ -507,10 +507,6 @@
         <source>Clean data disk</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Less disk space is required if enabled, but some apps may not work properly after restoring the system from version 23.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SystemUpgradeWidget</name>
@@ -532,6 +528,14 @@
     </message>
     <message>
         <source>Restoration failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After clicking restart, the system will be upgraded, please save the current running application data before confirming</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restart now</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

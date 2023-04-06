@@ -568,7 +568,7 @@
     </message>
     <message>
         <source>Less disk space is required if enabled, but some apps may not work properly after restoring the system from version 23.</source>
-        <translation>开启此功能将降低备份空间要求，但从V23还原至当前系统时，部分应用可能不可用</translation>
+        <translation type="vanished">开启此功能将降低备份空间要求，但从V23还原至当前系统时，部分应用可能不可用</translation>
     </message>
 </context>
 <context>
@@ -592,6 +592,14 @@
     <message>
         <source>Restoration failed</source>
         <translation>还原失败</translation>
+    </message>
+    <message>
+        <source>After clicking restart, the system will be upgraded, please save the current running application data before confirming</source>
+        <translation>点击重启后系统将进行升级，确认前请对当前运行应用数据进行保存</translation>
+    </message>
+    <message>
+        <source>Restart now</source>
+        <translation>立即重启</translation>
     </message>
 </context>
 <context>
