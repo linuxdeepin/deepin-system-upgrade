@@ -521,7 +521,7 @@
     </message>
     <message>
         <source>System backup only, no app backup</source>
-        <translation>僅備份系統，不備份應用</translation>
+        <translation type="vanished">僅備份系統，不備份應用</translation>
     </message>
     <message>
         <source>Less disk space is required if enabled, but some apps may not work properly after restoring the system from version 23.</source>

@@ -482,10 +482,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>System backup only, no app backup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Less disk space is required if enabled, but some apps may not work properly after restoring the system from version 23.</source>
         <translation type="unfinished"></translation>
     </message>

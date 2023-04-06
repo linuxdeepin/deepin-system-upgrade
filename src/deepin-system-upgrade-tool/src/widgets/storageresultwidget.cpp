@@ -284,26 +284,6 @@ void StorageResultWidget::openCleanupDialog()
         QDesktopServices::openUrl(QUrl::fromLocalFile("/home"));
     });
 
-    // Backup system only switch button
-    BackgroundFrame *frameBackupSystemOnly = new BackgroundFrame;
-    QHBoxLayout *backupSystemOnlyLayout = new QHBoxLayout;
-
-    backupSystemOnlyLayout->setContentsMargins(10, 10, 10, 10);
-    DLabel *backupSystemOnlyTextLabel = new DLabel(tr("System backup only, no app backup"));
-    backupSystemOnlyTextLabel->setForegroundRole(DPalette::TextTitle);
-    backupSystemOnlyTextLabel->setFocusPolicy(Qt::TabFocus);
-    DFontSizeManager::instance()->bind(backupSystemOnlyTextLabel, DFontSizeManager::T6, QFont::Medium);
-    DSwitchButton *backupSystemOnlyButton = new DSwitchButton;
-    backupSystemOnlyLayout->addWidget(backupSystemOnlyTextLabel);
-    backupSystemOnlyLayout->addSpacing(0);
-    backupSystemOnlyLayout->addWidget(backupSystemOnlyButton);
-    frameBackupSystemOnly->setLayout(backupSystemOnlyLayout);
-    backupSystemOnlyButton->setChecked(!dbusWorker->m_isBackupApps);
-
-    DLabel *tipLabel = new DLabel(tr("Less disk space is required if enabled, but some apps may not work properly after restoring the system from version 23."));
-    DFontSizeManager::instance()->bind(tipLabel, DFontSizeManager::T9, QFont::Light);
-    tipLabel->setForegroundRole(DPalette::TextTips);
-
     // Add layout for space cleanup dialog
     dlg.addContent(titleLabel, Qt::AlignCenter);
     dlg.addSpacing(24);
@@ -315,16 +295,10 @@ void StorageResultWidget::openCleanupDialog()
         dlg.addContent(frameDoDataCleanup);
         dlg.addSpacing(4);
     }
-    dlg.addSpacing(6);
-    dlg.addContent(frameBackupSystemOnly);
-    dlg.addSpacing(10);
-    dlg.addContent(tipLabel);
 
     dlg.setIcon(QIcon::fromTheme("dialog-warning"));
     if (dlg.exec() == DDialog::Accepted)
     {
-        dbusWorker->m_isBackupApps = !backupSystemOnlyButton->isChecked();
-        dbusWorker->CancelBackupApp(!dbusWorker->m_isBackupApps);
         emit dbusWorker->StartUpgradeCheck();
     }
 }
