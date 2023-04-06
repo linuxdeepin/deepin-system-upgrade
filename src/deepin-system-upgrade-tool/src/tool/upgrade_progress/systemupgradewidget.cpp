@@ -9,6 +9,7 @@
 
 #include "../mainwindow.h"
 #include "systemupgradewidget.h"
+#include "../../widgets/alertdialog.h"
 
 SystemUpgradeWidget::SystemUpgradeWidget(QWidget *parent)
     : BaseContainerWidget(parent, 2)
@@ -50,8 +51,15 @@ void SystemUpgradeWidget::initConnections()
     });
     connect(m_upgradeWidget, &UpgradeWidget::done, this, &SystemUpgradeWidget::jumpToBackupWidget);
     connect(m_backupWidget, &BackupWidget::done, [this] {
-        // Start upgrade when backup is done.
-        emit m_dbusWorker->StartUpgrade();
+        AlertDialog dlg(this);
+        if (dlg.execWarningDialog(nullptr, tr("After clicking restart, the system will be upgraded, please save the current running application data before confirming"), tr("Restart now")) == 0)
+        {
+            // Start upgrade when backup is done.
+            emit m_dbusWorker->StartUpgrade();
+        } else {
+            this->deleteLater();
+            exit(0);
+        }
     });
     // Jump to ErrorWidget for DBus errors
     connect(m_dbusWorker, &DBusWorker::error, [this] (QString errorTitle, QString errorLog) {

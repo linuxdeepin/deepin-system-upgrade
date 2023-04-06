@@ -12,7 +12,10 @@ class AlertDialog : public DDialog
     Q_OBJECT
 public:
     explicit AlertDialog(QWidget *parent, const QString title, const QString acceptText = tr("Confirm"), ButtonType type=DDialog::ButtonType::ButtonRecommend);
+    explicit inline AlertDialog(QWidget *parent):DDialog (parent){}
+    int execWarningDialog(const QString &title, const QString &message, const QString &buttonText);
 
 private:
-    void initUI(const QString title, const QString acceptText, DDialog::ButtonType type);
+    void initUI(const QString &title, const QString &acceptText, DDialog::ButtonType type);
+
 };
