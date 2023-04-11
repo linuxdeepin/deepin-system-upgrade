@@ -1,3 +1,11 @@
+deepin-system-upgrade (6.0.2.4) unstable; urgency=medium
+
+  * fix bugs
+  * develop:modify the application migration process
+  * develop:add dialog before backuping current system
+
+ -- Xin Lin <linxin@uniontech.com>  Tue, 11 Apr 2023 16:00:48 +0800
+
 deepin-system-upgrade (6.0.2.2) unstable; urgency=medium
 
   * Initial release
