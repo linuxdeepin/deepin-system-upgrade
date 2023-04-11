@@ -23,6 +23,7 @@ IsoInfoChecker::IsoInfoChecker(QObject *parent)
     {
         m_args << QString::fromLatin1(checkScriptFile.readAll());
     }
+    checkScriptFile.close();
 
     connect(m_checkIsoProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &IsoInfoChecker::ExitStatus);
     connect(m_checkIsoProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &IsoInfoChecker::onCheckDone);
