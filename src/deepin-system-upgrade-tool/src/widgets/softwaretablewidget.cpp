@@ -41,6 +41,9 @@ void SoftwareTableWidget::initUI()
     connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, [this] {
         setRowColorStyles();
     });
+    connect(verticalScrollBar(), &QScrollBar::valueChanged, viewport(), [this]() {
+        viewport()->update();
+    });
 
     // Hide headers
     this->verticalHeader()->setVisible(false);
@@ -110,7 +113,7 @@ void SoftwareTableWidget::paintEvent(QPaintEvent *event)
 void SoftwareTableWidget::wheelEvent(QWheelEvent *event)
 {
     DTableWidget::wheelEvent(event);
-    update();
+    viewport()->update();
 }
 
 void SoftwareTableWidget::setRowColorStyles()
