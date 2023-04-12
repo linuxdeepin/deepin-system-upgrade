@@ -34,6 +34,7 @@ debinstall:
 - "grub2-common"
 - "grub-pc"
 - "grub-efi-amd64"
+- "deepin-system-upgrade"
 backupapps: false # 是否备份应用
 fullmigrate: false # 是否迁移全部软件包
 
