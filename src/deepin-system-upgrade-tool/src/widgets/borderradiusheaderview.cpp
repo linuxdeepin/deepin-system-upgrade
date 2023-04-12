@@ -134,7 +134,7 @@ void BorderRadiusHeaderView::mouseReleaseEvent(QMouseEvent* event)
         if(model())
         {
             int section = logicalIndexAt(event->pos());
-            if (section >= 0)
+            if (section == 0)
             {
                 bool checked = model()->headerData(section, orientation(), Qt::CheckStateRole).toBool();
                 model()->setHeaderData(section, orientation(), !checked, Qt::CheckStateRole);
