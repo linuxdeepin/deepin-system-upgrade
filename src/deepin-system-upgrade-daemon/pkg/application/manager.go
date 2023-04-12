@@ -440,7 +440,7 @@ func (a *AppManager) installPackages(pkgList []string, repack, simulate, fullMig
 			if getNetworkState() != NetworkConnected {
 				return NetworkError, "Application migration failed, the network is interrupted, please check the network!"
 			}
-			a.emitProgressValue(100 * ((index + 1) / len(pkgList)))
+			a.emitProgressValue(100 * (index + 1) / len(pkgList))
 		}
 		if _, ok := a.repalcedPkgs[pkg]; ok {
 			if a.repalcedPkgs[pkg] == nil {
