@@ -325,6 +325,10 @@ void DBusWorker::onAsyncCallFinished(QDBusPendingCallWatcher *watcher)
             qCritical() << "MigrateError:" << watcher->error().message();
             emit MigrateError(2, watcher->error().message());
             break;
+
+        case UpgradeStage::MIGRATIONLIST:
+            emit error(tr("Upgrade failed"), watcher->error().message());
+            break;
         }
     }
     else
@@ -345,6 +349,10 @@ void DBusWorker::onAsyncCallFinished(QDBusPendingCallWatcher *watcher)
             {
                 emit MigrateDone();
             }
+        }
+        else if (m_upgradeStage == UpgradeStage::MIGRATIONLIST)
+        {
+            emit GetMigrateListDone();
         }
     }
 }
@@ -419,6 +427,7 @@ void DBusWorker::MigratePackages()
 
 void DBusWorker::SetMigrateAppsList(const QStringList &apps)
 {
+    m_upgradeStage = UpgradeStage::MIGRATIONLIST;
     QDBusPendingCall pcall = m_appInter->asyncCall("SetMigrateAppsList", apps);
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(pcall, this);
     QObject::connect(watcher, SIGNAL(finished(QDBusPendingCallWatcher*)),

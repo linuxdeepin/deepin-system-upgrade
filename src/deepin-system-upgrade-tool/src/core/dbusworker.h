@@ -99,6 +99,7 @@ Q_SIGNALS:
     void EvaluateSoftwareError(QString errorLog);
     void MigrateDone();
     void MigrateError(int type, QString msg);
+    void GetMigrateListDone();
 
     void Assess(QString isoPath);
     void CheckResult(bool passed);

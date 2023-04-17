@@ -51,6 +51,7 @@ enum class UpgradeStage {
     BACKUP,            // System Backup
     RESTORATION,       // System Restoration
     MIGRATION,         // App Migration
+    MIGRATIONLIST,     // App Migration list
 };
 
 // QDBus async call timeout. Unit: ms

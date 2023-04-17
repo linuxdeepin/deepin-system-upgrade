@@ -165,7 +165,6 @@ void ImagePreparationWidget::initConnections()
             else
             {
                 DBusWorker::getInstance()->SetMigrateAppsList(m_softwareTableWidget->getMigratelist());
-                emit StartUpgrade(m_checkImageResultWidget->getResultIsoPath());
             }
         }
         else if (m_stackedLayout->currentWidget() == m_errorMessageWidget)
@@ -274,6 +273,9 @@ void ImagePreparationWidget::initConnections()
        m_errorMessageWidget->setTitle(tr("Software evaluation failed"));
        m_errorMessageWidget->setErrorLog(errorLog);
        m_stackedLayout->setCurrentWidget(m_errorMessageWidget);
+    });
+    connect(DBusWorker::getInstance(), &DBusWorker::GetMigrateListDone, [this]() {
+        emit StartUpgrade(m_checkImageResultWidget->getResultIsoPath());
     });
 }
 
