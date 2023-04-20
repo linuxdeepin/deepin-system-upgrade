@@ -253,19 +253,11 @@
 <context>
     <name>InitialWidget</name>
     <message>
-        <source>Deepin Upgrade</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Current version: V%1</source>
         <translation></translation>
     </message>
     <message>
         <source>Take a few simple steps to upgrade your system to</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Deepin 23</source>
         <translation></translation>
     </message>
     <message>
@@ -309,6 +301,14 @@
     <message>
         <source>I have read and agreed to the &lt;a href=&quot;user&quot; style=&quot;text-decoration: none;&quot;&gt;%1&lt;/a&gt; and &lt;a href=&quot;privacy&quot; style=&quot;text-decoration: none;&quot;&gt;%2&lt;/a&gt;.</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>System Upgrade Tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deepin 23</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -51,7 +51,7 @@ void InitialWidget::initUI()
     addContentWidget(m_iconLabel);
 
     m_titleLabel->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    m_titleLabel->setText(tr("Deepin Upgrade"));
+    m_titleLabel->setText(tr("System Upgrade Tool"));
     DFontSizeManager::instance()->bind(m_titleLabel, DFontSizeManager::T3, QFont::DemiBold);
 
     m_iconLabel->addWidget(m_titleLabel);
@@ -87,7 +87,7 @@ void InitialWidget::initUI()
     frameLayout->setContentsMargins(270, 0, 270, 0);
     targetVersionLayout->setContentsMargins(0,0,0,0);
 
-    DLabel *targetVersionTextLabel = new DLabel(tr("Deepin 23"));
+    DLabel *targetVersionTextLabel = new DLabel(tr("deepin 23"));
 
     targetVersionTextLabel->setForegroundRole(DPalette::TextTitle);
     targetVersionTextLabel->setAlignment(Qt::AlignHCenter | Qt::AlignTop);

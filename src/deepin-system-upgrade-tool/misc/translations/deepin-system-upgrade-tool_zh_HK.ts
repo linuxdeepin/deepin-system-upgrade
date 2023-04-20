@@ -258,7 +258,7 @@
     <name>InitialWidget</name>
     <message>
         <source>Deepin Upgrade</source>
-        <translation>Deepin系統升級</translation>
+        <translation type="vanished">Deepin系統升級</translation>
     </message>
     <message>
         <source>Current version: V%1</source>
@@ -270,7 +270,7 @@
     </message>
     <message>
         <source>Deepin 23</source>
-        <translation>Deepin 23</translation>
+        <translation type="vanished">Deepin 23</translation>
     </message>
     <message>
         <source>I have read and agreed to the </source>
@@ -336,6 +336,14 @@
     <message>
         <source>I have read and agreed to the &lt;a href=&quot;user&quot; style=&quot;text-decoration: none;&quot;&gt;%1&lt;/a&gt; and &lt;a href=&quot;privacy&quot; style=&quot;text-decoration: none;&quot;&gt;%2&lt;/a&gt;.</source>
         <translation>我已閲讀並同意&lt;a href=&quot;user&quot; style=&quot;text-decoration: none;&quot;&gt;%1&lt;/a&gt;和&lt;a href=&quot;privacy&quot; style=&quot;text-decoration: none;&quot;&gt;%2&lt;/a&gt;。</translation>
+    </message>
+    <message>
+        <source>System Upgrade Tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deepin 23</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
