@@ -93,7 +93,7 @@ func (c *CheckerManager) Perform(sender dbus.Sender, phase uint64) *dbus.Error {
 		}
 
 		// Get current system version info
-		value, err := systeminfo.ParseConfigFieldValue(SYSTEM_VERSION_FILE, "EditionName[zh_CN]")
+		value, err := systeminfo.ParseConfigFieldValue(SYSTEM_VERSION_FILE, "EditionName")
 		if err != nil {
 			logger.Warning("failed to parse field value:", err)
 		}

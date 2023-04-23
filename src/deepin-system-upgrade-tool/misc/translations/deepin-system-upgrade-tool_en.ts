@@ -118,7 +118,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 (%2)</source>
+        <source>Community</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Professional</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
