@@ -73,6 +73,37 @@
     </message>
 </context>
 <context>
+    <name>CheckResultType</name>
+    <message>
+        <source>%1 (%2)</source>
+        <translation type="obsolete">%1 (%2)</translation>
+    </message>
+    <message>
+        <source>Too old</source>
+        <translation type="obsolete">版本过低</translation>
+    </message>
+    <message>
+        <source>Activated</source>
+        <translation type="obsolete">已激活</translation>
+    </message>
+    <message>
+        <source>Unactivated</source>
+        <translation type="obsolete">未激活</translation>
+    </message>
+    <message>
+        <source>Requirement: %1 GB</source>
+        <translation type="obsolete">基线要求：%1 GB</translation>
+    </message>
+    <message>
+        <source>Data disk %1 GB / %2 GB</source>
+        <translation type="obsolete">数据盘 %1 GB/%2 GB</translation>
+    </message>
+    <message>
+        <source>System disk %1 GB / %2 GB</source>
+        <translation type="obsolete">系统盘 %1 GB/%2 GB</translation>
+    </message>
+</context>
+<context>
     <name>CheckSizeThread</name>
     <message>
         <source>Unable to get the image file.</source>
@@ -123,7 +154,7 @@
     </message>
     <message>
         <source>%1 (%2)</source>
-        <translation>%1 (%2)</translation>
+        <translation type="vanished">%1 (%2)</translation>
     </message>
     <message>
         <source>Too old</source>
@@ -148,6 +179,14 @@
     <message>
         <source>System disk %1 GB / %2 GB</source>
         <translation>系统盘 %1 GB/%2 GB</translation>
+    </message>
+    <message>
+        <source>Community</source>
+        <translation>社区版</translation>
+    </message>
+    <message>
+        <source>Professional</source>
+        <translation>专业版</translation>
     </message>
 </context>
 <context>

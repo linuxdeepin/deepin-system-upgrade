@@ -104,6 +104,14 @@ void ConditionChecklistWidget::updateUI()
     m_isPassed = true;
 
     QString editionName = resultMap["editionName"];
+    if (editionName == "Community")
+    {
+        editionName = tr("Community");
+    }
+    else
+    {
+        editionName = tr("Professional");
+    }
     QVersionNumber minorVersionNumber = QVersionNumber::fromString(resultMap["minorVersion"]);
     QVersionNumber requiredVersionNumber;
     if (DBusWorker::getInstance()->GetDistroID() == QString("Deepin"))
@@ -116,11 +124,11 @@ void ConditionChecklistWidget::updateUI()
     }
     qDebug() << "check result -> minorVersion:" << minorVersionNumber;
     CheckResultType versionResult = minorVersionNumber >= requiredVersionNumber ? CheckResultType::PASSED : CheckResultType::WARNING;
-    QString versionResultText = versionResult == CheckResultType::PASSED ? tr("%1 (%2)").arg(editionName).arg(minorVersionNumber.toString()) : tr("Too old");
+    QString versionResultText = versionResult == CheckResultType::PASSED ? QString("%1 (%2)").arg(editionName).arg(minorVersionNumber.toString()) : tr("Too old");
     m_versionResultWidget->setResult(versionResultText);
     m_versionResultWidget->setStatus(versionResult);
 
-    CheckResultType activationResult = resultMap["active"] == "1" || resultMap["editionName"] == "社区版" ? CheckResultType::PASSED : CheckResultType::FAILED;
+    CheckResultType activationResult = resultMap["active"] == "1" || resultMap["editionName"] == "Community" ? CheckResultType::PASSED : CheckResultType::FAILED;
     m_activationResultWidget->setResult(activationResult == CheckResultType::PASSED ? tr("Activated") : tr("Unactivated"));
     m_activationResultWidget->setStatus(activationResult);
     if (activationResult == CheckResultType::FAILED)
