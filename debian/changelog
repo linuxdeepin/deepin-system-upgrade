@@ -1,3 +1,10 @@
+deepin-system-upgrade (6.0.3) unstable; urgency=medium
+
+  * fix: system upgrade failed
+  * chore: modify title
+
+ -- Xin Lin <linxin@uniontech.com>  Sun, 23 Apr 2023 11:02:30 +0800
+
 deepin-system-upgrade (6.0.2.4) unstable; urgency=medium
 
   * fix bugs
