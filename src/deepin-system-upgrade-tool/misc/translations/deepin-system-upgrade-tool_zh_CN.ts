@@ -316,7 +316,7 @@
         <translation type="vanished">我已阅读并同意</translation>
     </message>
     <message>
-        <source>《Deepin系统升级工具》</source>
+        <source>《系统升级工具》</source>
         <translation type="vanished">《Deepin系统升级工具》</translation>
     </message>
     <message>
@@ -338,7 +338,7 @@
     <message>
         <source>End User License Agreement for Deepin Upgrade Tool</source>
         <translatorcomment>标题</translatorcomment>
-        <translation>Deepin系统升级工具软件最终用户许可协议</translation>
+        <translation type="vanished">Deepin系统升级工具软件最终用户许可协议</translation>
     </message>
     <message>
         <source>:/text/end_user_license_en.txt</source>
@@ -347,16 +347,16 @@
     <message>
         <source>Privacy Protection Guide for Deepin Upgrade Tool</source>
         <translatorcomment>标题</translatorcomment>
-        <translation>Deepin系统升级工具软件隐私保护指引</translation>
+        <translation type="vanished">Deepin系统升级工具软件隐私保护指引</translation>
     </message>
     <message>
         <source>:/text/privacy_protection_guide_en.txt</source>
         <translation>:/text/privacy_protection_guide_zh_CN.txt</translation>
     </message>
     <message>
-        <source>End User License Agreement for Deepin Upgrade Tool.</source>
+        <source>End User License Agreement for Deepin Upgrade Tool</source>
         <translatorcomment>用户协议标签名</translatorcomment>
-        <translation type="vanished">《Deepin系统升级工具软件最终用户许可协议》。</translation>
+        <translation type="vanished">《Deepin系统升级工具软件最终用户许可协议》</translation>
     </message>
     <message>
         <source>Privacy Protection Guide for Deepin Upgrade Tool.</source>
@@ -366,7 +366,7 @@
     <message>
         <source>&quot;End User License Agreement for Deepin Upgrade Tool&quot;</source>
         <translatorcomment>勾选框文字标题。</translatorcomment>
-        <translation>《最终用户许可协议》</translation>
+        <translation type="vanished">《最终用户许可协议》</translation>
     </message>
     <message>
         <source>&quot;Privacy Protection Guide&quot;</source>
@@ -384,12 +384,24 @@
         <source>deepin 23</source>
         <translation>deepin 23</translation>
     </message>
+    <message>
+        <source>&quot;End User License Agreement for System Upgrade Tool&quot;</source>
+        <translation>《系统升级工具软件最终用户许可协议》</translation>
+    </message>
+    <message>
+        <source>End User License Agreement for System Upgrade Tool</source>
+        <translation>《系统升级工具软件最终用户许可协议》</translation>
+    </message>
+    <message>
+        <source>Privacy Protection Guide for System Upgrade Tool</source>
+        <translation>《系统升级工具软件隐私保护指引》。</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <source>Do you want to exit the Deepin Upgrade Tool?</source>
-        <translation>确定退出Deepin系统升级工具吗？</translation>
+        <translation type="vanished">确定退出Deepin系统升级工具吗？</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -398,6 +410,10 @@
     <message>
         <source>Upgrade failed</source>
         <translation>升级失败</translation>
+    </message>
+    <message>
+        <source>Do you want to exit the System Upgrade Tool?</source>
+        <translation type="unfinished">确定退出系统升级工具吗？</translation>
     </message>
 </context>
 <context>
@@ -717,11 +733,11 @@
     <name>main</name>
     <message>
         <source>Deepin Upgrade Tool</source>
-        <translation>Deepin系统升级工具</translation>
+        <translation type="vanished">Deepin系统升级工具</translation>
     </message>
     <message>
         <source>Deepin Upgrade Tool helps you upgrade the system to version 23.</source>
-        <translation>Deepin系统升级工具是一款将系统升级为V23的小工具。</translation>
+        <translation type="vanished">Deepin系统升级工具是一款将系统升级为V23的小工具。</translation>
     </message>
     <message>
         <source>Upgrade successful</source>
@@ -734,6 +750,14 @@
     <message>
         <source>Error code: %1</source>
         <translation>错误码：%1</translation>
+    </message>
+    <message>
+        <source>System Upgrade Tool</source>
+        <translation type="unfinished">系统升级工具</translation>
+    </message>
+    <message>
+        <source>System Upgrade Tool helps you upgrade the system to version 23.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

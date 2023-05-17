@@ -182,11 +182,11 @@
     </message>
     <message>
         <source>Community</source>
-        <translation type="unfinished"></translation>
+        <translation>社區版</translation>
     </message>
     <message>
         <source>Professional</source>
-        <translation type="unfinished"></translation>
+        <translation>專業版</translation>
     </message>
 </context>
 <context>
@@ -316,7 +316,7 @@
         <translation type="vanished">我已閲讀並同意</translation>
     </message>
     <message>
-        <source>《Deepin系統升級工具》</source>
+        <source>《系統升級工具》</source>
         <translation type="vanished">《Deepin系統升級工具》</translation>
     </message>
     <message>
@@ -338,7 +338,7 @@
     <message>
         <source>End User License Agreement for Deepin Upgrade Tool</source>
         <translatorcomment>標題</translatorcomment>
-        <translation>Deepin系統升級工具軟件最終用户許可協議</translation>
+        <translation type="vanished">Deepin系統升級工具軟件最終用户許可協議</translation>
     </message>
     <message>
         <source>:/text/end_user_license_en.txt</source>
@@ -347,7 +347,7 @@
     <message>
         <source>Privacy Protection Guide for Deepin Upgrade Tool</source>
         <translatorcomment>標題</translatorcomment>
-        <translation>Deepin系統升級工具軟件隱私保護指引</translation>
+        <translation type="vanished">Deepin系統升級工具軟件隱私保護指引</translation>
     </message>
     <message>
         <source>:/text/privacy_protection_guide_en.txt</source>
@@ -366,7 +366,7 @@
     <message>
         <source>&quot;End User License Agreement for Deepin Upgrade Tool&quot;</source>
         <translatorcomment>勾選框文字標題。</translatorcomment>
-        <translation>《最終用户許可協議》</translation>
+        <translation type="vanished">《最終用户許可協議》</translation>
     </message>
     <message>
         <source>&quot;Privacy Protection Guide&quot;</source>
@@ -384,12 +384,24 @@
         <source>deepin 23</source>
         <translation>deepin 23</translation>
     </message>
+    <message>
+        <source>&quot;End User License Agreement for System Upgrade Tool&quot;</source>
+        <translation>《系統升級工具軟件最終用户許可協議》。</translation>
+    </message>
+    <message>
+        <source>End User License Agreement for System Upgrade Tool</source>
+        <translation>《系統升級工具軟件最終用户許可協議》。</translation>
+    </message>
+    <message>
+        <source>Privacy Protection Guide for System Upgrade Tool</source>
+        <translation>《系統升級工具軟件隱私保護指引》。</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <source>Do you want to exit the Deepin Upgrade Tool?</source>
-        <translation>確定退出Deepin系統升級工具嗎？</translation>
+        <translation type="vanished">確定退出Deepin系統升級工具嗎？</translation>
     </message>
     <message>
         <source>Exit</source>
@@ -398,6 +410,10 @@
     <message>
         <source>Upgrade failed</source>
         <translation>升級失敗</translation>
+    </message>
+    <message>
+        <source>Do you want to exit the System Upgrade Tool?</source>
+        <translation type="unfinished">確定退出系統升級工具嗎？</translation>
     </message>
 </context>
 <context>
@@ -717,11 +733,11 @@
     <name>main</name>
     <message>
         <source>Deepin Upgrade Tool</source>
-        <translation>Deepin系統升級工具</translation>
+        <translation type="vanished">Deepin系統升級工具</translation>
     </message>
     <message>
         <source>Deepin Upgrade Tool helps you upgrade the system to version 23.</source>
-        <translation>Deepin系統升級工具是一款將系統升級為V23的小工具。</translation>
+        <translation type="vanished">Deepin系統升級工具是一款將系統升級為V23的小工具。</translation>
     </message>
     <message>
         <source>Upgrade successful</source>
@@ -734,6 +750,14 @@
     <message>
         <source>Error code: %1</source>
         <translation>錯誤碼：%1</translation>
+    </message>
+    <message>
+        <source>System Upgrade Tool</source>
+        <translation type="unfinished">系統升級工具</translation>
+    </message>
+    <message>
+        <source>System Upgrade Tool helps you upgrade the system to version 23.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

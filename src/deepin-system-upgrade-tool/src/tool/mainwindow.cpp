@@ -107,7 +107,7 @@ void MainWindow::initConnections()
 void MainWindow::closeEvent(QCloseEvent *event) {
     if (m_askForClose)
     {
-        AlertDialog dlg(this, tr("Do you want to exit the Deepin Upgrade Tool?"), tr("Exit"), DDialog::ButtonType::ButtonWarning);
+        AlertDialog dlg(this, tr("Do you want to exit the System Upgrade Tool?"), tr("Exit"), DDialog::ButtonType::ButtonWarning);
 
         if (dlg.exec() == DDialog::Accepted) {
             m_dbusWorker->StopUpgrade();

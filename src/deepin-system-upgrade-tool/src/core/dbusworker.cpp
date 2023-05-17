@@ -382,7 +382,7 @@ void DBusWorker::SendNotification(const QString title, const QString msg)
 {
     QStringList in5;
     QVariantMap in6;
-    m_notifyInter->call("Notify", QString("Deepin系统升级工具"), 0u, QString("upgrade-tool"), title, msg, in5, in6, 0);
+    m_notifyInter->call("Notify", QString("系统升级工具"), 0u, QString("upgrade-tool"), title, msg, in5, in6, 0);
 }
 
 void DBusWorker::SetPlymouthTheme(QString theme)
