@@ -269,15 +269,7 @@
         <translation></translation>
     </message>
     <message>
-        <source>End User License Agreement for Deepin Upgrade Tool</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>:/text/end_user_license_en.txt</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Privacy Protection Guide for Deepin Upgrade Tool</source>
         <translation></translation>
     </message>
     <message>
@@ -295,7 +287,7 @@
     <message>
         <source>&quot;End User License Agreement for Deepin Upgrade Tool&quot;</source>
         <translatorcomment>Titile for the checkbox text.</translatorcomment>
-        <translation>End User License Agreement</translation>
+        <translation type="vanished">End User License Agreement</translation>
     </message>
     <message>
         <source>&quot;Privacy Protection Guide&quot;</source>
@@ -314,19 +306,31 @@
         <source>deepin 23</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&quot;End User License Agreement for System Upgrade Tool&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End User License Agreement for System Upgrade Tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Privacy Protection Guide for System Upgrade Tool</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
-    <message>
-        <source>Do you want to exit the Deepin Upgrade Tool?</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Upgrade failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you want to exit the System Upgrade Tool?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -602,14 +606,6 @@
 <context>
     <name>main</name>
     <message>
-        <source>Deepin Upgrade Tool</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deepin Upgrade Tool helps you upgrade the system to version 23.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Upgrade successful</source>
         <translation type="unfinished"></translation>
     </message>
@@ -619,6 +615,14 @@
     </message>
     <message>
         <source>Error code: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System Upgrade Tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System Upgrade Tool helps you upgrade the system to version 23.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

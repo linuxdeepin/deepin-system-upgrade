@@ -100,7 +100,7 @@ void InitialWidget::initUI()
     m_contentLayout->addLayout(frameLayout);
 
     m_userLicenseLabel->setText(tr("I have read and agreed to the <a href=\"user\" style=\"text-decoration: none;\">%1</a> and <a href=\"privacy\" style=\"text-decoration: none;\">%2</a>.")
-                                .arg(tr("\"End User License Agreement for Deepin Upgrade Tool\""))
+                                .arg(tr("\"End User License Agreement for System Upgrade Tool\""))
                                 .arg(tr("\"Privacy Protection Guide\"")));
     m_userLicenseLabel->setFocusPolicy(Qt::TabFocus);
     DFontSizeManager::instance()->bind(m_userLicenseLabel, DFontSizeManager::T8, QFont::Normal);
@@ -174,11 +174,11 @@ void InitialWidget::openLicenseDetails(LicenseType type)
 
     switch (type) {
     case LicenseType::USER:
-        title = tr("End User License Agreement for Deepin Upgrade Tool");
+        title = tr("End User License Agreement for System Upgrade Tool");
         licenseFileName = tr(":/text/end_user_license_en.txt");
         break;
     case LicenseType::PRIVACY:
-        title = tr("Privacy Protection Guide for Deepin Upgrade Tool");
+        title = tr("Privacy Protection Guide for System Upgrade Tool");
         licenseFileName = tr(":/text/privacy_protection_guide_en.txt");
         break;
     default:

@@ -1,9 +1,9 @@
 [Desktop Entry]
 Exec=deepin-system-upgrade-tool
-Name=Deepin Upgrade Tool
-Name[zh_CN]=Deepin系统升级工具
-Name[zh_HK]=Deepin系統升級工具
-Name[zh_TW]=Deepin系統升級工具
+Name=System Upgrade Tool
+Name[zh_CN]=系统升级工具
+Name[zh_HK]=系統升級工具
+Name[zh_TW]=系統升級工具
 Type=Application
 Icon=upgrade-tool
 X-Deepin-Vendor=user-custom

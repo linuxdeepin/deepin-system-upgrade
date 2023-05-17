@@ -57,8 +57,8 @@ int main(int argc, char *argv[])
     app->setWindowIcon(QIcon(":icons/upgrade-tool.svg"));
     app->setProductIcon(QIcon(":icons/upgrade-tool.svg"));
     app->setApplicationName("deepin-system-upgrade-tool");
-    app->setProductName(app->translate("main", "Deepin Upgrade Tool"));
-    app->setApplicationDescription(app->translate("main", "Deepin Upgrade Tool helps you upgrade the system to version 23."));
+    app->setProductName(app->translate("main", "System Upgrade Tool"));
+    app->setApplicationDescription(app->translate("main", "System Upgrade Tool helps you upgrade the system to version 23."));
     app->connect(app, &Application::appQuit, [] {
         MainWindow::getInstance()->close();
     });
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
     QCommandLineOption modeOption({"m", "mode"}, "Start upgrade result report based on atomic upgrade status code", "status_code");
     QCommandLineParser parser;
 
-    parser.setApplicationDescription(app->translate("main", "Deepin Upgrade Tool"));
+    parser.setApplicationDescription(app->translate("main", "System Upgrade Tool"));
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addOption(modeOption);
