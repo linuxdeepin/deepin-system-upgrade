@@ -46,6 +46,7 @@ const (
 	RepackDebStorageDir      = "/tmp/deepin-system-upgrade"
 	AtomicUpgradeVersionData = "/var/lib/deepin-boot-kit/version.data"
 	UpgradeAutoStartFile     = "/etc/xdg/autostart/deepin-system-upgrade-tool.desktop"
+	UpgradeDesktopFile       = "/usr/share/applications/deepin-system-upgrade-tool.desktop"
 	MigrateFlagsPath         = "/var/cache/deepin-system-upgrade/migrate.state"
 	MigrateListPath          = "/var/cache/deepin-system-upgrade/migrate.list"
 	SourceSettingsPath       = "extract/oem/settings.ini"
@@ -359,9 +360,13 @@ func (a *AppManager) handleAfterMigrate(sender dbus.Sender) {
 	if err != nil {
 		logger.Warning("failed to remove file:", MigrateFlagsPath)
 	}
-	out, err := exec.Command("/usr/bin/apt", "-y", "purge", "deepin-system-upgrade").CombinedOutput()
+	// out, err := exec.Command("/usr/bin/apt", "-y", "purge", "deepin-system-upgrade").CombinedOutput()
+	// if err != nil {
+	// 	logger.Warning("failed to remove upgrade tool:", string(out))
+	// }
+	err = os.Remove(UpgradeDesktopFile)
 	if err != nil {
-		logger.Warning("failed to remove upgrade tool:", string(out))
+		logger.Warning("failed to remove file:", UpgradeDesktopFile)
 	}
 
 	err = a.cleanDesktopFile(sender)
