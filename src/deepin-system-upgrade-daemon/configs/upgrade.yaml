@@ -5,6 +5,7 @@ target:
       - "/var"
       - "/etc"
  hold_list: # v23中保留v20的文件目录，不需要进行提交的目录和文件
+      - "/boot/efi"
       - "/usr/lib/dpkg-db"
       - "/var/spool"
       - "/var/login.defs"

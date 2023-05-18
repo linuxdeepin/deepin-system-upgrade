@@ -1,3 +1,9 @@
+deepin-system-upgrade (6.0.6) unstable; urgency=medium
+
+  * modify upgrade failed in multi-system.
+
+ -- Xin Lin <linxin@deepin.org>  Thu, 18 May 2023 16:10:24 +0800
+
 deepin-system-upgrade (6.0.5) unstable; urgency=medium
 
   * modify program name 

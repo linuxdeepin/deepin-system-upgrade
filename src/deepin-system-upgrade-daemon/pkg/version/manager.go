@@ -23,6 +23,7 @@ import (
 
 	"deepin-system-upgrade-daemon/pkg/iso"
 	"deepin-system-upgrade-daemon/pkg/module/dbustools"
+	"deepin-system-upgrade-daemon/pkg/module/disk"
 	"deepin-system-upgrade-daemon/pkg/module/user"
 )
 
@@ -255,6 +256,51 @@ func (v *VersionManager) RestorePlymouthTheme() *dbus.Error {
 	return nil
 }
 
+func installGrub() error {
+	var target, bootDisk, bootPartition string
+	if isEfi() {
+		target = "x86_64-efi"
+	} else {
+		target = "i386-pc"
+	}
+
+	bootPartition, err := findBootPartition()
+	if err != nil {
+		return err
+	}
+
+	bootDisk, err = disk.GetDiskFromPartition(bootPartition)
+	if err != nil {
+		return err
+	}
+	out, err := exec.Command("/usr/bin/sh", "-c", fmt.Sprintf("/usr/sbin/grub-install --target=%s --boot-directory=/boot %s", target, bootDisk)).CombinedOutput()
+	if err != nil {
+		logger.Warning("failed to exec grub install:", string(out))
+		return err
+	}
+	return nil
+}
+
+func findBootPartition() (string, error) {
+	if isBootMountSeparate() == nil {
+		// The boot partition is mounted separately, and the /boot directory is parsed to mount the partition
+		return disk.GetPartitionByPath("/boot")
+	}
+	return disk.GetPartitionByPath("/")
+}
+
+func isBootMountSeparate() error {
+	_, err := exec.Command("/usr/bin/findmnt", "/boot").CombinedOutput()
+	return err
+}
+
+func isEfi() bool {
+	if _, err := os.Stat("/sys/firmware/efi"); err == nil {
+		return true
+	}
+	return false
+}
+
 func modifyFstabForLinglong(repoPath string) error {
 	if repoPath == "/" {
 		return nil
@@ -455,7 +501,13 @@ func getActiveVersion() (string, error) {
 }
 
 func (v *VersionManager) setUpgradeVersion() error {
-	err := dbustools.DBusMethodCaller("org.deepin.AtomicUpgrade1", "Rollback", "/org/deepin/AtomicUpgrade1", v.activeVersion)
+
+	err := installGrub()
+	if err != nil {
+		logger.Warning("failed to install grub:", err)
+		return err
+	}
+	err = dbustools.DBusMethodCaller("org.deepin.AtomicUpgrade1", "Rollback", "/org/deepin/AtomicUpgrade1", v.activeVersion)
 	if err != nil {
 		return err
 	}
