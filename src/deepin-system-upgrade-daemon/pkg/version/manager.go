@@ -125,7 +125,14 @@ func (v *VersionManager) PrepareForUpgrade(sender dbus.Sender, isoPath string) *
 		logger.Warning("failed to enable linglong app:", err)
 		return dbusutil.ToError(errors.New("failed to enable linglong app"))
 	}
-
+	homeDir, err = user.GetHomeDirBySender(sender)
+	if err != nil {
+		logger.Warning(err)
+	}
+	err = os.RemoveAll(filepath.Join(homeDir, ".cache/extract"))
+	if err != nil {
+		logger.Warning(err)
+	}
 	v.emitProgressValue(100)
 	return nil
 }
@@ -171,7 +178,7 @@ func (v *VersionManager) BackupSystem(sender dbus.Sender) *dbus.Error {
 		select {
 		case reply := <-replyCh:
 			if reply.state < 0 {
-				goto error
+				goto failed
 			}
 			if reply.state == 0 {
 				err := v.setUpgradeVersion()
@@ -186,7 +193,7 @@ func (v *VersionManager) BackupSystem(sender dbus.Sender) *dbus.Error {
 			v.emitProgressValue(int64(reply.operate) - 100)
 		}
 	}
-error:
+failed:
 	logger.Warning("failed to backup system")
 	return dbusutil.ToError(errors.New("failed to backup system"))
 
