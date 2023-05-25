@@ -7,7 +7,7 @@ package disk
 import (
 	"errors"
 	"fmt"
-	"os"
+	"io/ioutil"
 	"os/exec"
 	"path/filepath"
 	"strconv"
@@ -52,18 +52,20 @@ func GetPartitionByPath(path string) (string, error) {
 	return strings.TrimSpace(items[0]), nil
 }
 
-func getDirSize(path string) float64 {
+func getDirSize(dirpath string) (float64, error) {
 	var size int64
-	_ = filepath.Walk(path, func(_ string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
+	files, err := ioutil.ReadDir(dirpath)
+	if err != nil {
+		logger.Warning("failed to read dir:", err)
+		return -1, err
+	}
+
+	for _, file := range files {
+		if file.Mode().IsRegular() {
+			size += file.Size()
 		}
-		if !info.IsDir() {
-			size += info.Size()
-		}
-		return err
-	})
-	return float64(size) / 1024.0 / 1024.0 / 1024.0
+	}
+	return float64(size) / 1024.0 / 1024.0 / 1024.0, nil
 }
 
 func computeDirFreeSpace(path string) error {
@@ -128,13 +130,19 @@ func computeRequireSizeForRoot() (float64, error) {
 	var needSize float64
 	for _, dir := range target.BackupList {
 		if findMountForDir(dir) != "/" {
-			size := getDirSize(dir)
+			size, err := getDirSize(dir)
+			if err != nil {
+				return -1, err
+			}
 			needSize += size
 		}
 	}
 	for _, dir := range target.HoldList {
 		if findMountForDir(dir) != "/" {
-			size := getDirSize(dir)
+			size, err := getDirSize(dir)
+			if err != nil {
+				return -1, err
+			}
 			needSize -= size
 		}
 	}
@@ -148,16 +156,19 @@ func computeOstreeRepoSize() (float64, error) {
 	}
 	var repoSize float64
 	for _, dir := range target.BackupList {
-		size := getDirSize(dir)
+		size, err := getDirSize(dir)
+		if err != nil {
+			return -1, err
+		}
 		logger.Debug("print dir path:", dir)
 		logger.Debug("print dir size:", size)
 
 		repoSize += size
 	}
 	for _, dir := range target.HoldList {
-		size := getDirSize(dir)
+		size, err := getDirSize(dir)
 		if err != nil {
-			logger.Warning("compute file size error:", err)
+			return -1, err
 		}
 
 		repoSize -= size
