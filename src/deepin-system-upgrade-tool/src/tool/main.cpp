@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 
     Application *app = Application::getInstance(argc, argv);
 
-    QCoreApplication::setApplicationVersion("V6.0.2");
+    QCoreApplication::setApplicationVersion("V6.0.7");
     app->loadTranslator();
     app->setWindowIcon(QIcon(":icons/upgrade-tool.svg"));
     app->setProductIcon(QIcon(":icons/upgrade-tool.svg"));
