@@ -48,7 +48,6 @@ DBusWorker* DBusWorker::getInstance(QObject *parent)
 
 DBusWorker::DBusWorker(QObject *parent)
     : QObject(parent)
-    , m_isBackupApps(true)
     , m_isCheckCanceled(false)
     , m_lcsInter(new QDBusInterface(
                    "com.deepin.license",
@@ -131,8 +130,6 @@ DBusWorker::DBusWorker(QObject *parent)
     qDBusRegisterMetaType<SourceInfo>();
     qDBusRegisterMetaType<MigrateResult>();
     initConnections();
-    m_isBackupApps = GetIsBackupApps();
-    CancelBackupApp(!m_isBackupApps);
 }
 
 void DBusWorker::initConnections()
@@ -402,16 +399,6 @@ void DBusWorker::RestorePlymouthTheme()
     qDebug() << "Restoring Plymouth Theme";
     m_versionInter->setTimeout(kQDBusAsyncCallTimeout);
     m_versionInter->asyncCall("RestorePlymouthTheme");
-}
-
-bool DBusWorker::GetIsBackupApps()
-{
-    return m_configInter->call("GetIsBackupApps").arguments().at(0).toBool();
-}
-
-void DBusWorker::CancelBackupApp(bool cancel)
-{
-    m_appInter->call("CancelBackupApp", cancel);
 }
 
 void DBusWorker::MigratePackages()

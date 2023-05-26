@@ -354,11 +354,6 @@
         <translation>:/text/privacy_protection_guide_zh_CN.txt</translation>
     </message>
     <message>
-        <source>End User License Agreement for Deepin Upgrade Tool</source>
-        <translatorcomment>用户协议标签名</translatorcomment>
-        <translation type="vanished">《Deepin系统升级工具软件最终用户许可协议》</translation>
-    </message>
-    <message>
         <source>Privacy Protection Guide for Deepin Upgrade Tool.</source>
         <translatorcomment>隐私标签名</translatorcomment>
         <translation type="vanished">《Deepin系统升级工具软件隐私保护指引》。</translation>

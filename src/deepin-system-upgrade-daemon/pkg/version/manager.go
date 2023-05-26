@@ -20,6 +20,7 @@ import (
 	"github.com/godbus/dbus"
 	"github.com/linuxdeepin/go-lib/dbusutil"
 	"github.com/linuxdeepin/go-lib/log"
+	"github.com/linuxdeepin/go-lib/utils"
 
 	"deepin-system-upgrade-daemon/pkg/iso"
 	"deepin-system-upgrade-daemon/pkg/module/dbustools"
@@ -144,11 +145,11 @@ func (v *VersionManager) BackupSystem(sender dbus.Sender) *dbus.Error {
 		return dbusutil.ToError(err)
 	}
 
-	err = modifyBackupConfig(homeDir, BackupConfig)
+	configPath, err := modifyBackupConfig(homeDir, BackupConfig)
 	if err != nil {
 		logger.Warning("failed to modify backup config:", err)
 	}
-	err = dbustools.DBusMethodCaller("org.deepin.AtomicUpgrade1", "SetDefaultConfig", "/org/deepin/AtomicUpgrade1", BackupConfig)
+	err = dbustools.DBusMethodCaller("org.deepin.AtomicUpgrade1", "SetDefaultConfig", "/org/deepin/AtomicUpgrade1", configPath)
 	if err != nil {
 		return dbusutil.ToError(err)
 	}
@@ -441,10 +442,16 @@ func getSystemVersionInfo() string {
 	return systemInfo
 }
 
-func modifyBackupConfig(homeDir string, configPath string) error {
-	input, err := ioutil.ReadFile(configPath)
+func modifyBackupConfig(homeDir string, configPath string) (string, error) {
+	newConfigPath := configPath + ".new"
+	err := utils.CopyFile(configPath, newConfigPath)
 	if err != nil {
-		return dbusutil.ToError(err)
+		logger.Warning("failed to copy backup configs:", err)
+		newConfigPath = configPath
+	}
+	input, err := ioutil.ReadFile(newConfigPath)
+	if err != nil {
+		return "", dbusutil.ToError(err)
 	}
 
 	lines := strings.Split(string(input), "\n")
@@ -454,11 +461,11 @@ func modifyBackupConfig(homeDir string, configPath string) error {
 		}
 	}
 	output := strings.Join(lines, "\n")
-	err = ioutil.WriteFile(configPath, []byte(output), 0644)
+	err = ioutil.WriteFile(newConfigPath, []byte(output), 0644)
 	if err != nil {
-		return dbusutil.ToError(err)
+		return "", dbusutil.ToError(err)
 	}
-	return nil
+	return newConfigPath, nil
 }
 
 func monitorStateChange(replyCh chan StateChangeReply) error {

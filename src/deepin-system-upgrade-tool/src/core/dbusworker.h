@@ -48,8 +48,6 @@ class DBusWorker : public QObject
 {
     Q_OBJECT
 public:
-    bool m_isBackupApps;
-
     static DBusWorker* getInstance(QObject *parent = nullptr);
     bool IsOnBattery();
     const QString GetISOVersion();
@@ -64,7 +62,6 @@ public:
     void SendNotification(const QString title, const QString msg);
     void SetPlymouthTheme(QString theme);
     void RestorePlymouthTheme();
-    void CancelBackupApp(bool cancel);
     UpgradeStage getUpgradeStage() {
         return m_upgradeStage;
     }
