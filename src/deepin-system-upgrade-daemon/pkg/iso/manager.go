@@ -263,7 +263,7 @@ func setPlymouthTheme() error {
 
 	out, err = exec.Command("/usr/sbin/update-initramfs", "-u", "-k", "all").CombinedOutput()
 	if err != nil {
-		logger.Warning("failed to set upgrade plymouth theme")
+		logger.Warning("failed to update initramfs:", string(out))
 		return dbusutil.ToError(err)
 	}
 	return nil
