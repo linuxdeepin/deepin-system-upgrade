@@ -153,6 +153,11 @@ func (v *VersionManager) BackupSystem(sender dbus.Sender) *dbus.Error {
 		return dbusutil.ToError(err)
 	}
 
+	out, err := exec.Command("/usr/sbin/update-initramfs", "-u", "-k", "all").CombinedOutput()
+	if err != nil {
+		logger.Warning("failed to update initramfs:", string(out))
+	}
+
 	replyCh := make(chan StateChangeReply, 20)
 	err = monitorStateChange(replyCh)
 	if err != nil {
@@ -235,7 +240,7 @@ func (v *VersionManager) SetPlymouthTheme(theme string) *dbus.Error {
 	}
 	out, err = exec.Command("/usr/sbin/update-initramfs", "-u", "-k", "all").CombinedOutput()
 	if err != nil {
-		logger.Warning("failed to set upgrade plymouth theme")
+		logger.Warning("failed to update initramfs:", string(out))
 		return dbusutil.ToError(err)
 	}
 	return nil
