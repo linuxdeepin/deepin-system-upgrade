@@ -233,6 +233,11 @@ func (v *VersionManager) SetPlymouthTheme(theme string) *dbus.Error {
 		logger.Warning("failed to set upgrade plymouth theme")
 		return dbusutil.ToError(err)
 	}
+	out, err = exec.Command("/usr/sbin/update-initramfs", "-u", "-k", "all").CombinedOutput()
+	if err != nil {
+		logger.Warning("failed to set upgrade plymouth theme")
+		return dbusutil.ToError(err)
+	}
 	return nil
 }
 
