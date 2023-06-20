@@ -55,7 +55,7 @@ void ConditionChecklistWidget::initUI()
     m_versionResultWidget->addSpacerItem(new QSpacerItem(ICONLABEL_RIGHT_SPACE, 0));
 
     m_mainLayout->addWidget(m_versionResultWidget);
-    m_mainLayout->addSpacerItem(new QSpacerItem(0, 21, QSizePolicy::Minimum, QSizePolicy::Minimum));
+    m_mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Minimum, QSizePolicy::Minimum));
 
     m_mainLayout->setContentsMargins(145, 0, 112, 0);
 
@@ -65,7 +65,7 @@ void ConditionChecklistWidget::initUI()
     m_activationResultWidget->addSpacerItem(new QSpacerItem(ICONLABEL_RIGHT_SPACE, 0));
 
     m_mainLayout->addWidget(m_activationResultWidget);
-    m_mainLayout->addSpacerItem(new QSpacerItem(0, 21, QSizePolicy::Minimum, QSizePolicy::Minimum));
+    m_mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Minimum, QSizePolicy::Minimum));
 
     m_cpuResultWidget->setIcon(":/icons/cpu.svg", RESULT_ICON_W, RESULT_ICON_W);
     m_cpuResultWidget->setTitle(tr("CPU architecture"));
@@ -73,7 +73,7 @@ void ConditionChecklistWidget::initUI()
     m_cpuResultWidget->addSpacerItem(new QSpacerItem(ICONLABEL_RIGHT_SPACE, 0));
 
     m_mainLayout->addWidget(m_cpuResultWidget);
-    m_mainLayout->addSpacerItem(new QSpacerItem(0, 21, QSizePolicy::Minimum, QSizePolicy::Minimum));
+    m_mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Minimum, QSizePolicy::Minimum));
 
     m_storageResultWidget->setIcon(":/icons/storage_space.svg", RESULT_ICON_W, RESULT_ICON_W);
     m_storageResultWidget->setTitle(tr("Storage space"));
