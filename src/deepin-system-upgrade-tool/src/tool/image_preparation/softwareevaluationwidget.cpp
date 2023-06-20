@@ -32,7 +32,7 @@ AppInfo readDesktopFile(const QString &filePath)
             {
                 info.iconName = line.split("=")[1].trimmed();
             }
-            else if (line.startsWith(QString("Name[%1]").arg(kCurrentLocale)))
+            else if (line.startsWith(QString("Name[%1]").arg(kCurrentLocale)) || line.startsWith("Name[zh]"))
             {
                 name = line.split("=")[1].trimmed();
             }
