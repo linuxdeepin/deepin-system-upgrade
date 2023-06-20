@@ -82,7 +82,7 @@ void StorageResultWidget::initUI()
 
     m_checkResultIconLabel->addSpacing(8);
     m_checkResultIconLabel->addWidget(m_requirementTitleLabel);
-    m_checkResultIconLabel->addSpacing(666);
+    m_checkResultIconLabel->addSpacing(60);
     m_checkResultIconLabel->layout()->setContentsMargins(0, 0, 0, 0);
 
     m_tipLayout->addSpacing(26);

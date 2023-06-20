@@ -54,7 +54,7 @@ void UpgradeCheckProgressWidget::initUI()
     m_checkProgress->setValue(1);
     m_checkProgress->start();
 
-    m_mainVBoxLayout->setContentsMargins(0, 80, 0, 0);
+    m_mainVBoxLayout->setContentsMargins(0, 70, 0, 0);
     m_mainVBoxLayout->setSpacing(0);
     m_mainVBoxLayout->addWidget(m_checkProgress, 1, Qt::AlignCenter);
     m_mainVBoxLayout->addSpacing(20);
