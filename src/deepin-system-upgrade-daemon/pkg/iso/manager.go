@@ -877,10 +877,10 @@ func copyFileToNewSystem(root string) error {
 	if err != nil {
 		return err
 	}
-	err = os.RemoveAll(filepath.Join(root, "boot"))
-	if err != nil {
-		return err
-	}
+	// err = os.RemoveAll(filepath.Join(root, "boot"))
+	// if err != nil {
+	// 	return err
+	// }
 	err = utils.CopyDir("/boot", filepath.Join(root, "boot"))
 	if err != nil {
 		return err
@@ -891,11 +891,11 @@ func copyFileToNewSystem(root string) error {
 		return err
 	}
 
-	err = os.RemoveAll(filepath.Join(root, "usr/lib/modules"))
-	if err != nil {
-		logger.Warning("failed to remove modules:", err)
-		return err
-	}
+	// err = os.RemoveAll(filepath.Join(root, "usr/lib/modules"))
+	// if err != nil {
+	// 	logger.Warning("failed to remove modules:", err)
+	// 	return err
+	// }
 	out, err := exec.Command("/usr/bin/cp", "-rf", "/usr/lib/modules", filepath.Join(root, "usr/lib/modules")).CombinedOutput()
 	if err != nil {
 		logger.Warning("failed to copy modules:", string(out))
