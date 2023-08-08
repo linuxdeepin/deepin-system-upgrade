@@ -615,7 +615,7 @@
     </message>
     <message>
         <source>%1 GB free space required</source>
-        <translation>系統盤還需要%1 GB空間</translation>
+        <translation>還需要%1 GB空間</translation>
     </message>
     <message>
         <source>Free Up</source>
