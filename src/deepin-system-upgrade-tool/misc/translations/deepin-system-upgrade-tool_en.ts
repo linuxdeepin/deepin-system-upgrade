@@ -142,11 +142,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Data disk %1 GB / %2 GB</source>
+        <source>Data %1 GB (Available)/ %2 GB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>System disk %1 GB / %2 GB</source>
+        <source>System %1 GB (Available)/ %2 GB</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

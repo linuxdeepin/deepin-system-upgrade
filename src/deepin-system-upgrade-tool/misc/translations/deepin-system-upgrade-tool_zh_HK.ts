@@ -174,11 +174,11 @@
     </message>
     <message>
         <source>Data disk %1 GB / %2 GB</source>
-        <translation>數據盤 %1 GB/%2 GB</translation>
+        <translation type="vanished">數據盤 %1 GB/%2 GB</translation>
     </message>
     <message>
         <source>System disk %1 GB / %2 GB</source>
-        <translation>系統盤 %1 GB/%2 GB</translation>
+        <translation type="vanished">系統盤 %1 GB/%2 GB</translation>
     </message>
     <message>
         <source>Community</source>
@@ -187,6 +187,14 @@
     <message>
         <source>Professional</source>
         <translation>專業版</translation>
+    </message>
+    <message>
+        <source>Data %1 GB (Available)/ %2 GB</source>
+        <translation>數據盤 %1 GB（可用）/%2 GB</translation>
+    </message>
+    <message>
+        <source>System %1 GB (Available)/ %2 GB</source>
+        <translation>系統盤 %1 GB（可用）/%2 GB</translation>
     </message>
 </context>
 <context>
