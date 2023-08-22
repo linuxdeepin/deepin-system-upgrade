@@ -174,11 +174,11 @@
     </message>
     <message>
         <source>Data disk %1 GB / %2 GB</source>
-        <translation>数据盘 %1 GB/%2 GB</translation>
+        <translation type="vanished">数据盘 %1 GB/%2 GB</translation>
     </message>
     <message>
         <source>System disk %1 GB / %2 GB</source>
-        <translation>系统盘 %1 GB/%2 GB</translation>
+        <translation type="vanished">系统盘 %1 GB/%2 GB</translation>
     </message>
     <message>
         <source>Community</source>
@@ -187,6 +187,14 @@
     <message>
         <source>Professional</source>
         <translation>专业版</translation>
+    </message>
+    <message>
+        <source>Data %1 GB (Available)/ %2 GB</source>
+        <translation>数据盘 %1 GB（可用）/%2 GB</translation>
+    </message>
+    <message>
+        <source>System %1 GB (Available)/ %2 GB</source>
+        <translation>系统盘 %1 GB（可用）/%2 GB</translation>
     </message>
 </context>
 <context>
@@ -352,11 +360,6 @@
     <message>
         <source>:/text/privacy_protection_guide_en.txt</source>
         <translation>:/text/privacy_protection_guide_zh_CN.txt</translation>
-    </message>
-    <message>
-        <source>End User License Agreement for Deepin Upgrade Tool</source>
-        <translatorcomment>用户协议标签名</translatorcomment>
-        <translation type="vanished">《Deepin系统升级工具软件最终用户许可协议》</translation>
     </message>
     <message>
         <source>Privacy Protection Guide for Deepin Upgrade Tool.</source>

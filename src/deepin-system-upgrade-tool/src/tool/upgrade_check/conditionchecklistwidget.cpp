@@ -156,9 +156,9 @@ void ConditionChecklistWidget::updateUI()
     CheckResultType systemResultStatus = systemFree >= systemBase ? CheckResultType::PASSED : CheckResultType::FAILED;
 
     m_storageResultWidget->setRequirement(tr("Requirement: %1 GB").arg(qCeil(dataBase + systemBase)));
-    m_storageResultWidget->setDataResult(tr("Data disk %1 GB / %2 GB").arg(dataFree).arg(dataBase));
+    m_storageResultWidget->setDataResult(tr("Data %1 GB (Available)/ %2 GB").arg(dataFree).arg(dataBase));
     m_storageResultWidget->setDataStatus(dataResultStatus);
-    m_storageResultWidget->setSystemResult(tr("System disk %1 GB / %2 GB").arg(systemFree).arg(systemBase));
+    m_storageResultWidget->setSystemResult(tr("System %1 GB (Available)/ %2 GB").arg(systemFree).arg(systemBase));
     m_storageResultWidget->setSystemStatus(systemResultStatus);
     if (dataResultStatus == CheckResultType::FAILED || systemResultStatus == CheckResultType::FAILED)
     {
