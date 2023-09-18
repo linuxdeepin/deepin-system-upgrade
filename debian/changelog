@@ -1,3 +1,9 @@
+deepin-system-upgrade (6.0.9) unstable; urgency=medium
+
+  * update iso url to Beta2 
+
+ -- Xin Lin <linxin@deepin.org>  Mon, 18 Sep 2023 09:54:34 +0800
+
 deepin-system-upgrade (6.0.8) unstable; urgency=medium
 
   * fix rollback system failed in multi-kernels
