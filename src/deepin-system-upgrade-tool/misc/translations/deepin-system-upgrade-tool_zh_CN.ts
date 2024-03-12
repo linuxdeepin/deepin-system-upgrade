@@ -760,7 +760,7 @@
     </message>
     <message>
         <source>System Upgrade Tool helps you upgrade the system to version 23.</source>
-        <translation type="unfinished"></translation>
+        <translation>系统升级工具是一款将系统升级为V23的小工具。</translation>
     </message>
 </context>
 </TS>
