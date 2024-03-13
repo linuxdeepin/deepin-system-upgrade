@@ -15,8 +15,6 @@
 #include <unistd.h>
 
 #include "upgradecheckprogresswidget.h"
-#include "../../widgets/baselabel.h"
-#include "../../widgets/simplelabel.h"
 
 
 UpgradeCheckProgressWidget::UpgradeCheckProgressWidget(DWidget *parent)
