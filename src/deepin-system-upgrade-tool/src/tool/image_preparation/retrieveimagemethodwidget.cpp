@@ -4,6 +4,7 @@
 
 #include <DFileDialog>
 #include <DGuiApplicationHelper>
+#include <DPaletteHelper>
 
 #include <QFileInfo>
 #include <QFontMetrics>
@@ -74,7 +75,7 @@ void RetrieveImageMethodWidget::initUI()
         QVBoxLayout *baseLayout = new QVBoxLayout(this);
 
         m_networkRadioButton->setText(tr("Download from Internet"));
-        DFontSizeManager::instance()->bind(m_networkRadioButton, DFontSizeManager::T6, QFont::Medium);
+        DFontSizeManager::instance()->bind(m_networkRadioButton, DFontSizeManager::T6, QFont::DemiBold);
 
         QLabel *networkIcon = new QLabel(this);
         networkIcon->setPixmap(QIcon(":/icons/internet_download.svg").pixmap(120, 120));
@@ -98,9 +99,9 @@ void RetrieveImageMethodWidget::initUI()
         m_dropAreaFrame = new DropFrame(this);
         m_fileTextLabel->setText(tr("Import local image files"));
         m_fileTextLabel->m_label->setForegroundRole(DPalette::ButtonText);
+        DFontSizeManager::instance()->bind(m_fileTextLabel->m_label, DFontSizeManager::T6, QFont::DemiBold);
         m_fileTextLabel->setTip(tr("Format: ISO"));
-        m_fileTextLabel->m_tip->setForegroundRole(DPalette::TextTips);
-//        m_fileTextLabel->m_tip->setColor(QColor("#526a7f"));
+        updateTipsColor();
 
         textLayout->addWidget(m_localRadioButton, 0, Qt::AlignTop);
         textLayout->addWidget(m_fileTextLabel, 0, Qt::AlignLeft | Qt::AlignTop);
@@ -124,7 +125,7 @@ void RetrieveImageMethodWidget::initUI()
         m_dropAreaIconLabel->setIcon(":/icons/local_directory.svg");
         m_filenameLabel = new DLabel(tr("Drag files here"));
         DFontSizeManager::instance()->bind(m_filenameLabel, DFontSizeManager::T8, QFont::Thin);
-        m_filenameLabel->setForegroundRole(DPalette::TextTips);
+        // m_filenameLabel->setForegroundRole(DPalette::TextTips);
         m_dropAreaIconLabel->addSpacerItem(m_fileLabelSpacerItem);
         m_dropAreaIconLabel->addWidget(m_filenameLabel);
         m_uploadTextLink = new QLabel(QString("<a href=\"/fuck\" style=\"text-decoration: none;\">%1</a>").arg(tr("Select file")));
@@ -196,6 +197,7 @@ void RetrieveImageMethodWidget::initConnections()
 
             // Since the original style is broken, setting text color manually instead.
             m_fileTextLabel->setTextColor(QColor("#FFC0C6D4"));
+            updateTipsColor();
         }
         else
         {
@@ -203,6 +205,7 @@ void RetrieveImageMethodWidget::initConnections()
             m_localPushButton->setStyleSheet(m_lightBtnStylesheet);
 
             m_fileTextLabel->setTextColor(QColor("#FF414D68"));
+            updateTipsColor();
         }
         // Change the color of drop area.
         setDefaultDropFrameStyle();
@@ -321,4 +324,21 @@ QString RetrieveImageMethodWidget::loadStyleSheet(const QString &styleFile)
         file.close();
     }
     return styleSheet;
+}
+
+void RetrieveImageMethodWidget::updateTipsColor()
+{
+    if (!m_fileTextLabel)
+        return;
+
+    DPalette pa = DPaletteHelper::instance()->palette(this);
+    m_fileTextLabel->setTipColor(pa.color( DPalette::TextTips));
+
+    if (!m_filenameLabel)
+        return;
+
+    QPalette palette = m_filenameLabel->palette();
+    palette.setColor(m_filenameLabel->foregroundRole(), pa.color(DPalette::TextTips));
+    m_filenameLabel->setPalette(palette);
+
 }
