@@ -342,6 +342,10 @@ func moveLinglongRepo(root, repoPath string) error {
 	if repoPath == "/" {
 		return nil
 	}
+	// fix #7324
+	if _, err := os.Stat("/persistent"); err == nil {
+		return nil
+	}
 	err = os.Mkdir("/persistent", 0755)
 	if err != nil {
 		return err
