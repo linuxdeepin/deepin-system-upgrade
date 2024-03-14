@@ -182,7 +182,7 @@ IconLabel* generateCellWidget(const QString name, const QString iconPath)
     }
     cellLabel->addSpacing(10);
     cellLabel->addWidget(nameLabel);
-    cellLabel->addSpacing(11451);
+    cellLabel->addStretch(1);
     return cellLabel;
 }
 
@@ -193,6 +193,7 @@ void SoftwareEvaluationWidget::fillTable()
         AppInfo info = m_compatAppInfos[i];
         IconLabel *cellLabel = generateCellWidget(info.name, info.iconName);
         DCheckBox * checkBox = new DCheckBox(this);
+        checkBox->setMaximumWidth(24);
         QWidget * tableItemWidget = new QWidget(this);
         QHBoxLayout * tableItemlayout = new QHBoxLayout;
         tableItemlayout->addWidget(checkBox, Qt::AlignCenter);

@@ -15,7 +15,6 @@
 
 #include "../../widgets/simplelabel.h"
 #include "../../widgets/softwaretablewidget.h"
-#include "../../widgets/iconlabel.h"
 
 struct AppInfo {
     QString name;

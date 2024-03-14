@@ -42,6 +42,7 @@ void IconLabel::setIcon(QString qstring, int w, int h)
 void IconLabel::setIcon(QPixmap pixmap)
 {
     m_label->setPixmap(pixmap);
+    m_label->setMaximumWidth(pixmap.width()+2);
 }
 
 void IconLabel::addWidget(QWidget *widget, Qt::Alignment alignment)
@@ -57,6 +58,11 @@ void IconLabel::addLayout(QLayout *layout)
 void IconLabel::addSpacing(int sz)
 {
     m_layout->addSpacing(sz);
+}
+
+void IconLabel::addStretch(int sz)
+{
+    m_layout->addStretch(sz);
 }
 
 void IconLabel::addSpacerItem(QSpacerItem *item)

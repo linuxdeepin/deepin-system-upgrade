@@ -26,6 +26,7 @@ public:
     void addWidget(QWidget *widget, Qt::Alignment alignment = Qt::AlignCenter);
     void addLayout(QLayout *layout);
     void addSpacing(int sz);
+    void addStretch(int sz);
     void addSpacerItem(QSpacerItem *item);
     void setIcon(QString qstring);
     // Method for SVG Icons
