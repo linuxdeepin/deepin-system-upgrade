@@ -282,6 +282,7 @@ func mergeDir(dir, root string) error {
 		return err
 	}
 	defer exitChroot(originalRoot)
+	// copy files from dir to dir.tmp
 	err = iterateForCopyFile(dir)
 	if err != nil {
 		return err
@@ -318,6 +319,7 @@ func iterateForCopyFile(dir string) error {
 			return err
 		}
 		tmpPath := strings.Replace(path, dir+"/", dir+".tmp/", -1)
+		// copy v23 files that is not exist in dir.tmp(v20 files - filter files).
 		if _, err := os.Stat(tmpPath); err != nil {
 			_, err := exec.Command("/usr/bin/cp", "-rpf", path, tmpPath).CombinedOutput()
 			if err != nil {
@@ -330,7 +332,7 @@ func iterateForCopyFile(dir string) error {
 }
 
 // Copy the etc directory in V20 system to the V23 system and rename it to the etc.tmp directory
-// Traverse the files in the whitelist and delete the files from the etc directory in V23 system
+// Traverse the files in the whitelist and delete the files from the etc.tmp directory in V23 system
 // Traverse all files under V23 system, if the file exists in V20 system, continue to traverse; if the file does not exist in V20 system, copy it to the V20 system directory
 func prepareRootDir(root string) error {
 	targets := config.GetTargetList()
@@ -341,6 +343,7 @@ func prepareRootDir(root string) error {
 			return err
 		}
 		for _, file := range target.Filter {
+			// remove filter files that exists in v20
 			absPath := filepath.Join(root, file)
 			tmpPath := strings.Replace(absPath, "/etc/", "/etc.tmp/", -1)
 			if _, err := os.Stat(tmpPath); err == nil {
@@ -899,6 +902,12 @@ func copyFileToNewSystem(root string) error {
 	out, err := exec.Command("/usr/bin/cp", "-rf", "/usr/lib/modules", filepath.Join(root, "usr/lib/modules")).CombinedOutput()
 	if err != nil {
 		logger.Warning("failed to copy modules:", string(out))
+		return err
+	}
+
+	out, err = exec.Command("/usr/bin/cp", "-rf", "/etc/default/locale", filepath.Join(root, "etc/default/locale")).CombinedOutput()
+	if err != nil {
+		logger.Warning("failed to copy file:", string(out))
 		return err
 	}
 
