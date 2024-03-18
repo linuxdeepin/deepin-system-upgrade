@@ -32,6 +32,7 @@ public:
     // Method for SVG Icons
     void setIcon(QString qstring, int w, int h);
     void setIcon(QPixmap pixmap);
+    void setIconSize(const QSize &size);
     void scaleToWidth(int width);
     void scaleToHeight(int height);
     void scale(
