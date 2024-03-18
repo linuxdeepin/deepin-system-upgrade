@@ -180,6 +180,7 @@ IconLabel* generateCellWidget(const QString name, const QString iconPath)
     {
         cellLabel->setIcon(QIcon::fromTheme(iconPath, QIcon::fromTheme("application-x-executable")).pixmap(24, 24));
     }
+    cellLabel->setIconSize({24, 24});
     cellLabel->addSpacing(10);
     cellLabel->addWidget(nameLabel);
     cellLabel->addStretch(1);

@@ -42,7 +42,11 @@ void IconLabel::setIcon(QString qstring, int w, int h)
 void IconLabel::setIcon(QPixmap pixmap)
 {
     m_label->setPixmap(pixmap);
-    m_label->setMaximumWidth(pixmap.width()+2);
+}
+
+void IconLabel::setIconSize(const QSize &size)
+{
+    m_label->setFixedSize(size);
 }
 
 void IconLabel::addWidget(QWidget *widget, Qt::Alignment alignment)
