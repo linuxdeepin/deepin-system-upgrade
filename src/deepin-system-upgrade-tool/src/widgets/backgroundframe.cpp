@@ -31,7 +31,7 @@ void BackgroundFrame::paintEvent(QPaintEvent *event)
     QPainter p(this);
     p.setPen(m_pen);
     p.setBrush(m_brush);
-    p.drawRoundedRect(rect().adjusted(0, 0, -1, -1), m_xRadius, m_yRadius);
+    p.drawRoundedRect(rect().adjusted(1, 1, -1, -1), m_xRadius, m_yRadius);
     QFrame::paintEvent(event);
 }
 
