@@ -69,6 +69,6 @@ const QString kDownloadPath(".cache/deepin-system-upgrade-tool");
 const QString kUpgradeStatesPath("/etc/deepin-upgrade-manager/state.records");
 
 const QVersionNumber kUosMinimalVersion = QVersionNumber::fromString("1060");
-const QVersionNumber kDeepinMinimalVersion = QVersionNumber::fromString("20.8");
+const QVersionNumber kDeepinMinimalVersion = QVersionNumber::fromString("20.9");
 const QVersionNumber kDeepinTargetVersion = QVersionNumber::fromString("23");
 const QString kCurrentLocale = QLocale::system().name();

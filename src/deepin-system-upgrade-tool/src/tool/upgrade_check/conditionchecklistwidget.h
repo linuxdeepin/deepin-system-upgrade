@@ -35,7 +35,9 @@ private:
     QVBoxLayout         *m_mainLayout;
     DLabel              *m_warningTextLabel;
     CheckResultWidget   *m_versionResultWidget;
+#ifdef SHOW_ACTIVATION
     CheckResultWidget   *m_activationResultWidget;
+#endif
     CheckResultWidget   *m_cpuResultWidget;
     StorageResultWidget *m_storageResultWidget;
 
