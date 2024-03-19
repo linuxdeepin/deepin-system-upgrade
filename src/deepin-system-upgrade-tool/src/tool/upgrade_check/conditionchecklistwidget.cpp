@@ -25,7 +25,9 @@ ConditionChecklistWidget::ConditionChecklistWidget(QWidget *parent)
     , m_mainLayout(new QVBoxLayout(this))
     , m_warningTextLabel(new DLabel(this))
     , m_versionResultWidget(new CheckResultWidget(this))
+#ifdef SHOW_ACTIVATION
     , m_activationResultWidget(new CheckResultWidget(this))
+#endif
     , m_cpuResultWidget(new CheckResultWidget(this))
     , m_storageResultWidget(new StorageResultWidget(this))
 {
@@ -58,7 +60,7 @@ void ConditionChecklistWidget::initUI()
     m_mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Minimum, QSizePolicy::Minimum));
 
     m_mainLayout->setContentsMargins(145, 0, 112, 0);
-
+#ifdef SHOW_ACTIVATION
     m_activationResultWidget->setIcon(":/icons/activation_status.svg", RESULT_ICON_W, RESULT_ICON_W);
     m_activationResultWidget->setTitle(tr("Authorization status"));
     m_activationResultWidget->setRequirement(tr("Requirement: Activated"));
@@ -66,7 +68,7 @@ void ConditionChecklistWidget::initUI()
 
     m_mainLayout->addWidget(m_activationResultWidget);
     m_mainLayout->addSpacerItem(new QSpacerItem(0, 10, QSizePolicy::Minimum, QSizePolicy::Minimum));
-
+#endif
     m_cpuResultWidget->setIcon(":/icons/cpu.svg", RESULT_ICON_W, RESULT_ICON_W);
     m_cpuResultWidget->setTitle(tr("CPU architecture"));
     m_cpuResultWidget->setRequirement(tr("Requirement: X86"));
@@ -127,7 +129,7 @@ void ConditionChecklistWidget::updateUI()
     QString versionResultText = versionResult == CheckResultType::PASSED ? QString("%1 (%2)").arg(editionName).arg(minorVersionNumber.toString()) : tr("Too old");
     m_versionResultWidget->setResult(versionResultText);
     m_versionResultWidget->setStatus(versionResult);
-
+#ifdef SHOW_ACTIVATION
     CheckResultType activationResult = resultMap["active"] == "1" || resultMap["editionName"] == "Community" ? CheckResultType::PASSED : CheckResultType::FAILED;
     m_activationResultWidget->setResult(activationResult == CheckResultType::PASSED ? tr("Activated") : tr("Unactivated"));
     m_activationResultWidget->setStatus(activationResult);
@@ -135,7 +137,7 @@ void ConditionChecklistWidget::updateUI()
     {
         m_isPassed = false;
     }
-
+#endif
     QStringList validArch = {
         "x86_64",
     };
