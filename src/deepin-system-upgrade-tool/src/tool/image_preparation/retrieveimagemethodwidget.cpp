@@ -271,44 +271,29 @@ void RetrieveImageMethodWidget::onFileCleared()
 
 void RetrieveImageMethodWidget::setDefaultDropFrameStyle()
 {
-    m_dropAreaFrame->setPenStyle(Qt::DashLine);
+    QColor brushColor;
+    QString borderColor;
 
-    QColor penColor, brushColor;
-    qreal opacity;
-    if (isDarkMode())
-    {
-        penColor = QColor("#78D6D6D6");
+    if (isDarkMode()) {
+        borderColor = "rgba(214, 214, 214, 0.47)";
         brushColor = QColor("#00000000");
-
-        if (m_localRadioButton->isChecked())
-        {
-            // File Added
-            opacity = 1.0;
-        }
-        else
-        {
-            opacity = DROPAREA_UNSELECTED_OPACITY;
-        }
-    }
-    else
-    {
+    } else {
+        borderColor = "rgba(214, 214, 214, 0.6)";
         brushColor = QColor("#CCFFFFFF");
-        if (m_localRadioButton->isChecked())
-        {
-            penColor = QColor("#99D6D6D6");
-            opacity = 1.0;
-        }
-        else
-        {
-            penColor = QColor("#99D6D6D6");
-            opacity = DROPAREA_UNSELECTED_OPACITY;
-        }
     }
+
+    qreal opacity = m_localRadioButton->isChecked() ? 1.0 : DROPAREA_UNSELECTED_OPACITY;
+
+    m_dropAreaFrame->setStyleSheet(QString(R"CSS(
+DropFrame {
+    border: 1px dashed %1;
+    border-radius: 5px;
+}
+)CSS").arg(borderColor));
 
     QGraphicsOpacityEffect *effect = new QGraphicsOpacityEffect(this);
     effect->setOpacity(opacity);
     m_dropAreaFrame->setGraphicsEffect(effect);
-    m_dropAreaFrame->setPenColor(penColor);
     m_dropAreaFrame->setBrush(QBrush(brushColor));
     m_dropAreaFrame->update();
     m_dropAreaFrame->setProperty("active", true);
