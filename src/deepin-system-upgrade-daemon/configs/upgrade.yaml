@@ -17,4 +17,4 @@ target:
       - "/etc/fstab"
       - "/etc/deepin-upgrade-manager"
  after_run: "/usr/bin/deepin-system-upgrade-tool"
-
+ plymouth_theme: "deepin-upgrade"
