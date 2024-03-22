@@ -209,6 +209,10 @@ void DBusWorker::onStartUpgradeCheck()
 
 void DBusWorker::onStartUpgradePreparation(QString isoPath)
 {
+    // fix https://github.com/linuxdeepin/developer-center/issues/4860
+    // Change the first line of ~/.config/kglobalshortcutsrc from "kwin" to "deepin-kwin"
+    system("sed -i 's/kwin/deepin-kwin/' ~/.config/kglobalshortcutsrc");
+
     m_upgradeStage = UpgradeStage::PREPARATION;
     m_versionInter->setTimeout(kQDBusAsyncCallTimeout);
     QDBusPendingCall pcall = m_versionInter->asyncCall("PrepareForUpgrade", isoPath);
