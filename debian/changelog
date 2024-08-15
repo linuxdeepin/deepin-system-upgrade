@@ -1,3 +1,9 @@
+deepin-system-upgrade (6.0.14) unstable; urgency=medium
+
+  * Supports upgrading to Release version
+
+ -- Yutao Meng <mengyutao@deepin.org>  Fri, 16 Aug 2024 09:32:36 +0800
+
 deepin-system-upgrade (6.0.13) unstable; urgency=medium
 
   * Supports upgrading to RC2 version

@@ -4,7 +4,7 @@ transfer: # 系统升级控制
    - distro: "v20"
      subversion: "1060"
 source:
- - url: "https://cdimage.deepin.com/releases/23-RC2/amd64/deepin-desktop-community-23-RC2-amd64.iso" # 数据源地址
+ - url: "https://cdimage.deepin.com/releases/23/amd64/deepin-desktop-community-23-amd64.iso" # 数据源地址
    type: "http" # 源数据获取方式
    integrity: true # 是否进行完整性检查
 target:
